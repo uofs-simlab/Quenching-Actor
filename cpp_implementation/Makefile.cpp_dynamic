@@ -1,0 +1,49 @@
+# Compiler
+CXX = g++
+
+# Compiler flags (mix of module-provided and local CAF paths)
+CXXFLAGS = -std=c++17 -O2 -I/globalhome/tus210/HPC/include -I$(EBROOTSUNDIALS)/include -I$(EBROOTGSL)/include -I$(EBROOTEIGEN)/include -Iinclude
+
+# Linker flags (mix of module-provided and local CAF paths)
+LDFLAGS = -L/globalhome/tus210/HPC/lib64 -L$(EBROOTSUNDIALS)/lib -L$(EBROOTGSL)/lib
+
+# Libraries
+LIBS = -lcaf_core -lcaf_io -lsundials_cvode -lsundials_nvecserial -lgsl -lgslcblas -lm
+
+# Source files 
+SRCS = src/actor_cpp_dynamic.cc \
+       src/bracket_optimizer.cpp \
+       src/fitzhugh_nagumo.cpp \
+       src/bisection_solver.cpp \
+       src/wave_loader.cpp \
+       src/finite_difference.cpp \
+       src/wave_analysis.cpp
+
+# Target executable
+TARGET = actor_cpp_bisection
+
+# Set library path
+export LD_LIBRARY_PATH := /globalhome/tus210/HPC/lib64:$(LD_LIBRARY_PATH)
+
+# Set OpenMP environment variable
+export OMP_NUM_THREADS := 1
+
+# Build rule
+all: $(TARGET)
+
+$(TARGET): $(SRCS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(TARGET) $(SRCS) $(LIBS)
+
+# Build rule for actor_cpp_static 
+actor_cpp_static: src/actor_cpp_static.cc cpp_implementation/src/bracket_optimizer.cpp cpp_implementation/src/fitzhugh_nagumo.cpp cpp_implementation/src/bisection_solver.cpp cpp_implementation/src/wave_loader.cpp cpp_implementation/src/finite_difference.cpp cpp_implementation/src/wave_analysis.cpp
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o actor_cpp_static src/actor_cpp_static.cc cpp_implementation/src/bracket_optimizer.cpp cpp_implementation/src/fitzhugh_nagumo.cpp cpp_implementation/src/bisection_solver.cpp cpp_implementation/src/wave_loader.cpp cpp_implementation/src/finite_difference.cpp cpp_implementation/src/wave_analysis.cpp $(LIBS)
+
+# Build rule for actor_cpp_static_v2 (clean baseline approach)
+actor_cpp_static_v2: actor_cpp_static_v2.cc cpp_implementation/src/fitzhugh_nagumo.cpp cpp_implementation/src/bisection_solver.cpp cpp_implementation/src/wave_loader.cpp cpp_implementation/src/finite_difference.cpp cpp_implementation/src/wave_analysis.cpp
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o actor_cpp_static_v2 actor_cpp_static_v2.cc cpp_implementation/src/fitzhugh_nagumo.cpp cpp_implementation/src/bisection_solver.cpp cpp_implementation/src/wave_loader.cpp cpp_implementation/src/finite_difference.cpp cpp_implementation/src/wave_analysis.cpp $(LIBS)
+
+# Clean rule
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all clean

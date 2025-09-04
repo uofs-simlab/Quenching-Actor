@@ -1,0 +1,69 @@
+# Output files
+*.out
+*.log
+*.txt
+
+# Build directories and artifacts
+build/
+build_*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+install_manifest.txt
+
+# Compiled binaries and objects
+*.o
+*.a
+*.so
+*.so.*
+*.exe
+actor_cpp_*
+baseline_test
+distributed_*
+simple_*
+test_*
+
+# IDE and editor files
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data and result files
+*.png
+*.gif
+*.svg
+*.csv
+*.h5
+frames/
+framesA*/
+dns/
+auto/
+__pycache__/
+*.pyc
+
+# Temporary and backup files
+*.tmp
+*.bak
+*.backup
+slurm-*.out
+
+# Actor framework (external dependency)
+actor-framework/
+
+# Keep important files (override above patterns)
+!README.md
+!*.md
+!CMakeLists.txt
+!Makefile*
+!*.cpp
+!*.cc
+!*.h
+!*.hpp
+!*.jl
+!*.py
+!*.sh

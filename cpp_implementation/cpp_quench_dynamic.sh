@@ -1,0 +1,50 @@
+#!/bin/bash
+#SBATCH --job-name=quenching_cpp_actor
+#SBATCH --account=hpc_p_spiteri
+#SBATCH --nodes=2
+#SBATCH --time=1-00:00:00
+#SBATCH --mem=50G
+#SBATCH --cpus-per-task=32
+#SBATCH --constraint=cascade
+#SBATCH --output=quench_cpp_actor_nun-%j.out
+
+module --force purge
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3
+module load eigen/3.4.0 gsl/2.6 sundials/6.4.1
+
+export CC=gcc
+export CXX=g++
+export LD_LIBRARY_PATH="/globalhome/tus210/HPC/lib64:$LD_LIBRARY_PATH"
+
+echo "Building C++ CAF actor..."
+make -f Makefile.cpp_actor clean all
+
+
+if [ ! -f "./actor_cpp_dynamic" ]; then
+    echo "Error: actor_cpp_dynamic not found after compilation"
+    exit 1
+fi
+echo "Executable actor_cpp_dynamic found"
+
+nodes=( $(scontrol show hostname) )
+server_node="${nodes[0]}"
+client_nodes=( "${nodes[@]:1}" )
+
+echo "Server node: $server_node"
+echo "Client node(s): ${client_nodes[@]}"
+
+##############################################################################
+
+echo "Starting C++ CAF actor server on $server_node with bracket optimization and early termination"
+srun --nodes=1 --ntasks=1 --nodelist="${server_node}" ./actor_cpp_dynamic -s -p 31444  --caf.scheduler.max-threads=32 &
+
+sleep 5  # Give server time to start
+
+for client in "${client_nodes[@]}"; do
+  echo "Starting client on $client with bracket optimization and early termination"
+  srun --nodes=1 --ntasks=1 --nodelist="$client" ./actor_cpp_dynamic -p 31444 -H "$server_node"  --caf.scheduler.max-threads=32 &
+done
+
+wait
+echo "All processes have finished."
+seff "$SLURM_JOB_ID"
