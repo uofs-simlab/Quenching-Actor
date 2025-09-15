@@ -226,7 +226,7 @@ def plot_single_gg(df, gg_value, output_dir="heatmaps", show_points=True, figsiz
 
 if __name__ == "__main__":
     # file_path = "julia_quench_refine-3931789.out"
-    file_path = "quench_cpp_static-4609766.out"  # Replace with your actual file path
+    file_path = "/globalhome/tus210/HPC/quenchin_actor/cpp_implementation/quench_cpp_static-4625162.out"  # Replace with your actual file path
     df = parse_out_file(file_path)
     
     # Print statistics

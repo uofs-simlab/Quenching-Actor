@@ -188,12 +188,15 @@ struct server_state {
   bracket_optimizer::BracketConfig bracket_config;
 
   // Coarse grid parameters (for adaptive refinement)
-  float theta_step = 10.0f;
-  float xs_step = 50.0f; 
-  float max_theta = 40.0f;
-  float xs_min = 0.1f;
-  float xs_max = 700.0f;
-  int NDNS = 10; 
+  // Based on Chris's recommendations: L = 2700, theta ∈ [-L/2, L/2], xs ∈ [2h, L]
+  float L = 2700.0f;  // System length parameter (same as FHN::Lglob)
+  float h = L / (8192.0f);      // Grid spacing: h = Lglob/(N-1) where N = 1 + 2^13 = 8193
+  float theta_step = L/4.0f;    // ~675 degrees per step (5 points total)
+  float xs_step = L/4.0f;       // ~675 xs units per step
+  float max_theta = L/2.0f;     // Will be 1350.0 (range: [-1350, 1350])
+  float xs_min = 2*h;           // Start from 2h ≈ 0.66 
+  float xs_max = L;             // Will be 2700.0
+  int NDNS = 5;                 // Reduced from 10 to 5 for much coarser initial grid 
 
   // Pre-computed grid index lookups to avoid O(n) std::find_if operations
   std::unordered_map<float, int> theta_to_index;  // theta value -> grid index
@@ -208,6 +211,17 @@ struct server_state {
   // Job completion tracking
   int total_jobs_created = 0;
   int total_jobs_completed = 0;
+
+  // Refinement timing tracking
+  int total_refinement_jobs_created = 0;
+  double total_refinement_time_ms = 0.0;  // Only job creation overhead
+  int refinement_operations = 0;
+  
+  // Comprehensive refinement timing for dynamic approach
+  std::chrono::high_resolution_clock::time_point first_refinement_start_time;
+  bool refinement_timing_started = false;
+  int initial_coarse_jobs = 0;
+  int refinement_jobs_completed = 0;
 
   std::chrono::high_resolution_clock::time_point start_time;
 };
@@ -458,12 +472,15 @@ bool is_quenching_boundary(stateful_actor<server_state>* self,
 
 // Helper function to get the maximum refinement depth
 int get_max_refinement_depth() {
-  return 2; // Centralized max depth configuration
+  return 5; 
 }
 
 void trigger_boundary_refinement(stateful_actor<server_state>* self,
                                 const std::tuple<int, float, float>& job_key,
                                 const std::tuple<int, float, float>& neighbor_key) {
+  // Start timing this refinement operation
+  auto refinement_start_time = std::chrono::high_resolution_clock::now();
+  
   static const int max_depth = get_max_refinement_depth(); // Use centralized max depth
   auto [gg1, theta1, xs1] = job_key;
   auto [gg2, theta2, xs2] = neighbor_key;
@@ -487,9 +504,9 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
   float center_theta = (theta1 + theta2) / 2.0f;
   float center_xs = (xs1 + xs2) / 2.0f;
 
-  // Check bounds
-  if (center_theta < -40.0f || center_theta > 40.0f ||
-      center_xs < 0.1f || center_xs > 700.0f) {
+  // Check bounds - use dynamic parameters
+  if (center_theta < -self->state().max_theta || center_theta > self->state().max_theta ||
+      center_xs < self->state().xs_min || center_xs > self->state().xs_max) {
     return;
   }
   
@@ -520,6 +537,15 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
   
   // Set refinement depth for new job BEFORE scheduling
   self->state().refinement_depth[new_job_key] = new_depth; 
+  
+  // Start timing the dynamic refinement process on first refinement job
+  if (!self->state().refinement_timing_started) {
+    self->state().first_refinement_start_time = std::chrono::high_resolution_clock::now();
+    self->state().refinement_timing_started = true;
+    self->state().initial_coarse_jobs = self->state().total_jobs_created; // Count before this refinement job
+    // self->println("REFINEMENT TIMING: Starting dynamic refinement timing with {} initial coarse jobs", 
+    //               self->state().initial_coarse_jobs);
+  }
   
   // Schedule the job to add it to spatial hash and job graph (add to END of queue)
   schedule_job(self, new_job, true);  // true = is_refinement
@@ -564,8 +590,17 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
     }
   }
   
-  // self->println("REFINEMENT: Created job: gg={}, theta={}, xs={} (depth={}) with {} neighbors", 
-                // gg1, center_theta, center_xs, new_depth, connections_made);
+  // Record timing for this refinement operation
+  auto refinement_end_time = std::chrono::high_resolution_clock::now();
+  auto refinement_duration = std::chrono::duration_cast<std::chrono::microseconds>(refinement_end_time - refinement_start_time);
+  double refinement_time_ms = refinement_duration.count() / 1000.0;
+  
+  self->state().total_refinement_time_ms += refinement_time_ms;
+  self->state().total_refinement_jobs_created++;
+  self->state().refinement_operations++;
+  
+  // self->println("REFINEMENT: Created job: gg={}, theta={}, xs={} (depth={}) with {} neighbors in {:.3f}ms", 
+                // gg1, center_theta, center_xs, new_depth, connections_made, refinement_time_ms);
 }
 
 void create_all_coarse_grid_neighbors(stateful_actor<server_state>* self) {
@@ -608,7 +643,7 @@ behavior server(stateful_actor<server_state>* self,
     self->quit();
   }
       self->println("Server up on port {}, bracket-enabled={}, early-termination={}", 
-                port, enable_bracket, enable_early_termination);  float L = 2700.f;
+                port, enable_bracket, enable_early_termination);
 
   self->state().xs_step = (self->state().xs_max - self->state().xs_min) / (self->state().NDNS - 1);
   
@@ -732,6 +767,13 @@ behavior server(stateful_actor<server_state>* self,
       
         --self->state().active_jobs;
         ++self->state().total_jobs_completed;
+        
+        // Track refinement job completion for dynamic timing
+        auto depth_it = self->state().refinement_depth.find(job_key);
+        int job_depth = (depth_it != self->state().refinement_depth.end()) ? depth_it->second : 0;
+        if (job_depth > 0) { // This is a refinement job (not coarse grid)
+            self->state().refinement_jobs_completed++;
+        }
 
         // Update job_graph
         self->state().job_graph[job_key].status = server_state::job_node::done;
@@ -742,9 +784,9 @@ behavior server(stateful_actor<server_state>* self,
             self->state().uq_cache[{gg, theta}].emplace_back(xs, uq);
 
         int depth = 0;
-        auto depth_it = self->state().refinement_depth.find(job_key);
-        if (depth_it != self->state().refinement_depth.end())
-          depth = depth_it->second;
+        auto depth_lookup = self->state().refinement_depth.find(job_key);
+        if (depth_lookup != self->state().refinement_depth.end())
+          depth = depth_lookup->second;
         
         // Get neighbor count for this job
         int neighbor_count = self->state().job_graph[job_key].neighbors.size();
@@ -887,6 +929,52 @@ behavior server(stateful_actor<server_state>* self,
             self->println("=== ALL JOBS COMPLETED ===");
             self->println("Total runtime: {} seconds", duration.count());
             self->println("Jobs completed: {}/{}", self->state().total_jobs_completed, self->state().total_jobs_created);
+            
+            // Refinement timing summary
+            self->println("=== REFINEMENT TIMING SUMMARY (DYNAMIC) ===");
+            
+            // Job creation overhead timing (original measurement)
+            self->println("Refinement Job Creation Overhead:");
+            self->println("  Total refinement operations: {}", self->state().refinement_operations);
+            self->println("  Total refinement jobs created: {}", self->state().total_refinement_jobs_created);
+            self->println("  Job creation time: {:.3f} ms", self->state().total_refinement_time_ms);
+            if (self->state().refinement_operations > 0) {
+                double avg_refinement_time = self->state().total_refinement_time_ms / self->state().refinement_operations;
+                self->println("  Average job creation time: {:.3f} ms per operation", avg_refinement_time);
+            }
+            
+            // Dynamic refinement process timing (comprehensive measurement)
+            self->println("Dynamic Refinement Process Timing:");
+            self->println("  Initial coarse jobs: {}", self->state().initial_coarse_jobs);
+            self->println("  Refinement jobs completed: {}", self->state().refinement_jobs_completed);
+            
+            if (self->state().refinement_timing_started && self->state().refinement_jobs_completed > 0) {
+                auto refinement_end_time = std::chrono::high_resolution_clock::now();
+                auto total_refinement_duration = std::chrono::duration_cast<std::chrono::microseconds>(
+                    refinement_end_time - self->state().first_refinement_start_time);
+                double total_dynamic_refinement_time_ms = total_refinement_duration.count() / 1000.0;
+                
+                self->println("  Total dynamic refinement time: {:.2f} ms ({:.2f} seconds)", 
+                              total_dynamic_refinement_time_ms, total_dynamic_refinement_time_ms / 1000.0);
+                
+                double avg_refinement_job_time = total_dynamic_refinement_time_ms / self->state().refinement_jobs_completed;
+                self->println("  Average time per refinement job: {:.2f} ms", avg_refinement_job_time);
+                
+                // Dynamic refinement percentage
+                double dynamic_refinement_percentage = (duration.count() > 0) ? 
+                    (total_dynamic_refinement_time_ms / 1000.0) / duration.count() * 100.0 : 0.0;
+                    
+                self->println("Timing as Percentage of Total Runtime:");
+                self->println("  Job creation overhead: {:.3f}%", 
+                              (self->state().total_refinement_time_ms / 1000.0) / duration.count() * 100.0);
+                self->println("  Complete dynamic refinement: {:.2f}%", dynamic_refinement_percentage);
+            } else {
+                self->println("  No refinement jobs were created or completed");
+                self->println("Timing as Percentage of Total Runtime:");
+                self->println("  Job creation overhead: {:.3f}%", 
+                              (self->state().total_refinement_time_ms / 1000.0) / duration.count() * 100.0);
+                self->println("  Complete dynamic refinement: 0.00%");
+            }
             
             for (auto worker : self->state().active_workers) {
                 anon_mail("quit").send(worker);

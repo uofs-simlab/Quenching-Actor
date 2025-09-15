@@ -71,7 +71,7 @@ behavior worker_actor(stateful_actor<worker_state>* self, actor manager, bool us
         // Use C++ solver sweep_main function instead of Julia
         result = sweep_main(
             job.Ufile,    // fast_U_file
-            job.Pfile,    // fast_P_file  
+            job.Pfile,    // fast_P_file
             job.ufile,    // slow_U_file
             job.pfile,    // slow_P_file
             job.n,        
@@ -79,6 +79,7 @@ behavior worker_actor(stateful_actor<worker_state>* self, actor manager, bool us
             static_cast<double>(job.gg),    
             static_cast<double>(job.xs),    
             static_cast<double>(job.theta), 
+            false,        // verbose = false
             self->state().use_early_termination  // use early termination flag
         );
       } catch (const std::exception& e) {
@@ -280,12 +281,15 @@ struct server_state {
   bracket_optimizer::BracketConfig bracket_config;
 
   // Coarse grid parameters (for adaptive refinement)
-  float theta_step = 20.0f;  
-  float xs_step = 50.0f; 
-  float max_theta = 80.0f;
-  float xs_min = 0.05f;
-  float xs_max = 1000.0f;
-  int NDNS = 10;
+  // Based on Chris's recommendations: L = 2700, theta ∈ [-L/2, L/2], xs ∈ [2h, L]
+  float L = 2700.0f;  // System length parameter (same as FHN::Lglob)
+  float h = L / (8192.0f);      // Grid spacing: h = Lglob/(N-1) where N = 1 + 2^13 = 8193
+  float theta_step = L/4.0f;    //  ~675 degrees per step (5 points total)
+  float xs_step = L/4.0f;       //  ~675 xs unit per step  
+  float max_theta = L/2.0f;     // Will be 1350.0 (range: [-1350, 1350])
+  float xs_min = 2*h;           // Start from 2h ≈ 0.66 
+  float xs_max = L;             // Will be 2700.0
+  int NDNS = 5;                 // Reduced from 10 to 5 for much coarser initial grid
 
   std::unordered_map<float, int> theta_to_index;
   std::unordered_map<float, int> xs_to_index;
@@ -308,7 +312,19 @@ struct server_state {
   std::unordered_map<std::pair<int, int>, int> gg_level_jobs_created;    
   std::unordered_map<std::pair<int, int>, int> gg_level_jobs_completed;  
 
-  const int max_refinement_level = 8;  
+  const int max_refinement_level = 5;  
+  
+  // Refinement timing tracking
+  int total_refinement_jobs_created = 0;
+  double total_refinement_time_ms = 0.0;  // Only job creation overhead
+  int refinement_operations = 0;
+  
+  // Comprehensive refinement cycle timing
+  std::unordered_map<int, std::chrono::high_resolution_clock::time_point> refinement_level_start_times;
+  std::unordered_map<int, double> refinement_level_durations_ms;
+  double total_refinement_cycle_time_ms = 0.0;
+  int completed_refinement_levels = 0;
+  
   std::chrono::high_resolution_clock::time_point start_time;
 };
 
@@ -483,8 +499,30 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
         self->state().gg_completely_done[gg] = true;
       }
     } else {
+      // Record end time for previous refinement level
+      if (current_level > 0) {
+        auto current_time = std::chrono::high_resolution_clock::now();
+        if (self->state().refinement_level_start_times.find(current_level) != self->state().refinement_level_start_times.end()) {
+          auto level_duration = std::chrono::duration_cast<std::chrono::microseconds>(
+            current_time - self->state().refinement_level_start_times[current_level]);
+          double level_time_ms = level_duration.count() / 1000.0;
+          self->state().refinement_level_durations_ms[current_level] = level_time_ms;
+          self->state().total_refinement_cycle_time_ms += level_time_ms;
+          self->state().completed_refinement_levels++;
+          
+          // self->println("REFINEMENT TIMING: Level {} completed in {:.2f} ms", current_level, level_time_ms);
+        }
+      }
+      
       // Advance global refinement level
       self->state().global_refinement_level = next_level;
+      
+      // Start timing the new refinement level
+      self->state().refinement_level_start_times[next_level] = std::chrono::high_resolution_clock::now();
+      
+      if (next_level == 1) {
+        // self->println("REFINEMENT TIMING: Starting to time refinement from level 1");
+      }
       
       // Create refinement jobs for ALL gg levels at the new level
       int total_refinement_jobs = 0;
@@ -624,6 +662,47 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
     auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - self->state().start_time);
     self->println("Total runtime: {} seconds", duration.count());
     self->println("Jobs completed: {}/{}", self->state().total_jobs_completed, self->state().total_jobs_created);
+    
+    // Refinement timing summary
+    self->println("=== REFINEMENT TIMING SUMMARY (STATIC) ===");
+    
+    // Job creation overhead timing (original measurement)
+    self->println("Refinement Job Creation Overhead:");
+    self->println("  Total refinement operations: {}", self->state().refinement_operations);
+    self->println("  Total refinement jobs created: {}", self->state().total_refinement_jobs_created);
+    self->println("  Job creation time: {:.3f} ms", self->state().total_refinement_time_ms);
+    if (self->state().refinement_operations > 0) {
+        double avg_refinement_time = self->state().total_refinement_time_ms / self->state().refinement_operations;
+        self->println("  Average job creation time: {:.3f} ms per operation", avg_refinement_time);
+    }
+    
+    // Complete refinement cycle timing (new comprehensive measurement)
+    self->println("Complete Refinement Cycle Timing:");
+    self->println("  Completed refinement levels: {}", self->state().completed_refinement_levels);
+    self->println("  Total refinement cycle time: {:.2f} ms ({:.2f} seconds)", 
+                  self->state().total_refinement_cycle_time_ms, 
+                  self->state().total_refinement_cycle_time_ms / 1000.0);
+    
+    if (self->state().completed_refinement_levels > 0) {
+        double avg_level_time = self->state().total_refinement_cycle_time_ms / self->state().completed_refinement_levels;
+        self->println("  Average time per refinement level: {:.2f} ms ({:.2f} seconds)", 
+                      avg_level_time, avg_level_time / 1000.0);
+    }
+    
+    // Individual level breakdown
+    for (const auto& [level, time_ms] : self->state().refinement_level_durations_ms) {
+        self->println("  Level {} duration: {:.2f} ms ({:.2f} seconds)", level, time_ms, time_ms / 1000.0);
+    }
+    
+    // Percentage calculations
+    double job_creation_percentage = (duration.count() > 0) ? 
+        (self->state().total_refinement_time_ms / 1000.0) / duration.count() * 100.0 : 0.0;
+    double refinement_cycle_percentage = (duration.count() > 0) ? 
+        (self->state().total_refinement_cycle_time_ms / 1000.0) / duration.count() * 100.0 : 0.0;
+        
+    self->println("Timing as Percentage of Total Runtime:");
+    self->println("  Job creation overhead: {:.3f}%", job_creation_percentage);
+    self->println("  Complete refinement cycles: {:.2f}%", refinement_cycle_percentage);
     
     self->quit();
   }
@@ -774,6 +853,9 @@ bool is_quenching_boundary(stateful_actor<server_state>* self,
 void trigger_boundary_refinement(stateful_actor<server_state>* self,
                                 const std::tuple<int, float, float>& job_key,
                                 const std::tuple<int, float, float>& neighbor_key) {
+  // Start timing this refinement operation
+  auto refinement_start_time = std::chrono::high_resolution_clock::now();
+  
   int max_depth = self->state().max_refinement_level;  // Use dynamic max refinement level
   auto [gg1, theta1, xs1] = job_key;
   auto [gg2, theta2, xs2] = neighbor_key;
@@ -914,8 +996,17 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
     }
   }
   
-//   self->println("REFINEMENT: Created job (gg={} global_level {} job #{}): gg={}, theta={}, xs={} (depth={}) with {} neighbors", 
-//                 gg1, current_level, self->state().gg_level_jobs_created[level_key], gg1, center_theta, center_xs, new_depth, connections_made);
+  // Record timing for this refinement operation
+  auto refinement_end_time = std::chrono::high_resolution_clock::now();
+  auto refinement_duration = std::chrono::duration_cast<std::chrono::microseconds>(refinement_end_time - refinement_start_time);
+  double refinement_time_ms = refinement_duration.count() / 1000.0;
+  
+  self->state().total_refinement_time_ms += refinement_time_ms;
+  self->state().total_refinement_jobs_created++;
+  self->state().refinement_operations++;
+  
+//   self->println("REFINEMENT: Created job (gg={} global_level {} job #{}): gg={}, theta={}, xs={} (depth={}) with {} neighbors in {:.3f}ms", 
+//                 gg1, current_level, self->state().gg_level_jobs_created[level_key], gg1, center_theta, center_xs, new_depth, connections_made, refinement_time_ms);
 }
 
 // Function to create complete coarse grid neighbor map after all jobs are registered

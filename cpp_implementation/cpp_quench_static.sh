@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=quenching_cpp_static
+#SBATCH --job-name=quenching_cpp_static_early
 #SBATCH --account=hpc_p_spiteri
 #SBATCH --nodes=2
 #SBATCH --time=10-00:00:00
-#SBATCH --mem=5G
+#SBATCH --mem=50G
 #SBATCH --cpus-per-task=32
 #SBATCH --constraint=cascade
-#SBATCH --output=quench_cpp_static-%j.out
+#SBATCH --output=quench_cpp_static_early-%j.out
 
 module --force purge
 module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3
@@ -43,13 +43,13 @@ echo "Server node: $server_node"
 echo "Client node(s): ${client_nodes[@]}"
 
 echo "Starting C++ CAF static actor server on $server_node"
-srun --nodes=1 --ntasks=1 --nodelist="${server_node}" --export=ALL ./actor_cpp_static -s -p 32444 --caf.scheduler.max-threads=32 &
+srun --nodes=1 --ntasks=1 --nodelist="${server_node}" ./actor_cpp_static -s -p 32444 --enable-early-termination --caf.scheduler.max-threads=32 &
 
 sleep 5  # Give server time to start
 
 for client in "${client_nodes[@]}"; do
   echo "Starting client on $client"
-  srun --nodes=1 --ntasks=1 --nodelist="$client" --export=ALL ./actor_cpp_static -p 32444 -H "$server_node" --caf.scheduler.max-threads=32 &
+  srun --nodes=1 --ntasks=1 --nodelist="$client" ./actor_cpp_static -p 32444 -H "$server_node" --enable-early-termination --caf.scheduler.max-threads=32 &
 done
 
 wait
