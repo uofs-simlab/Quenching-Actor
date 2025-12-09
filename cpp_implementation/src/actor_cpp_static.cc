@@ -1,4 +1,5 @@
 #include "config.h" 
+#include "system_config.h"
 #include "tuple_hash.h"  // Hash specializations for tuples
 #include "job_structures.h"
 #include "bracket_optimizer.h"
@@ -15,8 +16,6 @@
 #include <sstream>
 #include <unordered_map>
 #include <unordered_set>
-
-constexpr float L = 2700.0f; 
 
 //JOB & CACHE TYPES - Using common structures
 
@@ -39,8 +38,6 @@ CAF_BEGIN_TYPE_ID_BLOCK(my_project, caf::first_custom_type_id)
 CAF_ADD_TYPE_ID(my_project, (job_t))
 CAF_END_TYPE_ID_BLOCK(my_project)
 
-
-
 /*
 ==================================================================================================================
 WORKER
@@ -62,9 +59,6 @@ behavior worker_actor(stateful_actor<worker_state>* self, actor manager, bool us
       
       double usmin = -1000.0 / std::pow(2.0, job.n);
       double usmax = 0.0;
-      
-    //   self->println("Starting Job gg={}, theta={}, xs={}, n={}, [u_min,u_max]=[{},{}], early_termination={}",
-    //                 job.gg, job.theta, job.xs, job.n, usmin, usmax, self->state().use_early_termination);
 
       double result = 0.0;
       try {
@@ -252,6 +246,45 @@ struct spatial_hash_manager {
     }
 };
 
+// Box-based adaptive mesh refinement structure
+struct refinement_box {
+    int gg;
+    float theta_min, theta_max;
+    float xs_min, xs_max;
+    int level;
+    bool needs_refinement = false;
+    bool processing_complete = false;
+    
+    // Get the 4 corner points of this box (2x2 grid)
+    std::vector<std::tuple<float, float>> get_corner_points() const {
+        return {
+            {theta_min, xs_min},           // Bottom-left
+            {theta_max, xs_min},           // Bottom-right
+            {theta_min, xs_max},           // Top-left
+            {theta_max, xs_max}            // Top-right
+        };
+    }
+    
+    // Subdivide box into 4 children
+    std::vector<refinement_box> subdivide() const {
+        float theta_mid = (theta_min + theta_max) / 2.0f;
+        float xs_mid = (xs_min + xs_max) / 2.0f;
+        
+        return {
+            {gg, theta_min, theta_mid, xs_min, xs_mid, level + 1},
+            {gg, theta_mid, theta_max, xs_min, xs_mid, level + 1},
+            {gg, theta_min, theta_mid, xs_mid, xs_max, level + 1},
+            {gg, theta_mid, theta_max, xs_mid, xs_max, level + 1}
+        };
+    }
+    
+    // Check if box is small enough (for termination criteria)
+    bool is_too_small(float min_theta_size, float min_xs_size) const {
+        return (theta_max - theta_min) < min_theta_size || 
+               (xs_max - xs_min) < min_xs_size;
+    }
+};
+
 struct server_state {
 
   struct job_node {
@@ -261,38 +294,33 @@ struct server_state {
     std::unordered_set<std::tuple<int, float, float>> neighbors; 
   };
 
-  std::unordered_map<std::tuple<int, float, float>, job_node> job_graph;
-
+  // Box-based refinement system
+  std::vector<refinement_box> current_level_boxes;
+  std::vector<refinement_box> next_level_boxes;
+  
+  // Cache of computed results: (gg, theta, xs) -> uq
+  std::unordered_map<std::tuple<int, float, float>, double> computed_uq;
+  
   std::deque<job_t> pending_jobs;
   bracket_optimizer::uq_cache_t uq_cache;
   std::unordered_set<std::tuple<int, float, float>> scheduled_jobs;
-  std::unordered_map<std::tuple<int, float, float>, int> refinement_depth;
   
-  // Spatial hash manager for efficient neighbor queries
+  // Legacy structures - kept for compatibility but not used in box-based approach
+  std::unordered_map<std::tuple<int, float, float>, job_node> job_graph;
+  std::unordered_map<std::tuple<int, float, float>, int> refinement_depth;
   spatial_hash_manager spatial_mgr;
 
   bool use_bracket;
   bool use_early_termination;
-  int  actor_number = 31;
   int  active_jobs = 0;
+  
+  // Termination control
+  bool termination_initiated = false;
 
   computation_config comp_config;
   
-  bracket_optimizer::BracketConfig bracket_config;
-
-  // Coarse grid parameters (for adaptive refinement)
-  // Based on Chris's recommendations: L = 2700, theta ∈ [-L/2, L/2], xs ∈ [2h, L]
-  float L = 2700.0f;  // System length parameter (same as FHN::Lglob)
-  float h = L / (8192.0f);      // Grid spacing: h = Lglob/(N-1) where N = 1 + 2^13 = 8193
-  float theta_step = L/4.0f;    //  ~675 degrees per step (5 points total)
-  float xs_step = L/4.0f;       //  ~675 xs unit per step  
-  float max_theta = L/2.0f;     // Will be 1350.0 (range: [-1350, 1350])
-  float xs_min = 2*h;           // Start from 2h ≈ 0.66 
-  float xs_max = L;             // Will be 2700.0
-  int NDNS = 5;                 // Reduced from 10 to 5 for much coarser initial grid
-
-  std::unordered_map<float, int> theta_to_index;
-  std::unordered_map<float, int> xs_to_index;
+  // System configuration - centralized parameters
+  system_config sys_config;
 
   // Worker tracking
   std::unordered_set<actor> active_workers;
@@ -302,22 +330,29 @@ struct server_state {
   int total_jobs_created = 0;
   int total_jobs_completed = 0;
 
+  // Box-based refinement control
+  int current_refinement_level = 0;               // Current refinement level being processed
+  bool level_processing_complete = false;         // Whether current level is complete
+  int max_refinement_level = 8;                   // Maximum refinement depth
   
-  std::vector<int> gg_levels = {3, 2, 1, 0};  
-  int global_refinement_level = 0;                // Current refinement level for ALL gg values (0=coarse, 1=first refinement, etc.)
-  std::unordered_map<int, bool> gg_level_processing;        // Whether a gg level is currently processing jobs at current refinement level
-  std::unordered_map<int, bool> gg_completely_done;         // Whether gg level is completely finished (no more refinement possible)
+  // Legacy variables - kept for compatibility
+  int global_refinement_level = 0;                
+  std::unordered_map<int, bool> gg_level_processing;        
+  std::unordered_map<int, bool> gg_completely_done;
   
   // Job tracking per gg and refinement level
   std::unordered_map<std::pair<int, int>, int> gg_level_jobs_created;    
   std::unordered_map<std::pair<int, int>, int> gg_level_jobs_completed;  
 
-  const int max_refinement_level = 5;  
-  
   // Refinement timing tracking
   int total_refinement_jobs_created = 0;
-  double total_refinement_time_ms = 0.0;  // Only job creation overhead
+  double total_refinement_time_ms = 0.0;  // Legacy timing (ms)
   int refinement_operations = 0;
+  
+  // Enhanced refinement timing (to match dynamic version)
+  double total_refinement_time = 0.0;     // Total time spent in refinement operations (seconds)
+  int refinement_time_measurements = 0;   // Number of refinement time measurements
+  std::vector<double> level_refinement_times; // Time spent on each refinement level
   
   // Comprehensive refinement cycle timing
   std::unordered_map<int, std::chrono::high_resolution_clock::time_point> refinement_level_start_times;
@@ -335,101 +370,88 @@ void initialize_job_bracket(stateful_actor<server_state>* self, job_t& job) {
       job,
       self->state().uq_cache,
       nullptr,  // No neighbor provider for static version
-      self->state().bracket_config
+      self->state().sys_config.bracket_config
     );
   }
 }
+
+
 
 // Helper function to determine if bracket updates should be applied
 bool should_apply_bracket_update(stateful_actor<server_state>* self, const job_t& job) {
   if (!self->state().use_bracket) return false;
   
-  // Get the first gg level in the sequence
-  int first_gg = self->state().gg_levels[0];
-  
-  
-  auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
-  auto depth_it = self->state().refinement_depth.find(job_key);
-  int depth = (depth_it != self->state().refinement_depth.end()) ? depth_it->second : 0;
-  
-  // Skip bracket updates only for coarse grid jobs (depth=0) of first gg
-  if (job.gg == first_gg && depth == 0) {
-    return false; 
-  }
-  return true; 
+  // For static version, apply bracket updates to all jobs like in dynamic version
+  // This ensures that bracket optimization happens at dispatch time, using
+  // any available cached data from previously completed jobs
+  return true;
 }
 
 bool is_quenching_boundary(stateful_actor<server_state>* self, const std::tuple<int, float, float>& job_key, const std::tuple<int, float, float>& neighbor_key);
 void trigger_boundary_refinement(stateful_actor<server_state>* self, const std::tuple<int, float, float>& job_key, const std::tuple<int, float, float>& neighbor_key);
 void schedule_gg_level_jobs(stateful_actor<server_state>* self, int gg);
 void check_gg_completion_and_refine(stateful_actor<server_state>* self);
+void cleanup_completed_level_neighbors(stateful_actor<server_state>* self, int completed_level);
 void create_all_coarse_grid_neighbors(stateful_actor<server_state>* self);
 void wake_idle_workers(stateful_actor<server_state>* self);
 
 
-void initialize_grid_lookups(stateful_actor<server_state>* self) {
-  self->state().theta_to_index.clear();
-  int theta_idx = 0;
-  for (float theta = -self->state().max_theta; theta <= self->state().max_theta; theta += self->state().theta_step) {
-    self->state().theta_to_index[theta] = theta_idx++;
+// Unified neighbor creation function using euclidean distance for all refinement levels (0-7)
+void create_unified_neighbors(stateful_actor<server_state>* self, 
+                             const std::tuple<int, float, float>& job_key) {
+  auto [gg, theta, xs] = job_key;
+  int depth = self->state().refinement_depth[job_key];
+  
+  // Calculate radius based on depth using unified approach
+  float effective_theta_spacing = self->state().sys_config.theta_step / std::pow(2.0f, depth * 0.5f);
+  float effective_xs_spacing = self->state().sys_config.xs_step / std::pow(2.0f, depth * 0.5f);
+  
+  int connectivity_range = self->state().sys_config.connectivity_range;
+  float base_radius = connectivity_range * std::min(effective_theta_spacing, effective_xs_spacing);
+  
+  // For level 0, use coarse_grid_radius_multiplier; for deeper levels, use radius_reduction_factor
+  float radius_multiplier;
+  if (depth == 0) {
+    radius_multiplier = self->state().sys_config.coarse_grid_radius_multiplier;
+  } else {
+    radius_multiplier = std::pow(self->state().sys_config.radius_reduction_factor, depth);
   }
   
-  self->state().xs_to_index.clear();
-  for (int i = 0; i < self->state().NDNS; ++i) {
-    float xs = self->state().xs_min + i * self->state().xs_step;
-    self->state().xs_to_index[xs] = i;
+  float euclidean_radius = base_radius * std::sqrt(2.0f) * radius_multiplier;
+  
+  // Use spatial hash to find potential neighbors within radius
+  auto around = self->state().spatial_mgr.find_neighbors(job_key, euclidean_radius, euclidean_radius);
+  
+  // Connect to all jobs within the euclidean radius
+  int connections_made = 0;
+  for (auto& existing_key : around) {
+    auto [existing_gg, existing_theta, existing_xs] = existing_key;
+    
+    if (existing_gg != gg) continue; // Only same gg
+    
+    // Calculate euclidean distance in 2D parameter space
+    float d_theta = existing_theta - theta;
+    float d_xs = existing_xs - xs;
+    float euclidean_distance = std::sqrt(d_theta * d_theta + d_xs * d_xs);
+    
+    // Connect if within circular radius
+    if (euclidean_distance <= euclidean_radius) {
+      self->state().job_graph[job_key].neighbors.insert(existing_key);
+      self->state().job_graph[existing_key].neighbors.insert(job_key);
+      connections_made++;
+    }
   }
-}
-
-int get_theta_index(stateful_actor<server_state>* self, float theta) {
-  auto it = self->state().theta_to_index.find(theta);
-  return (it != self->state().theta_to_index.end()) ? it->second : -1;
-}
-
-int get_xs_index(stateful_actor<server_state>* self, float xs) {
-  auto it = self->state().xs_to_index.find(xs);
-  return (it != self->state().xs_to_index.end()) ? it->second : -1;
+  
+  // Debug output for level 0 to show the improved connectivity
+  if (depth == 0) {
+    // self->println("Level 0 job connected to {} neighbors with radius {:.1f}", connections_made, euclidean_radius);
+  }
 }
 
 void create_coarse_grid_neighbors(stateful_actor<server_state>* self, 
                                  const std::tuple<int, float, float>& job_key) {
-  
-  auto [gg, thetaC, xsC] = job_key;
-  
-  for (auto& [keyE, nodeE] : self->state().job_graph) {
-      if (keyE == job_key) continue; // skip self
-      if (std::get<0>(keyE) != gg) continue; // only same gg
-      
-      // Only connect to other coarse jobs (refinement_depth == 0)
-      if (self->state().refinement_depth[keyE] != 0) continue;
-
-      auto [_, thetaE, xsE] = keyE;
-
-      int theta_idx = get_theta_index(self, thetaC);
-      int theta_idx_E = get_theta_index(self, thetaE);
-      int xs_idx = get_xs_index(self, xsC);
-      int xs_idx_E = get_xs_index(self, xsE);
-      
-      // Check if both jobs are on the coarse grid
-      if (theta_idx != -1 && theta_idx_E != -1 && xs_idx != -1 && xs_idx_E != -1) {
-          
-          // EXPLICIT 8-NEIGHBOR CONNECTIVITY (includes all diagonals)
-          // Calculate grid distance for both dimensions
-          int delta_theta = std::abs(theta_idx - theta_idx_E);
-          int delta_xs = std::abs(xs_idx - xs_idx_E);
-          
-          // Connect to all 8 surrounding neighbors:
-          bool is_horizontal = (delta_theta == 1 && delta_xs == 0);
-          bool is_vertical = (delta_theta == 0 && delta_xs == 1);
-          bool is_diagonal = (delta_theta == 1 && delta_xs == 1);
-          
-          if (is_horizontal || is_vertical || is_diagonal) {
-              // Add bidirectional connection
-              self->state().job_graph[job_key].neighbors.insert(keyE);
-              self->state().job_graph[keyE].neighbors.insert(job_key);
-          }
-      }
-  }
+  // Use unified neighbor creation for all levels, including level 0
+  create_unified_neighbors(self, job_key);
 }
 
 void schedule_job(stateful_actor<server_state>* self, job_t new_job, bool is_refinement = false) {
@@ -456,27 +478,20 @@ void schedule_job(stateful_actor<server_state>* self, job_t new_job, bool is_ref
   self->state().scheduled_jobs.insert(key);
   
   int depth = self->state().refinement_depth[key];
-//   self->println("Scheduled job: gg={}, theta={}, xs={:.3f}, depth={}, type={}, total_created={}", 
-//                 new_job.gg, new_job.theta, new_job.xs, depth, 
-//                 is_refinement ? "refinement" : "coarse", self->state().total_jobs_created);
 }
+
 void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
   
   bool all_gg_completed_current_level = true;
   int current_level = self->state().global_refinement_level;
   
-  for (int gg : self->state().gg_levels) {
+  for (int gg : self->state().sys_config.gg_levels) {
     // Skip if completely done
     if (self->state().gg_completely_done[gg]) continue;
     
     auto level_key = std::make_pair(gg, current_level);
     int level_created = self->state().gg_level_jobs_created[level_key];
     int level_completed = self->state().gg_level_jobs_completed[level_key];
-    
-    // DEBUG: Print status for each gg level
-    // self->println("=== GG {} LEVEL {} STATUS: jobs={}/{}, processing={}, done={} ===", 
-    //               gg, current_level, level_completed, level_created,
-    //               self->state().gg_level_processing[gg], self->state().gg_completely_done[gg]);
     
     if (level_completed < level_created || level_created == 0) {
       all_gg_completed_current_level = false;
@@ -485,17 +500,13 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
   
   // If ALL gg levels completed current level, advance ALL to next level
   if (all_gg_completed_current_level) {
-    // self->println("=== ALL GG LEVELS COMPLETED LEVEL {} - ADVANCING ALL TO LEVEL {} ===", 
-    //               current_level, current_level + 1);
-    
     // Check if we can advance to next refinement level
     int next_level = current_level + 1;
-    if (next_level > self->state().max_refinement_level) {
+    if (next_level > self->state().sys_config.max_refinement_level) {
       // All levels reached maximum refinement
-    //   self->println("=== ALL GG LEVELS REACHED MAXIMUM REFINEMENT LEVEL {} ===", self->state().max_refinement_level);
       
       // Mark all as completely done
-      for (int gg : self->state().gg_levels) {
+      for (int gg : self->state().sys_config.gg_levels) {
         self->state().gg_completely_done[gg] = true;
       }
     } else {
@@ -509,8 +520,6 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
           self->state().refinement_level_durations_ms[current_level] = level_time_ms;
           self->state().total_refinement_cycle_time_ms += level_time_ms;
           self->state().completed_refinement_levels++;
-          
-          // self->println("REFINEMENT TIMING: Level {} completed in {:.2f} ms", current_level, level_time_ms);
         }
       }
       
@@ -520,14 +529,10 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
       // Start timing the new refinement level
       self->state().refinement_level_start_times[next_level] = std::chrono::high_resolution_clock::now();
       
-      if (next_level == 1) {
-        // self->println("REFINEMENT TIMING: Starting to time refinement from level 1");
-      }
-      
       // Create refinement jobs for ALL gg levels at the new level
       int total_refinement_jobs = 0;
       
-      for (int gg : self->state().gg_levels) {
+      for (int gg : self->state().sys_config.gg_levels) {
         if (!self->state().gg_completely_done[gg]) {
           // Mark as processing next level
           self->state().gg_level_processing[gg] = true;
@@ -537,9 +542,14 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
           std::set<std::pair<std::tuple<int, float, float>, std::tuple<int, float, float>>> processed_pairs;
           
           // Scan all completed jobs in this gg level for boundaries
+          int completed_jobs_in_gg = 0;
+          int total_neighbors = 0;
           for (auto& [job_key, job_node] : self->state().job_graph) {
             auto [job_gg, job_theta, job_xs] = job_key;
             if (job_gg != gg || job_node.status != server_state::job_node::done) continue;
+            
+            completed_jobs_in_gg++;
+            total_neighbors += job_node.neighbors.size();
             
             // Create a copy of neighbors to avoid iterator invalidation
             auto neighbors_copy = job_node.neighbors;
@@ -557,7 +567,7 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
                 int depth2 = self->state().refinement_depth[neighbor_key];
                 int max_parent_depth = std::max(depth1, depth2);
                 
-                if (max_parent_depth >= self->state().max_refinement_level) {
+                if (max_parent_depth >= self->state().sys_config.max_refinement_level) {
                   continue; // Skip - this pair has already reached maximum refinement depth
                 }
                 
@@ -609,8 +619,8 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
           self->state().gg_level_jobs_completed[next_level_key] = 0;
           total_refinement_jobs += gg_refinement_jobs;
           
-        //   self->println("=== GG {} advanced to level {} with {} jobs created ===", 
-        //                 gg, next_level, gg_refinement_jobs);
+          self->println("=== GG {} advanced to level {} with {} jobs created ===", 
+                        gg, next_level, gg_refinement_jobs);
           
           // If no jobs created for this gg, mark as completely done
           if (gg_refinement_jobs == 0) {
@@ -623,24 +633,28 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
       }
       
       if (total_refinement_jobs > 0) {
-        // self->println("=== SYNCHRONIZED REFINEMENT: Advanced ALL gg levels to level {} with {} total jobs ===", 
-                    //   next_level, total_refinement_jobs);
+        self->println("=== SYNCHRONIZED REFINEMENT: Advanced ALL gg levels to level {} with {} total jobs ===", 
+                      next_level, total_refinement_jobs);
         
         // Wake workers for new jobs
         wake_idle_workers(self);
       } else {
         // No refinement jobs created for any gg - all are done
-        // self->println("=== ALL GG LEVELS COMPLETELY FINISHED - no more refinement possible ===");
-        for (int gg : self->state().gg_levels) {
+        self->println("=== ALL GG LEVELS COMPLETELY FINISHED - no more refinement possible ===");
+        for (int gg : self->state().sys_config.gg_levels) {
           self->state().gg_completely_done[gg] = true;
         }
       }
+      
+      // Clean up obsolete neighbor relationships from the completed level
+      // (do this AFTER boundary detection and refinement job creation)
+      cleanup_completed_level_neighbors(self, current_level);
     }
   }
   
   // Check if ALL gg levels are done
   bool all_done = true;
-  for (int gg : self->state().gg_levels) {
+  for (int gg : self->state().sys_config.gg_levels) {
     if (!self->state().gg_completely_done[gg]) {
       all_done = false;
       break;
@@ -676,40 +690,44 @@ void check_gg_completion_and_refine(stateful_actor<server_state>* self) {
         self->println("  Average job creation time: {:.3f} ms per operation", avg_refinement_time);
     }
     
-    // Complete refinement cycle timing (new comprehensive measurement)
-    self->println("Complete Refinement Cycle Timing:");
-    self->println("  Completed refinement levels: {}", self->state().completed_refinement_levels);
-    self->println("  Total refinement cycle time: {:.2f} ms ({:.2f} seconds)", 
-                  self->state().total_refinement_cycle_time_ms, 
-                  self->state().total_refinement_cycle_time_ms / 1000.0);
+    // Enhanced refinement timing (unified with dynamic version)
+    self->println("Enhanced Refinement Timing:");
+    self->println("  Total refinement time: {:.6f}s ({} level operations)", 
+                 self->state().total_refinement_time, self->state().refinement_time_measurements);
     
-    if (self->state().completed_refinement_levels > 0) {
-        double avg_level_time = self->state().total_refinement_cycle_time_ms / self->state().completed_refinement_levels;
-        self->println("  Average time per refinement level: {:.2f} ms ({:.2f} seconds)", 
-                      avg_level_time, avg_level_time / 1000.0);
+    if (self->state().refinement_time_measurements > 0) {
+        double avg_refinement_time = self->state().total_refinement_time / self->state().refinement_time_measurements;
+        self->println("  Average refinement time per level: {:.6f}s", avg_refinement_time);
     }
     
-    // Individual level breakdown
-    for (const auto& [level, time_ms] : self->state().refinement_level_durations_ms) {
-        self->println("  Level {} duration: {:.2f} ms ({:.2f} seconds)", level, time_ms, time_ms / 1000.0);
+    // Per-level timing breakdown
+    for (size_t i = 0; i < self->state().level_refinement_times.size(); ++i) {
+        self->println("  Level {} refinement time: {:.6f}s", i, self->state().level_refinement_times[i]);
     }
     
     // Percentage calculations
     double job_creation_percentage = (duration.count() > 0) ? 
         (self->state().total_refinement_time_ms / 1000.0) / duration.count() * 100.0 : 0.0;
-    double refinement_cycle_percentage = (duration.count() > 0) ? 
-        (self->state().total_refinement_cycle_time_ms / 1000.0) / duration.count() * 100.0 : 0.0;
+    double enhanced_refinement_percentage = (duration.count() > 0) ? 
+        self->state().total_refinement_time / duration.count() * 100.0 : 0.0;
         
     self->println("Timing as Percentage of Total Runtime:");
     self->println("  Job creation overhead: {:.3f}%", job_creation_percentage);
-    self->println("  Complete refinement cycles: {:.2f}%", refinement_cycle_percentage);
+    self->println("  Enhanced refinement overhead: {:.2f}%", enhanced_refinement_percentage);
     
+    self->state().termination_initiated = true;
     self->quit();
+  } else {
+    wake_idle_workers(self);
   }
-  wake_idle_workers(self);
 }
 
 void wake_idle_workers(stateful_actor<server_state>* self) {
+  // Don't wake workers if termination has been initiated
+  if (self->state().termination_initiated) {
+    return;
+  }
+  
   auto idle_it = self->state().idle_workers.begin();
   while (idle_it != self->state().idle_workers.end() && !self->state().pending_jobs.empty()) {
     auto idle_worker = *idle_it;
@@ -719,8 +737,10 @@ void wake_idle_workers(stateful_actor<server_state>* self) {
     self->state().pending_jobs.pop_front();
     ++self->state().active_jobs;
     
-    if (should_apply_bracket_update(self, job))
+    // Apply bracket optimization for jobs at dispatch time (like dynamic version)
+    if (should_apply_bracket_update(self, job)) {
       initialize_job_bracket(self, job);
+    }
     
     auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
     self->state().job_graph[job_key].status = server_state::job_node::running;
@@ -730,15 +750,15 @@ void wake_idle_workers(stateful_actor<server_state>* self) {
 
 // Schedule jobs for a specific gg level
 void schedule_gg_level_jobs(stateful_actor<server_state>* self, int gg) {
-  float max_theta = self->state().max_theta;
-  int theta_step = self->state().theta_step;
-  const float xs_min = self->state().xs_min;
-  const float xs_max = self->state().xs_max;
-  int NDNS = self->state().NDNS;
+  float max_theta = self->state().sys_config.max_theta;
+  int theta_step = self->state().sys_config.theta_step;
+  const float xs_min = self->state().sys_config.xs_min;
+  const float xs_max = self->state().sys_config.xs_max;
+  int NDNS = self->state().sys_config.NDNS;
   
   std::vector<float> xs_values;
   for (int i = 0; i < NDNS; ++i) {
-    float xs = xs_min + i * self->state().xs_step;  // Use pre-calculated xs_step
+    float xs = xs_min + i * self->state().sys_config.xs_step;  // Use pre-calculated xs_step
     xs_values.push_back(xs);
   }
 
@@ -776,10 +796,7 @@ void schedule_gg_level_jobs(stateful_actor<server_state>* self, int gg) {
   self->state().gg_level_jobs_created[level_0_key] = jobs_for_gg;
   self->state().gg_level_jobs_completed[level_0_key] = 0;
   self->state().gg_completely_done[gg] = false;
-  
-//   self->println("Scheduled {} coarse grid jobs for gg level {}", jobs_for_gg, gg);
 }
-
 
 void bracket_initialize_from_cache(job_t& job,
   const bracket_optimizer::uq_cache_t& uq_cache,
@@ -814,32 +831,6 @@ bool is_quenching_boundary(stateful_actor<server_state>* self,
     is_boundary = true;
   }
   
-  // For both quenching: look for significant magnitude differences
-  if (!is_boundary && job_quenches && neighbor_quenches) {
-    // Dynamic threshold based on gg value - different gg values have different uq ranges
-    int gg = std::get<0>(job_key);  // Both jobs should have same gg value
-    double threshold = 1.0; 
-    
-    // Set gg-dependent thresholds based on observed uq ranges
-    if (gg == 0) {
-      threshold = 0.1;  
-    } else if (gg == 1) {
-      threshold = 0.2;  
-    } else if (gg == 2) {
-      threshold = 0.4;   
-    } else if (gg == 3) {
-      threshold = 1.0;   
-    }
-    
-    if (std::abs(uq1 - uq2) > threshold) {
-    //   self->println("*** QUENCH MAGNITUDE BOUNDARY: ({},{},{}) uq={} vs ({},{},{}) uq={} diff={} (threshold={}) ***", 
-    //                 std::get<0>(job_key), std::get<1>(job_key), std::get<2>(job_key), uq1,
-    //                 std::get<0>(neighbor_key), std::get<1>(neighbor_key), std::get<2>(neighbor_key), uq2,
-    //                 std::abs(uq1 - uq2), threshold);
-      is_boundary = true;
-    }
-  }
-  
   // OPTIMIZATION: Remove this neighbor pair from both jobs' neighbor lists
   // since we've now processed them and won't need to check again
   // If boundary found: the refinement job created between them will serve as the bridge
@@ -856,7 +847,7 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
   // Start timing this refinement operation
   auto refinement_start_time = std::chrono::high_resolution_clock::now();
   
-  int max_depth = self->state().max_refinement_level;  // Use dynamic max refinement level
+  int max_depth = self->state().sys_config.max_refinement_level;  // Use dynamic max refinement level
   auto [gg1, theta1, xs1] = job_key;
   auto [gg2, theta2, xs2] = neighbor_key;
 
@@ -881,8 +872,8 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
   float center_xs = (xs1 + xs2) / 2.0f;
 
   // Check bounds - use dynamic max_theta instead of hard-coded values
-  if (center_theta < -self->state().max_theta || center_theta > self->state().max_theta ||
-      center_xs < self->state().xs_min || center_xs > self->state().xs_max) {
+  if (center_theta < -self->state().sys_config.max_theta || center_theta > self->state().sys_config.max_theta ||
+      center_xs < self->state().sys_config.xs_min || center_xs > self->state().sys_config.xs_max) {
     return;  // Skip silently - midpoint out of bounds
   }
   
@@ -940,7 +931,9 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
       crit + "/" + std::to_string(gg1) + "/p"
   };
   
-  self->state().refinement_depth[new_job_key] = new_depth; 
+  self->state().refinement_depth[new_job_key] = new_depth;
+  
+  // Bracket optimization is now handled at dispatch time for consistency
   
   // Schedule the job to add it to spatial hash and job graph (add to END of queue)
   schedule_job(self, new_job, true);  // true = is_refinement
@@ -950,51 +943,13 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
   auto level_key = std::make_pair(gg1, current_level);
   self->state().gg_level_jobs_created[level_key]++;
 
-  // OPTIMIZATION: ADAPTIVE NEIGHBOR RADIUS for better distribution
-  // Use depth-adaptive radius that gradually decreases but maintains connectivity
-  // This balances refinement precision with neighbor connectivity
-  float base_theta_spacing = self->state().theta_step;  
-  float base_xs_spacing = self->state().xs_step;        
+  // Create neighbors using unified approach - ensures consistent neighbor creation for all levels
+  int initial_neighbors = self->state().job_graph[new_job_key].neighbors.size();
+  create_unified_neighbors(self, new_job_key);
+  int connections_made = self->state().job_graph[new_job_key].neighbors.size() - initial_neighbors;
   
-  // Adaptive radius that decreases with refinement depth
-  // depth_factor starts at 1.0 (depth 0) and gradually decreases
-  float depth_factor = 1.0f / (1.0f + 0.1f * new_depth);  // Gradual decrease
-  
-  // Apply adaptive scaling with minimum connectivity guarantees
-  float adaptive_radius_factor = 0.6f * depth_factor;  // Base 60% scaled by depth
-  float radius_theta = base_theta_spacing * adaptive_radius_factor;
-  float radius_xs = base_xs_spacing * adaptive_radius_factor;
-  
-  // Add a small tolerance factor to ensure we catch boundary neighbors
-  // This is especially important for floating-point precision issues
-  float tolerance_factor = 1.2f;  // 20% extra radius for safety
-  radius_theta *= tolerance_factor;
-  radius_xs *= tolerance_factor;
-  
-  
-  // Find all existing jobs within the adaptive radius
-  auto around = self->state().spatial_mgr.find_neighbors(new_job_key, radius_theta, radius_xs);
-  
-  // Connect to all jobs within the fixed radius
-  // This naturally includes horizontal, vertical, and diagonal connections
-  int connections_made = 0;
-  for (auto& existing_key : around) {
-    auto [existing_gg, existing_theta, existing_xs] = existing_key;
-    
-    // Note: find_neighbors already filters by same gg, so no need to check again
-    
-    // Calculate actual distances for both dimensions
-    float d_theta = std::abs(existing_theta - center_theta);
-    float d_xs = std::abs(existing_xs - center_xs);
-    
-    // ADAPTIVE RECTANGULAR RADIUS: Connect if within BOTH radii
-    // This creates natural 8-directional connectivity (horizontal, vertical, diagonal)
-    if (d_theta <= radius_theta && d_xs <= radius_xs) {
-      self->state().job_graph[new_job_key].neighbors.insert(existing_key);
-      self->state().job_graph[existing_key].neighbors.insert(new_job_key);
-      connections_made++;
-    }
-  }
+  // self->println("Refinement job connected to {} neighbors within euclidean radius {:.1f}", 
+  //              connections_made, euclidean_radius);
   
   // Record timing for this refinement operation
   auto refinement_end_time = std::chrono::high_resolution_clock::now();
@@ -1011,27 +966,318 @@ void trigger_boundary_refinement(stateful_actor<server_state>* self,
 
 // Function to create complete coarse grid neighbor map after all jobs are registered
 void create_all_coarse_grid_neighbors(stateful_actor<server_state>* self) {
-  
-//   self->println("Creating coarse grid neighbor map for {} total jobs...", self->state().job_graph.size());
-  
-  int neighbors_created = 0;
-  
-  // Create all neighbor relationships for coarse grid jobs
-  for (auto& [job_key, job_node] : self->state().job_graph) {    
-    if (self->state().refinement_depth[job_key] == 0) {
-      int initial_neighbors = job_node.neighbors.size();
-      create_coarse_grid_neighbors(self, job_key);
-      int final_neighbors = job_node.neighbors.size();
-      neighbors_created += (final_neighbors - initial_neighbors);
-      
-      // Debug: Print neighbor count for each coarse job
-      // auto [gg, theta, xs] = job_key;
-    //   self->println("Coarse job gg={}, theta={}, xs={:.1f} has {} neighbors", 
-    //                 gg, theta, xs, final_neighbors);
+  // Legacy function - kept for compatibility but not used in box-based approach
+  self->println("Box-based approach: skipping legacy neighbor creation");
+}
+
+// ============================================================================
+// BOX-BASED REFINEMENT FUNCTIONS
+// ============================================================================
+
+// Check if a box contains quenching boundary (using its 4 corner points)
+bool box_has_boundary(stateful_actor<server_state>* self, const refinement_box& box) {
+    auto corner_points = box.get_corner_points();
+    
+    bool has_positive = false, has_negative = false;
+    int computed_corners = 0;
+    
+    for (auto [theta, xs] : corner_points) {
+        auto key = std::make_tuple(box.gg, theta, xs);
+        
+        if (self->state().computed_uq.count(key)) {
+            double uq = self->state().computed_uq[key];
+            computed_corners++;
+            
+            if (uq >= 0.0) has_positive = true;
+            if (uq < 0.0) has_negative = true;
+            
+            // Early exit if boundary found
+            if (has_positive && has_negative) {
+                return true;
+            }
+        }
     }
-  }
-  
-//   self->println("Coarse grid neighbor map complete. Total new neighbor connections: {}", neighbors_created);
+    
+    // Only check boundary if we have data for all 4 corners
+    return (computed_corners == 4) && has_positive && has_negative;
+}
+
+// Create initial 5x5 grid and organize into boxes
+void initialize_coarse_grid_and_boxes(stateful_actor<server_state>* self) {
+    self->state().current_level_boxes.clear();
+    
+    for (int gg : self->state().sys_config.gg_levels) {
+        // Create 5x5 initial grid jobs
+        std::vector<std::tuple<float, float>> grid_points;
+        
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                float theta = -self->state().sys_config.max_theta + 
+                             (2.0f * self->state().sys_config.max_theta * i) / 4.0f;
+                float xs = self->state().sys_config.xs_min + 
+                          (self->state().sys_config.xs_max - self->state().sys_config.xs_min) * j / 4.0f;
+                grid_points.emplace_back(theta, xs);
+            }
+        }
+        
+        // Create jobs for all 25 grid points
+        for (auto [theta, xs] : grid_points) {
+            auto key = std::make_tuple(gg, theta, xs);
+            
+            if (self->state().scheduled_jobs.find(key) == self->state().scheduled_jobs.end()) {
+                std::string base = "/globalhome/tus210/HPC/quenchin_actor/";
+                std::string waved = base + "waves/index_11";
+                std::string crit = base + "waves/index_10";
+                auto Ufile = waved + "/" + std::to_string(gg) + "/U";
+                auto Pfile = waved + "/" + std::to_string(gg) + "/p";
+                auto ufile = crit + "/" + std::to_string(gg) + "/U";
+                auto pfile = crit + "/" + std::to_string(gg) + "/p";
+                
+                job_t job{gg, theta, xs, 0, Ufile, Pfile, ufile, pfile};
+                
+                self->state().pending_jobs.push_back(job);
+                self->state().scheduled_jobs.insert(key);
+                
+                self->println("  Created initial grid job: gamma={}, theta={:.2f}, xs={:.2f}", 
+                             gg, theta, xs);
+            }
+        }
+        
+        // Create 4x4 = 16 boxes from the 5x5 grid
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                float theta_min = -self->state().sys_config.max_theta + 
+                                 (2.0f * self->state().sys_config.max_theta * i) / 4.0f;
+                float theta_max = -self->state().sys_config.max_theta + 
+                                 (2.0f * self->state().sys_config.max_theta * (i+1)) / 4.0f;
+                float xs_min = self->state().sys_config.xs_min + 
+                              (self->state().sys_config.xs_max - self->state().sys_config.xs_min) * j / 4.0f;
+                float xs_max = self->state().sys_config.xs_min + 
+                              (self->state().sys_config.xs_max - self->state().sys_config.xs_min) * (j+1) / 4.0f;
+                
+                refinement_box box{gg, theta_min, theta_max, xs_min, xs_max, 0, false, false};
+                self->state().current_level_boxes.push_back(box);
+                
+                self->println("  Created Level 0 box: gamma={}, theta=[{:.1f},{:.1f}], xs=[{:.1f},{:.1f}]", 
+                             gg, theta_min, theta_max, xs_min, xs_max);
+            }
+        }
+    }
+    
+    self->println("Initial grid: 25 jobs created, {} boxes at level 0", 
+                  self->state().current_level_boxes.size());
+}
+
+// Process jobs for boxes that need new corner points
+void process_current_level(stateful_actor<server_state>* self) {
+    self->println("=== Processing refinement level {} with {} boxes ===", 
+                  self->state().current_refinement_level,
+                  self->state().current_level_boxes.size());
+    
+    int jobs_created = 0;
+    
+    // For level > 0, we already have the boxes and only need to create jobs for missing corner points
+    if (self->state().current_refinement_level > 0) {
+        for (const auto& box : self->state().current_level_boxes) {
+            if (box.level == self->state().current_refinement_level) {
+                auto corner_points = box.get_corner_points();
+                
+                for (auto [theta, xs] : corner_points) {
+                    auto key = std::make_tuple(box.gg, theta, xs);
+                    
+                    // Only create job if not already computed or scheduled
+                    if (self->state().computed_uq.find(key) == self->state().computed_uq.end() &&
+                        self->state().scheduled_jobs.find(key) == self->state().scheduled_jobs.end()) {
+                        
+                        std::string base = "/globalhome/tus210/HPC/quenchin_actor/";
+                        std::string waved = base + "waves/index_11";
+                        std::string crit = base + "waves/index_10";
+                        auto Ufile = waved + "/" + std::to_string(box.gg) + "/U";
+                        auto Pfile = waved + "/" + std::to_string(box.gg) + "/p";
+                        auto ufile = crit + "/" + std::to_string(box.gg) + "/U";
+                        auto pfile = crit + "/" + std::to_string(box.gg) + "/p";
+                        
+                        job_t job{box.gg, theta, xs, 0, Ufile, Pfile, ufile, pfile};
+                        
+                        self->println("  Created job: gamma={}, theta={:.2f}, xs={:.2f} (level {})", 
+                                     box.gg, theta, xs, box.level);
+                        
+                        self->state().pending_jobs.push_back(job);
+                        self->state().scheduled_jobs.insert(key);
+                        jobs_created++;
+                    }
+                }
+            }
+        }
+    }
+    
+    self->println("Level {}: Created {} new jobs for corner points, total pending: {}", 
+                  self->state().current_refinement_level, jobs_created, self->state().pending_jobs.size());
+    
+    // Wake idle workers to start processing
+    wake_idle_workers(self);
+}
+
+// Check if current level is complete and advance to next level
+void check_level_completion_and_advance(stateful_actor<server_state>* self) {
+    // Don't process completion checks if termination has been initiated
+    if (self->state().termination_initiated) {
+        return;
+    }
+    
+    // Check if all corner points for current level boxes are computed
+    int corners_needed = 0, corners_completed = 0;
+    
+    for (const auto& box : self->state().current_level_boxes) {
+        if (box.level == self->state().current_refinement_level) {
+            auto corner_points = box.get_corner_points();
+            
+            for (auto [theta, xs] : corner_points) {
+                auto key = std::make_tuple(box.gg, theta, xs);
+                corners_needed++;
+                
+                if (self->state().computed_uq.count(key)) {
+                    corners_completed++;
+                }
+            }
+        }
+    }
+    
+    if (corners_completed < corners_needed) {
+        return; // Level not complete yet
+    }
+    
+    self->println("=== Level {} COMPLETE: {}/{} corner points computed ===", 
+                  self->state().current_refinement_level, corners_completed, corners_needed);
+    
+    // Start timing the complete refinement cycle for this level (boundary detection + box creation)
+    auto level_refinement_start = std::chrono::high_resolution_clock::now();
+    
+    // Detect boundaries and create next level boxes
+    std::vector<refinement_box> next_level_boxes;
+    int boxes_with_boundaries = 0;
+    int new_jobs_created = 0;
+    
+    for (const auto& box : self->state().current_level_boxes) {
+        if (box.level == self->state().current_refinement_level) {
+            
+            if (box_has_boundary(self, box) && 
+                box.level < self->state().max_refinement_level &&
+                !box.is_too_small(0.1f, 1.0f)) {
+                
+                // Subdivide this box and create jobs for new corner points
+                auto children = box.subdivide();
+                
+                for (const auto& child_box : children) {
+                    next_level_boxes.push_back(child_box);
+                    
+                    // Create jobs for any new corner points not already computed
+                    auto corner_points = child_box.get_corner_points();
+                    for (auto [theta, xs] : corner_points) {
+                        auto key = std::make_tuple(child_box.gg, theta, xs);
+                        
+                        if (self->state().computed_uq.find(key) == self->state().computed_uq.end() &&
+                            self->state().scheduled_jobs.find(key) == self->state().scheduled_jobs.end()) {
+                            
+                            std::string base = "/globalhome/tus210/HPC/quenchin_actor/";
+                            std::string waved = base + "waves/index_11";
+                            std::string crit = base + "waves/index_10";
+                            auto Ufile = waved + "/" + std::to_string(child_box.gg) + "/U";
+                            auto Pfile = waved + "/" + std::to_string(child_box.gg) + "/p";
+                            auto ufile = crit + "/" + std::to_string(child_box.gg) + "/U";
+                            auto pfile = crit + "/" + std::to_string(child_box.gg) + "/p";
+                            
+                            job_t job{child_box.gg, theta, xs, 0, Ufile, Pfile, ufile, pfile};
+                            
+                            self->state().pending_jobs.push_back(job);
+                            self->state().scheduled_jobs.insert(key);
+                            new_jobs_created++;
+                        }
+                    }
+                }
+                
+                boxes_with_boundaries++;
+                
+                self->println("Box subdivided: gamma={}, level {} -> {}, theta=[{:.2f},{:.2f}], xs=[{:.2f},{:.2f}]",
+                             box.gg, box.level, box.level + 1,
+                             box.theta_min, box.theta_max, box.xs_min, box.xs_max);
+            }
+        } else if (box.level > self->state().current_refinement_level) {
+            // Keep boxes from higher levels
+            next_level_boxes.push_back(box);
+        }
+    }
+    
+    // Measure refinement time for this level
+    auto level_refinement_end = std::chrono::high_resolution_clock::now();
+    auto level_duration = std::chrono::duration_cast<std::chrono::microseconds>(level_refinement_end - level_refinement_start);
+    double level_time_sec = level_duration.count() / 1e6;
+    
+    // Update timing statistics
+    self->state().total_refinement_time += level_time_sec;
+    self->state().refinement_time_measurements++;
+    self->state().level_refinement_times.push_back(level_time_sec);
+    
+    // Update current level
+    self->state().current_level_boxes = std::move(next_level_boxes);
+    self->state().current_refinement_level++;
+    
+    self->println("Level {}: {} boxes had boundaries, {} new boxes created, {} new corner jobs, refinement time: {:.6f}s",
+                  self->state().current_refinement_level - 1,
+                  boxes_with_boundaries,
+                  self->state().current_level_boxes.size(),
+                  new_jobs_created,
+                  level_time_sec);
+    
+    if (self->state().current_level_boxes.empty()) {
+        self->println("=== REFINEMENT COMPLETE - No more boundaries found ===");
+        
+        int total_computed = self->state().computed_uq.size();
+        int quenching_points = 0;
+        for (const auto& [key, uq] : self->state().computed_uq) {
+            if (uq < 0.0) quenching_points++;
+        }
+        
+        self->println("Final results: {} total points, {} quenching points ({:.1f}%)", 
+                     total_computed, quenching_points, 
+                     100.0 * quenching_points / total_computed);
+        
+        // Print refinement timing statistics
+        self->println("Refinement timing statistics:");
+        self->println("  Total refinement time: {:.6f}s ({} level operations)", 
+                     self->state().total_refinement_time, self->state().refinement_time_measurements);
+        
+        if (self->state().refinement_time_measurements > 0) {
+            double avg_refinement_time = self->state().total_refinement_time / self->state().refinement_time_measurements;
+            self->println("  Average refinement time per level: {:.6f}s", avg_refinement_time);
+        }
+        
+        // Print per-level timing breakdown
+        for (size_t i = 0; i < self->state().level_refinement_times.size(); ++i) {
+            self->println("  Level {} refinement time: {:.6f}s", i, self->state().level_refinement_times[i]);
+        }
+        
+        // Trigger system termination check
+        if (self->state().pending_jobs.empty() && self->state().active_jobs == 0) {
+            self->println("Refinement complete and no active jobs - system should terminate");
+        }
+        return;
+    }
+    
+    if (self->state().current_refinement_level > self->state().max_refinement_level) {
+        self->println("=== REFINEMENT COMPLETE - Maximum level reached ===");
+        
+        // Clear boxes to trigger termination
+        self->state().current_level_boxes.clear();
+        
+        if (self->state().pending_jobs.empty() && self->state().active_jobs == 0) {
+            self->println("Max level reached and no active jobs - system should terminate");
+        }
+        return;
+    }
+    
+    // Start processing new corner point jobs
+    wake_idle_workers(self);
 }
 
 behavior server(stateful_actor<server_state>* self,
@@ -1042,12 +1288,13 @@ behavior server(stateful_actor<server_state>* self,
   self->state().use_early_termination = enable_early_termination;
   self->state().start_time  = std::chrono::high_resolution_clock::now();
 
+  // Initialize system configuration with static parameters
+  self->state().sys_config = system_config::create_static_config(enable_bracket, enable_early_termination);
+  self->state().sys_config.finalize(); // Calculate derived parameters
+
   // Initialize computation configuration
   self->state().comp_config.enable_bracket_optimization = enable_bracket;
   self->state().comp_config.enable_early_termination = enable_early_termination;
-  
-  // Initialize bracket optimization components
-  self->state().bracket_config = bracket_optimizer::BracketConfig{};
 
   if (!self->system().middleman().publish(self, port)) {
     self->println("Failed to publish server on port {}", port);
@@ -1056,13 +1303,8 @@ behavior server(stateful_actor<server_state>* self,
   self->println("BASELINE Server up on port {}, bracket-enabled={}, early_termination={}", 
                 port, enable_bracket, enable_early_termination);
 
-  self->state().xs_step = (self->state().xs_max - self->state().xs_min) / (self->state().NDNS - 1);
-
   // Initialize spatial hash cell sizes based on coarse grid parameters
-  self->state().spatial_mgr.initialize_cell_sizes(self->state().theta_step, self->state().xs_step);
-
-  // OPTIMIZATION: Initialize grid lookup maps for O(1) index access
-  initialize_grid_lookups(self);
+  self->state().spatial_mgr.initialize_cell_sizes(self->state().sys_config.theta_step, self->state().sys_config.xs_step);
 
   const size_t estimated_jobs = 2000;
   self->state().job_graph.reserve(estimated_jobs);
@@ -1072,32 +1314,24 @@ behavior server(stateful_actor<server_state>* self,
   // Reserve spatial hash grid capacity (estimate ~100-200 cells)
   self->state().spatial_mgr.grid.reserve(200);
 
-  self->println("=== SYNCHRONIZED GG REFINEMENT: Initializing {} gg levels at global level {} ===", 
-                self->state().gg_levels.size(), self->state().global_refinement_level);
+  // Initialize box-based refinement system - TEST MODE: gamma=3 only, max 3 levels
+  self->state().sys_config.gg_levels = {3, 2, 1, 0}; // Override to test only gamma=3
+  self->println("=== BOX-BASED REFINEMENT TEST: gamma=3 only, {} workers ===", self->state().sys_config.actor_number);
+
+  // Set max refinement level to 8 for testing
+  self->state().max_refinement_level = 8;
   
-  for (int gg : self->state().gg_levels) {
-    self->state().gg_level_processing[gg] = false;
-    self->state().gg_completely_done[gg] = false;
-    
-    // Schedule coarse grid jobs for this gg
-    self->println("Scheduling coarse grid jobs for gg level {}...", gg);
-    schedule_gg_level_jobs(self, gg);
-    
-    // Job counters already initialized in schedule_gg_level_jobs
-    auto level_0_key = std::make_pair(gg, 0);
-    auto gg_coarse_jobs = self->state().gg_level_jobs_created[level_0_key];
-    
-    self->println("GG {} initialized: global level 0 with {} coarse jobs", gg, gg_coarse_jobs);
-  }
-
-  // Create complete coarse grid neighbor map for ALL scheduled jobs
-  create_all_coarse_grid_neighbors(self);
-
-  self->println("=== INITIALIZATION COMPLETE: {} total jobs from {} gg levels ===", 
-                self->state().pending_jobs.size(), self->state().gg_levels.size());
+  // Initialize 5x5 grid and create level 0 boxes
+  initialize_coarse_grid_and_boxes(self);
+  
+  // Level 0 jobs are already created, just wake workers
+  wake_idle_workers(self);
+  
+  self->println("=== BOX-BASED INITIALIZATION COMPLETE: {} pending jobs ===", 
+                self->state().pending_jobs.size());
 
   // Spawn workers and send them initial jobs
-  for (int i = 0; i < self->state().actor_number; ++i) {
+  for (int i = 0; i < self->state().sys_config.actor_number; ++i) {
     auto worker = self->spawn(worker_actor, self, self->state().use_early_termination);
     self->state().active_workers.insert(worker);
     
@@ -1105,11 +1339,10 @@ behavior server(stateful_actor<server_state>* self,
       job_t job = self->state().pending_jobs.front();
       self->state().pending_jobs.pop_front();
 
-      if (should_apply_bracket_update(self, job))
+      if (should_apply_bracket_update(self, job)) {
         initialize_job_bracket(self, job);
+      }
 
-      auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
-      self->state().job_graph[job_key].status = server_state::job_node::running;
       self->anon_send(worker, std::move(job));
       ++self->state().active_jobs;
     } else {
@@ -1119,7 +1352,7 @@ behavior server(stateful_actor<server_state>* self,
 
   return {
     [=](actor remote, int) {
-      anon_mail(self->state().actor_number).send(remote);
+      anon_mail(self->state().sys_config.actor_number).send(remote);
     },
 
     [=](actor worker) {
@@ -1129,11 +1362,9 @@ behavior server(stateful_actor<server_state>* self,
         job_t job = self->state().pending_jobs.front();
         self->state().pending_jobs.pop_front();
         
-        if (should_apply_bracket_update(self, job))
-          initialize_job_bracket(self, job);
-          
-        auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
-        self->state().job_graph[job_key].status = server_state::job_node::running;
+        // Bracket optimization happens at job creation time for new refinement jobs
+        // For existing jobs being reassigned, no additional optimization needed
+        
         self->anon_send(worker, std::move(job));
         ++self->state().active_jobs;
       } else {
@@ -1147,132 +1378,62 @@ behavior server(stateful_actor<server_state>* self,
       try {
         if (msg != "result") return;
 
+        // Store result in box-based system
         auto job_key = std::make_tuple(gg, theta, xs);
+        self->state().computed_uq[job_key] = uq;
+        
         --self->state().active_jobs;
         ++self->state().total_jobs_completed;
-        auto depth_it = self->state().refinement_depth.find(job_key);
-        int depth = (depth_it != self->state().refinement_depth.end()) ? depth_it->second : 0;
         
-        int tracking_level = self->state().global_refinement_level;
-        
-        auto level_key = std::make_pair(gg, tracking_level);
-        ++self->state().gg_level_jobs_completed[level_key];
-        
-        // self->println("*** JOB COMPLETED for gg={} global_level={}: {}/{} jobs done ***", 
-        //               gg, tracking_level, 
-        //               self->state().gg_level_jobs_completed[level_key], 
-        //               self->state().gg_level_jobs_created[level_key]);
-
-        // Update job_graph
-        self->state().job_graph[job_key].status = server_state::job_node::done;
-        self->state().job_graph[job_key].uq = uq;
-
-        // Update cache if uq < 0
-        if (uq < 0.0)
+        // Update cache if uq < 0 (for bracket optimization)
+        if (uq < 0.0) {
             self->state().uq_cache[{gg, theta}].emplace_back(xs, uq);
-
-        int neighbor_count = self->state().job_graph[job_key].neighbors.size();
-        
-        self->println("Job completed: gg={}, theta={}, xs={}, result={}, usmin={}, usmax={}, runtime={}s, depth={}, neighbors={}", 
-                      gg, theta, xs, uq, usmin, usmax, runtime_sec, depth, neighbor_count);
-
-        // === AUTOMATIC RESULT DEDUCTION ===
-        // COMMENTED OUT: Auto-deduction creates inconsistency with boundary detection
-        // Jobs that are deduced (not actually run) don't trigger boundary refinement
-        // This causes different refinement patterns - disabling to ensure fair comparison
-        /*
-        if (uq >= 0.0) {  // Job did not quench (result = 1.0)
-            for (auto it = self->state().pending_jobs.begin(); it != self->state().pending_jobs.end(); ) {
-                const job_t& pending_job = *it;
-                
-                // Same gg and theta, but smaller xs
-                if (pending_job.gg == gg && 
-                    std::abs(pending_job.theta - theta) < 1e-4f && 
-                    pending_job.xs < xs) {
-                    
-                    auto pending_key = std::make_tuple(pending_job.gg, pending_job.theta, pending_job.xs);
-                    
-                    // Mark as completed in job_graph
-                    self->state().job_graph[pending_key].status = server_state::job_node::done;
-                    self->state().job_graph[pending_key].uq = 1.0;  // Non-quenched result
-                    
-                    // Get depth and neighbor count for deduced job
-                    auto pending_depth_it = self->state().refinement_depth.find(pending_key);
-                    int pending_depth = (pending_depth_it != self->state().refinement_depth.end()) ? pending_depth_it->second : 0;
-                    int pending_neighbor_count = self->state().job_graph[pending_key].neighbors.size();
-                    
-                    // Print the result like a normal job completion
-                    self->println("Job completed: gg={}, theta={}, xs={}, result={}, usmin={}, usmax={}, runtime={}s, depth={}, neighbors={}", 
-                                  pending_job.gg, pending_job.theta, pending_job.xs, 1.0, usmin, usmax, 0.0, pending_depth, pending_neighbor_count);
-
-                    // Remove from scheduled jobs
-                    self->state().scheduled_jobs.erase(pending_key);
-                    
-                    // Increment completion counters
-                    ++self->state().total_jobs_completed;
-                    
-                    // Update the (gg, refinement_level) specific counters
-                    auto pending_level_key = std::make_pair(pending_job.gg, pending_depth);
-                    ++self->state().gg_level_jobs_completed[pending_level_key];
-                    
-                    // Remove from pending queue
-                    it = self->state().pending_jobs.erase(it);
-                } else {
-                    ++it;
-                }
-            }
         }
-        */
+        
+        self->println("Job completed: gg={}, theta={:.3f}, xs={:.3f}, uq={:.6f}, bracket=[{:.3f},{:.3f}], runtime={:.3f}s", 
+                      gg, theta, xs, uq, usmin, usmax, runtime_sec);
 
-        if (!self->state().pending_jobs.empty()) { 
+        // Assign next job to worker or make worker idle
+        if (!self->state().pending_jobs.empty()) {
             job_t job = self->state().pending_jobs.front();
             self->state().pending_jobs.pop_front();
             ++self->state().active_jobs;
             
-            // self->println("Queue: {}, Active: {}, Completed: {}/{}, Remaining: {}", 
-            //               self->state().pending_jobs.size(), 
-            //               self->state().active_jobs,
-            //               self->state().total_jobs_completed,
-            //               self->state().total_jobs_created,
-            //               self->state().total_jobs_created - self->state().total_jobs_completed);
-
-            if (should_apply_bracket_update(self, job))
+            // Apply bracket optimization for all eligible jobs
+            if (should_apply_bracket_update(self, job)) {
                 initialize_job_bracket(self, job);
-                
-            auto next_job_key = std::make_tuple(job.gg, job.theta, job.xs);
-            self->state().job_graph[next_job_key].status = server_state::job_node::running;
+            }
+            
             self->anon_send(worker, std::move(job));
         } else {
-            // No pending jobs available - worker becomes idle
+            // No pending jobs - worker becomes idle
             self->state().idle_workers.insert(worker);
-            
-            // DEBUG: Print when worker becomes idle and check if all workers are idle
-            int total_workers = self->state().active_workers.size() + self->state().idle_workers.size();
-            // self->println("Worker became idle. Idle workers: {}/{}, Pending jobs: {}", 
-            //               self->state().idle_workers.size(), total_workers, self->state().pending_jobs.size());
         }
-
-        // Check if any gg level can advance to next refinement level
-        check_gg_completion_and_refine(self);
         
-        if (self->state().idle_workers.size() == self->state().active_workers.size() + self->state().idle_workers.size() && 
-            self->state().pending_jobs.empty()) {
-                bool any_incomplete = false;
-                for (int gg : self->state().gg_levels) {
-                    if (!self->state().gg_completely_done[gg]) {
-                        any_incomplete = true;
-                        break;
-                    }
-                }
-                if (any_incomplete) {
-                    self->println("*** WARNING: All workers idle but some gg levels incomplete! ***");
-                    // Force a completion check to see if we can generate more jobs
-                    check_gg_completion_and_refine(self);
-                }
+        // Check if current refinement level is complete and advance if needed
+        check_level_completion_and_advance(self);
+        
+        // Simple termination check: no pending jobs AND no active jobs = done
+        if (!self->state().termination_initiated && 
+            self->state().pending_jobs.empty() && 
+            self->state().active_jobs == 0) {
+            
+            self->state().termination_initiated = true;
+            
+            self->println("=== TERMINATION: No pending jobs ({}) and no active jobs ({}) ===", 
+                         self->state().pending_jobs.size(), self->state().active_jobs);
+            
+            // Send quit to all workers
+            for (auto worker : self->state().active_workers) {
+                self->anon_send(worker, "quit");
+            }
+            for (auto worker : self->state().idle_workers) {
+                self->anon_send(worker, "quit");
+            }
+            
+            int total_workers = self->state().active_workers.size() + self->state().idle_workers.size();
+            self->println("Sent quit to {} workers. Waiting for confirmations...", total_workers);
         }
-
-        // Check completion and refinement for all gg levels
-        check_gg_completion_and_refine(self);
       
       } catch (const std::exception& e) {
         self->println("SERVER EXCEPTION in result handler: {}", e.what());
@@ -1286,13 +1447,54 @@ behavior server(stateful_actor<server_state>* self,
         self->state().active_workers.erase(worker);
         self->state().idle_workers.erase(worker);
         
+        self->println("Worker quit received. Remaining workers: {} active, {} idle",
+                     self->state().active_workers.size(), self->state().idle_workers.size());
+        
         // Check if all workers have quit
         if (self->state().active_workers.empty() && self->state().idle_workers.empty()) {
+          self->println("All workers have quit. Terminating server...");
           self->quit();
         }
       }
     }
   };
+}
+
+void cleanup_completed_level_neighbors(stateful_actor<server_state>* self, int completed_level) {
+  int cleaned_relationships = 0;
+  
+  // Collect all job keys from completed level to avoid iterator invalidation
+  std::vector<std::tuple<int, float, float>> completed_level_jobs;
+  for (auto& [job_key, job_node] : self->state().job_graph) {
+    if (self->state().refinement_depth[job_key] == completed_level) {
+      completed_level_jobs.push_back(job_key);
+    }
+  }
+  
+  // Clean up neighbor relationships for jobs from the completed level
+  for (auto job_key : completed_level_jobs) {
+    auto& job_node = self->state().job_graph[job_key];
+    
+    // Make a copy of neighbors to avoid iterator invalidation during erasure
+    auto neighbors_copy = job_node.neighbors;
+    
+    for (auto neighbor_key : neighbors_copy) {
+      int neighbor_depth = self->state().refinement_depth[neighbor_key];
+      
+      // Remove relationships between jobs at the same completed level
+      // (they have all been processed and won't need to check each other again)
+      if (neighbor_depth == completed_level) {
+        job_node.neighbors.erase(neighbor_key);
+        self->state().job_graph[neighbor_key].neighbors.erase(job_key);
+        cleaned_relationships++;
+      }
+    }
+  }
+  
+  if (cleaned_relationships > 0) {
+    // self->println("NEIGHBOR CLEANUP: Removed {} obsolete neighbor relationships from level {}", 
+    //              cleaned_relationships, completed_level);
+  }
 }
 
 // MAIN

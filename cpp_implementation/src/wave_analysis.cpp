@@ -24,8 +24,7 @@ double WaveAnalysis::compute_psi(const Vector& u, const Vector& u_rest) const {
         integrand(i) = std::abs(u(i) - u_rest(0));
     }
     
-    // Create GSL spline (cubic spline, k=5 in Julia corresponds to high-order spline)
-    // GSL doesn't have exact 5th order, so we use cubic which is robust
+    // Create GSL spline (we use cubic which is robust) 
     gsl_spline* spline = gsl_spline_alloc(gsl_interp_cspline, u.size());
     gsl_interp_accel* acc = gsl_interp_accel_alloc();
     

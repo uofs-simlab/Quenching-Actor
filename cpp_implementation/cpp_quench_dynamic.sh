@@ -2,11 +2,11 @@
 #SBATCH --job-name=quenching_cpp_actor
 #SBATCH --account=hpc_p_spiteri
 #SBATCH --nodes=2
-#SBATCH --time=10-00:00:00
-#SBATCH --mem=50G
+#SBATCH --time=15-00:00:00
+#SBATCH --mem=150G
 #SBATCH --cpus-per-task=32
 #SBATCH --constraint=cascade
-#SBATCH --output=quench_cpp_actor_dynamic_early-%j.out
+#SBATCH --output=quench_new_actor_dynamic_test-%j.out
 
 module --force purge
 module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3
@@ -36,13 +36,13 @@ echo "Client node(s): ${client_nodes[@]}"
 ##############################################################################
 
 echo "Starting C++ CAF actor server on $server_node"
-srun --nodes=1 --ntasks=1 --nodelist="${server_node}" ./actor_cpp_bisection -s -p 31444 --enable-early-termination --caf.scheduler.max-threads=32 &
+srun --nodes=1 --ntasks=1 --nodelist="${server_node}" ./actor_cpp_bisection -s -p 36494 --enable-early-termination --enable-bracket --caf.scheduler.max-threads=32 &
 
 sleep 5  # Give server time to start
 
 for client in "${client_nodes[@]}"; do
   echo "Starting client on $client"
-  srun --nodes=1 --ntasks=1 --nodelist="$client" ./actor_cpp_bisection -p 31444 -H "$server_node" --enable-early-termination --caf.scheduler.max-threads=32 &
+  srun --nodes=1 --ntasks=1 --nodelist="$client" ./actor_cpp_bisection -p 36494 -H "$server_node"  --enable-early-termination --enable-bracket --caf.scheduler.max-threads=32 &
 done
 
 wait

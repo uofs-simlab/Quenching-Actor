@@ -24,7 +24,7 @@ struct EarlyTerminationData {
     double rest_threshold;
     double recovery_psi_tolerance;
     double recovery_deriv_threshold;
-    double recovery_accel_threshold;  // Added: second derivative threshold
+    double recovery_accel_threshold;  
     double min_time_fraction;
     double min_time;
     double fast_psi;
@@ -57,9 +57,6 @@ FitzHughNagumoSolver::FitzHughNagumoSolver() {
 }
 
 void FitzHughNagumoSolver::fhn_local(double* dx, const double* x, const Vector& p) {
-    // dx[1] = x[1] * (1 - x[1]) * (x[1] - p[2]) - x[2]
-    // dx[2] = p[3] * (p[1] * x[1] - x[2])
-    
     dx[0] = x[0] * (1.0 - x[0]) * (x[0] - p(1)) - x[1];  
     dx[1] = p(2) * (p(0) * x[0] - x[1]);
 }
@@ -69,8 +66,6 @@ int FitzHughNagumoSolver::fhn_pde_rhs(double t, N_Vector y, N_Vector ydot, void*
     UserData* data;
     CombinedUserData* combined_data = static_cast<CombinedUserData*>(user_data);
     
-    // Try to determine if this is CombinedUserData by checking if early_term_data is valid
-    // For safety, we'll assume it's always CombinedUserData now
     data = &(combined_data->solver_data);
     
     double* y_data = N_VGetArrayPointer(y);
@@ -94,7 +89,7 @@ int FitzHughNagumoSolver::fhn_pde_rhs(double t, N_Vector y, N_Vector ydot, void*
     }
     
     // Add diffusion term: mul!(du, \Delta, x[1, :], 1.0, 1.0)
-    // This means: du += \Delta * u (where u is the first component)
+    // This means: du += \Delta * u 
     Vector u_vec(N);
     for (int i = 0; i < N; ++i) {
         u_vec(i) = y_data[i];
@@ -152,7 +147,7 @@ double FitzHughNagumoSolver::F(const std::vector<double>& q, const States& state
         throw std::runtime_error("SUNContext_Create failed");
     }
     
-    // Flatten initial condition for SUNDIALS (u components first, then v components)
+    // Flatten initial condition for SUNDIALS
     int N = FHN::N;
     N_Vector y0 = N_VNew_Serial(2 * N, sunctx);
     double* y0_data = N_VGetArrayPointer(y0);
@@ -253,7 +248,7 @@ double FitzHughNagumoSolver::F(const std::vector<double>& q, const States& state
     // Create matrix and linear solver 
     SUNLinearSolver LS = SUNLinSol_SPGMR(y0, PREC_NONE, 0, sunctx);
     
-    // Attach linear solver (no matrix needed for SPGMR)
+    // Attach linear solver
     flag = CVodeSetLinearSolver(cvode_mem, LS, NULL);
     if (flag != CV_SUCCESS) {
         SUNLinSolFree(LS);
@@ -354,7 +349,7 @@ int early_termination_root(double t, N_Vector y, double* gout, void* user_data) 
     
     // QUENCHING DETECTION: Simple and fast
     if (max_u_deviation < et_data->rest_threshold) {
-        gout[0] = -1.0;  // Trigger event (quenching detected)
+        gout[0] = -1.0;  // Trigger event 
         return 0;
     }
     

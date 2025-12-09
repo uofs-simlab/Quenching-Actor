@@ -1,1057 +1,750 @@
-#include <cmath>
-#include <chrono>
-#include <cstdint>
-#include <exception>
-#include <filesystem>
-#include <fstream>
-#include <functional>
-#include <iostream>
-#include <iterator>
-#include <map>
-#include <memory>
-#include <new>
-#include <numeric>
-#include <optional>
-#include <queue>
-#include <ratio>
-#include <regex>
-#include <set>
-#include <stdexcept>
-#include <string>
-#include <thread>
-#include <tuple>
-#include <type_traits>
-#include <unordered_map>
-#include <unordered_set>
-#include <utility>
-#include <variant>
-#include <vector>
-
-#include <caf/io/all.hpp>
-
 #include "config.h"
-#include "tuple_hash.h"  // Hash specializations for tuples
+#include "system_config.h"
+#include "tuple_hash.h" // Hash specializations for tuples
 #include "job_structures.h"
 #include "bracket_optimizer.h"
-#include "dynamic_neighbor_provider.h"
+#include "box_neighbor_provider.h"
 #include "fitzhugh_nagumo.h"
 #include "bisection_solver.h"
 #include "wave_loader.h"
+#include <chrono>
+#include <deque>
+#include <fstream>
+#include <iomanip>
+#include <random>
+#include <cmath>
+#include <limits>
+#include <sstream>
+#include <unordered_map>
+#include <unordered_set>
 
-using namespace caf;
-using namespace std::chrono_literals;
+//JOB & CACHE TYPES - Using common structures
 
-struct worker_state {
-  // No need for complex initialization - sweep_main handles everything
-};
-
-struct remote_state {
-  actor manager;
-  bool use_early_termination;
-};
-
-behavior worker_actor(stateful_actor<worker_state>* self, actor manager, bool enable_early_termination);
-behavior remote(stateful_actor<remote_state>* self, const std::string& hostname, uint16_t port, bool enable_early_termination);
-
-// Use types from job_structures.h
-
-// CAF serialization for job_t
+// CAF serialization support for job_t
 template <class Inspector>
 bool inspect(Inspector& f, job_t& x) {
-  return f.object(x).fields(f.field("gg", x.gg),
-                           f.field("theta", x.theta),
-                           f.field("xs", x.xs),
-                           f.field("n", x.n),
-                           f.field("Ufile", x.Ufile),
-                           f.field("Pfile", x.Pfile),
-                           f.field("ufile", x.ufile),
-                           f.field("pfile", x.pfile));
+    return f.object(x).fields(
+        f.field("gg", x.gg),
+        f.field("theta", x.theta),
+        f.field("xs", x.xs),
+        f.field("n", x.n),
+        f.field("Ufile", x.Ufile),
+        f.field("Pfile", x.Pfile),
+        f.field("ufile", x.ufile),
+        f.field("pfile", x.pfile)
+    );
 }
 
 CAF_BEGIN_TYPE_ID_BLOCK(my_project, caf::first_custom_type_id)
-CAF_ADD_TYPE_ID(my_project, (job_t))
+    CAF_ADD_TYPE_ID(my_project, (job_t))
 CAF_END_TYPE_ID_BLOCK(my_project)
 
-// --- SERVER STATE ---
+/*
+==================================================================================================================
+WORKER
+====================================================================================================================
+*/
 
-struct server_state {
-
-  // Use job_node from dynamic_neighbor_provider.h
-  using job_node = bracket_optimizer::job_node;
-
-  std::unordered_map<std::tuple<int, float, float>, job_node> job_graph;
-
-  std::deque<job_t> pending_jobs;
-  bracket_optimizer::uq_cache_t uq_cache;
-  std::unordered_set<std::tuple<int, float, float>> scheduled_jobs;
-  std::unordered_map<std::tuple<int, float, float>, int> refinement_depth;
-  
-  struct spatial_hash_manager {
-    float theta_cell_size = 2.0f;  // Will be set based on coarse grid parameters
-    float xs_cell_size = 10.0f;    // Will be set based on coarse grid parameters
-    
-    void initialize_cell_sizes(float theta_step, float xs_step) {
-        theta_cell_size = theta_step / 5.0f;  
-        xs_cell_size = xs_step / 3.5f;       
-        
-        // Ensure minimum reasonable cell sizes
-        theta_cell_size = std::max(theta_cell_size, 0.5f);   // At least 0.5 degrees
-        xs_cell_size = std::max(xs_cell_size, 2.0f);         // At least 2.0 xs units
-    }
-    
-    // OPTIMIZATION: Use unordered_set instead of vector for O(1) removal
-    std::unordered_map<std::tuple<int, int, int>, std::unordered_set<std::tuple<int, float, float>>> grid;
-    
-    std::tuple<int, int, int> get_cell_key(int gg, float theta, float xs) {
-        int theta_cell = static_cast<int>(std::floor(theta / theta_cell_size));
-        int xs_cell = static_cast<int>(std::floor(xs / xs_cell_size));
-        return std::make_tuple(gg, theta_cell, xs_cell);
-    }
-    
-    void add_job(const std::tuple<int, float, float>& job_key) {
-        auto [gg, theta, xs] = job_key;
-        auto cell_key = get_cell_key(gg, theta, xs);
-        grid[cell_key].insert(job_key);  // O(1) insertion
-    }
-    
-    void remove_job(const std::tuple<int, float, float>& job_key) {
-        auto [gg, theta, xs] = job_key;
-        auto cell_key = get_cell_key(gg, theta, xs);
-        auto& cell_jobs = grid[cell_key];
-        cell_jobs.erase(job_key);  // O(1) removal instead of O(n) erase-remove
-        if (cell_jobs.empty()) {
-            grid.erase(cell_key);
-        }
-    }
-    
-    std::vector<std::tuple<int, float, float>> find_neighbors(
-        const std::tuple<int, float, float>& job_key, 
-        float radius_theta, float radius_xs) {
-        
-        auto [gg, theta, xs] = job_key;
-        std::vector<std::tuple<int, float, float>> neighbors;
-        
-        int cell_radius_theta = static_cast<int>(std::ceil(radius_theta / theta_cell_size)) + 1;
-        int cell_radius_xs = static_cast<int>(std::ceil(radius_xs / xs_cell_size)) + 1;
-        
-        auto [center_gg, center_theta_cell, center_xs_cell] = get_cell_key(gg, theta, xs);
-        
-        for (int dt = -cell_radius_theta; dt <= cell_radius_theta; ++dt) {
-            for (int dx = -cell_radius_xs; dx <= cell_radius_xs; ++dx) {
-                auto check_cell = std::make_tuple(gg, center_theta_cell + dt, center_xs_cell + dx);
-                
-                auto it = grid.find(check_cell);
-                if (it != grid.end()) {
-                    for (auto candidate : it->second) {
-                        if (candidate == job_key) continue; // skip self
-                        
-                        auto [cand_gg, cand_theta, cand_xs] = candidate;
-                        
-                        // Only consider jobs with the same gg value
-                        if (cand_gg != gg) continue;
-                        
-                        // Calculate distances in both dimensions
-                        float d_theta = std::abs(cand_theta - theta);
-                        float d_xs = std::abs(cand_xs - xs);
-                        
-                        // Use rectangular radius check (suitable for grid-based refinement)
-                        // This naturally creates 8-directional connectivity
-                        if (d_theta <= radius_theta && d_xs <= radius_xs) {
-                            neighbors.push_back(candidate);
-                        }
-                    }
-                }
-            }
-        }
-        
-        return neighbors;
-    }
-    size_t total_jobs() const {
-        size_t total = 0;
-        for (const auto& [cell, jobs] : grid) {
-            total += jobs.size();
-        }
-        return total;
-    }
-  } spatial_mgr;
-
-  bool use_bracket;
-  bool use_early_termination;
-  int  actor_number = 31;
-  int  active_jobs = 0;
-
-  // Computation configuration
-  computation_config comp_config;
-  
-  // Bracket optimization components
-  std::shared_ptr<bracket_optimizer::DynamicNeighborProvider> neighbor_provider;
-  bracket_optimizer::BracketConfig bracket_config;
-
-  // Coarse grid parameters (for adaptive refinement)
-  // Based on Chris's recommendations: L = 2700, theta ∈ [-L/2, L/2], xs ∈ [2h, L]
-  float L = 2700.0f;  // System length parameter (same as FHN::Lglob)
-  float h = L / (8192.0f);      // Grid spacing: h = Lglob/(N-1) where N = 1 + 2^13 = 8193
-  float theta_step = L/4.0f;    // ~675 degrees per step (5 points total)
-  float xs_step = L/4.0f;       // ~675 xs units per step
-  float max_theta = L/2.0f;     // Will be 1350.0 (range: [-1350, 1350])
-  float xs_min = 2*h;           // Start from 2h ≈ 0.66 
-  float xs_max = L;             // Will be 2700.0
-  int NDNS = 5;                 // Reduced from 10 to 5 for much coarser initial grid 
-
-  // Pre-computed grid index lookups to avoid O(n) std::find_if operations
-  std::unordered_map<float, int> theta_to_index;  // theta value -> grid index
-  std::unordered_map<float, int> xs_to_index;     // xs value -> grid index
-  std::vector<float> coarse_theta_values;         // Cached for reuse
-  std::vector<float> coarse_xs_values;            // Cached for reuse
-
-  // Worker tracking
-  std::unordered_set<actor> active_workers;
-  std::unordered_set<actor> idle_workers;
-  
-  // Job completion tracking
-  int total_jobs_created = 0;
-  int total_jobs_completed = 0;
-
-  // Refinement timing tracking
-  int total_refinement_jobs_created = 0;
-  double total_refinement_time_ms = 0.0;  // Only job creation overhead
-  int refinement_operations = 0;
-  
-  // Comprehensive refinement timing for dynamic approach
-  std::chrono::high_resolution_clock::time_point first_refinement_start_time;
-  bool refinement_timing_started = false;
-  int initial_coarse_jobs = 0;
-  int refinement_jobs_completed = 0;
-
-  std::chrono::high_resolution_clock::time_point start_time;
+struct worker_state {
+    actor manager_actor;
+    bool use_early_termination;
 };
 
-// --- WORKER BEHAVIOR ---
+behavior worker_actor(stateful_actor<worker_state>* self, actor manager, bool use_early_termination) {
+    self->state().manager_actor = manager;
+    self->state().use_early_termination = use_early_termination;
+    
+    return {
+        [=](job_t job) {
+            try {
+                auto start_time = std::chrono::high_resolution_clock::now();
+                double usmin = -1000.0 / std::pow(2.0, job.n);
+                double usmax = 0.0;
+                double result = 0.0;
+                
+                try {
+                    // Use C++ solver sweep_main function instead of Julia
+                    result = sweep_main(
+                        job.Ufile,  // fast_U_file
+                        job.Pfile,  // fast_P_file
+                        job.ufile,  // slow_U_file
+                        job.pfile,  // slow_P_file
+                        job.n,
+                        usmax,
+                        static_cast<double>(job.gg),
+                        static_cast<double>(job.xs),
+                        static_cast<double>(job.theta),
+                        false,  // verbose = false
+                        self->state().use_early_termination  // use early termination flag
+                    );
+                } catch (const std::exception& e) {
+                    self->println("WORKER ERROR: C++ solver exception: {}", e.what());
+                    result = 1.0;
+                } catch (...) {
+                    self->println("WORKER ERROR: Unknown C++ solver exception");
+                    result = 1.0;
+                }
+                
+                auto end_time = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+                double runtime_sec = duration.count() / 1000.0;
+                
+                anon_mail("result", job.gg, job.theta, job.xs, result, usmin, usmax, runtime_sec, self)
+                    .send(self->state().manager_actor);
+                    
+            } catch (const std::exception& e) {
+                self->println("WORKER EXCEPTION: {}", e.what());
+            } catch (...) {
+                self->println("WORKER UNKNOWN EXCEPTION");
+            }
+        },
+        [=](const std::string& msg) {
+            if (msg == "quit") {
+                anon_mail("quit", self).send(self->state().manager_actor);
+                self->quit();
+            }
+        }
+    };
+}
 
-behavior worker_actor(stateful_actor<worker_state>* self, actor manager, bool enable_early_termination) {
-  return {
-    [=](const exit_msg& msg) {
-      if (msg.reason != exit_reason::kill) {
-        // self->println("Worker {} received shutdown signal, exiting...", self->id());
-      }
-    },
-    [=](job_t job) {
-      auto start_time = std::chrono::high_resolution_clock::now();
-      
-      try {
-        double usmin = -1000.0 / std::pow(2.0, job.n);
-        double usmax = 0.0;
-        
-        // Use the sweep_main function which handles everything internally
-        double result = sweep_main(
-          job.Ufile,    // fast_U_file
-          job.Pfile,    // fast_P_file  
-          job.ufile,    // slow_U_file
-          job.pfile,    // slow_P_file
-          job.n,        
-          usmax,        
-          static_cast<double>(job.gg), 
-          static_cast<double>(job.xs), 
-          static_cast<double>(job.theta), 
-          false,        // verbose = false
-          enable_early_termination  // early termination flag
+/*
+==================================================================================================================
+CLIENT
+====================================================================================================================
+*/
+
+struct remote_state {
+    actor manager;
+    bool use_early_termination;
+};
+
+behavior remote(stateful_actor<remote_state>* self, const std::string& hostname, uint16_t port, bool enable_early_termination) {
+    auto server_actor = self->system().middleman().remote_actor(hostname, port);
+    if (!server_actor) {
+        self->println("Failed to connect to remote actor at {}:{}", hostname, port);
+        self->quit();
+        return {};
+    }
+    
+    self->println("Connected to remote actor at {}:{}", hostname, port);
+    self->state().manager = *server_actor;
+    self->state().use_early_termination = enable_early_termination;
+    
+    // initial handshake: send (self, 0)
+    anon_mail(self, 0).send(self->state().manager);
+    
+    return {
+        [=](int actor_number) {
+            for (int i = 0; i < actor_number + 1; ++i) {
+                auto worker = self->spawn(worker_actor, self->state().manager, self->state().use_early_termination);
+                anon_mail(worker).send(self->state().manager);
+            }
+            self->quit();
+        }
+    };
+}
+
+/*
+==================================================================================================================
+SERVER
+====================================================================================================================
+*/
+
+// Dynamic box structure for immediate refinement checking
+struct dynamic_refinement_box {
+    int gg;
+    float theta_min, theta_max;
+    float xs_min, xs_max;
+    int level;
+    bool refinement_checked = false;   // Has this box been checked for refinement?
+    bool refinement_complete = false;  // Has this box completed its refinement?
+    
+    // Get the 4 corner points of this box
+    std::vector<std::tuple<float, float>> get_corner_points() const {
+        return {
+            {theta_min, xs_min}, // Bottom-left
+            {theta_max, xs_min}, // Bottom-right
+            {theta_min, xs_max}, // Top-left
+            {theta_max, xs_max}  // Top-right
+        };
+    }
+    
+    // Subdivide box into 4 children
+    std::vector<dynamic_refinement_box> subdivide() const {
+        float theta_mid = (theta_min + theta_max) / 2.0f;
+        float xs_mid = (xs_min + xs_max) / 2.0f;
+        return {
+            {gg, theta_min, theta_mid, xs_min, xs_mid, level + 1, false, false},
+            {gg, theta_mid, theta_max, xs_min, xs_mid, level + 1, false, false},
+            {gg, theta_min, theta_mid, xs_mid, xs_max, level + 1, false, false},
+            {gg, theta_mid, theta_max, xs_mid, xs_max, level + 1, false, false}
+        };
+    }
+    
+    // Check if box is small enough (for termination criteria)
+    bool is_too_small(float min_theta_size, float min_xs_size) const {
+        return (theta_max - theta_min) < min_theta_size || 
+               (xs_max - xs_min) < min_xs_size;
+    }
+    
+    // Check if point is inside this box
+    bool contains_point(float theta, float xs) const {
+        return theta >= theta_min && theta <= theta_max && 
+               xs >= xs_min && xs <= xs_max;
+    }
+    
+    // Get a unique box ID for hashing/identification
+    std::string get_box_id() const {
+        std::ostringstream oss;
+        oss << "gg" << gg << "_level" << level << "_theta" << std::fixed << std::setprecision(3) 
+            << theta_min << "to" << theta_max << "_xs" << xs_min << "to" << xs_max;
+        return oss.str();
+    }
+};
+
+struct server_state {
+    enum job_status_t { pending, running, done };
+    
+    // Job tracking: (gg, theta, xs) -> (status, uq_result)
+    std::unordered_map<std::tuple<int, float, float>, std::pair<job_status_t, double>> job_results;
+    
+    // Dynamic box management: box_id -> box
+    std::unordered_map<std::string, dynamic_refinement_box> active_boxes;
+    
+    // Point-to-box mapping for fast lookup: (gg, theta, xs) -> set of box_ids
+    std::unordered_map<std::tuple<int, float, float>, std::unordered_set<std::string>> point_to_box_map;
+    
+    std::deque<job_t> pending_jobs;
+    bracket_optimizer::uq_cache_t uq_cache;
+    std::unordered_set<std::tuple<int, float, float>> scheduled_jobs;
+    
+    bool use_bracket;
+    bool use_early_termination;
+    int active_jobs = 0;
+    
+    // Termination control
+    bool termination_initiated = false;
+    
+    computation_config comp_config;
+    system_config sys_config;
+    
+    // Worker tracking
+    std::unordered_set<actor> active_workers;
+    std::unordered_set<actor> idle_workers;
+    
+    int total_jobs_created = 0;
+    int total_jobs_completed = 0;
+    int max_refinement_level = 8;  // Maximum refinement depth
+    int boxes_refined = 0;         // Number of boxes that underwent refinement
+    int refinement_operations = 0; // Number of individual refinement operations
+    std::chrono::high_resolution_clock::time_point start_time;
+};
+
+void initialize_job_bracket(stateful_actor<server_state>* self, job_t& job) {
+    if (self->state().use_bracket) {
+        // Create neighbor provider for spatial optimization
+        auto neighbor_provider = std::make_shared<bracket_optimizer::BoxNeighborProvider>(
+            reinterpret_cast<const std::unordered_map<std::tuple<int, float, float>, std::pair<int, double>>*>(&self->state().job_results),
+            &self->state().point_to_box_map,
+            reinterpret_cast<const std::unordered_map<std::string, void*>*>(&self->state().active_boxes),
+            0.3f,  // theta tolerance - points within 0.3 units are neighbors
+            1.5f   // xs tolerance - points within 1.5 units are neighbors
         );
         
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-        double runtime_sec = duration.count() / 1000.0;
-        
-        // Send result back to server
-        self->mail("result", job.gg, job.theta, job.xs, result, 
-                  usmin, usmax, runtime_sec, self).send(manager);
-                  
-      } catch (const std::exception& e) {
-        self->println("Worker {} exception: {}", self->id(), e.what());
-        
-        // Send error result back
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-        double runtime_sec = duration.count() / 1000.0;
-        
-        self->mail("result", job.gg, job.theta, job.xs, 1.0, 
-                  -1000.0, 0.0, runtime_sec, self).send(manager);
-      }
-    },
-
-    [=](const std::string& msg) {
-      if (msg == "quit") {
-        // self->println("Worker {} shutting down...", self->id());
-        self->mail("quit", self).send(manager);
-        self->quit();
-      }
+        bracket_optimizer::initialize_bracket_from_cache(
+            job,
+            self->state().uq_cache,
+            neighbor_provider, 
+            self->state().sys_config.bracket_config
+        );
     }
-  };
 }
 
-// --- SERVER BEHAVIOR ---
-
-void initialize_grid_lookups(stateful_actor<server_state>* self) {
-  self->state().theta_to_index.clear();
-  self->state().xs_to_index.clear();
-  self->state().coarse_theta_values.clear();
-  self->state().coarse_xs_values.clear();
-  
-  float theta_step = self->state().theta_step;
-  float xs_step = self->state().xs_step;
-  float max_theta = self->state().max_theta;
-  float xs_min = self->state().xs_min;
-  int NDNS = self->state().NDNS;
-  
-  // Build theta lookups
-  int theta_idx = 0;
-  for (float theta = -max_theta; theta <= max_theta; theta += theta_step) {
-    self->state().coarse_theta_values.push_back(theta);
-    self->state().theta_to_index[theta] = theta_idx++;
-  }
-  
-  // Build xs lookups
-  for (int i = 0; i < NDNS; ++i) {
-    float xs = xs_min + i * xs_step;
-    self->state().coarse_xs_values.push_back(xs);
-    self->state().xs_to_index[xs] = i;
-  }
-}
-
-// Function to get grid index with O(1) lookup instead of O(n) std::find_if
-int get_theta_index(stateful_actor<server_state>* self, float theta) {
-  // Find closest theta value in coarse grid
-  for (const auto& [grid_theta, index] : self->state().theta_to_index) {
-    if (std::abs(grid_theta - theta) < 0.1f) {
-      return index;
-    }
-  }
-  return -1; 
-}
-
-int get_xs_index(stateful_actor<server_state>* self, float xs) {
-  // Find closest xs value in coarse grid  
-  for (const auto& [grid_xs, index] : self->state().xs_to_index) {
-    if (std::abs(grid_xs - xs) < 1.0f) {
-      return index;
-    }
-  }
-  return -1; 
-}
-
-// Function to create neighbors for coarse grid jobs only
-void create_coarse_grid_neighbors(stateful_actor<server_state>* self, 
-                                 const std::tuple<int, float, float>& job_key) {
-  
-  auto [gg, thetaC, xsC] = job_key;
-  
-  // Get grid indices with O(1) lookup instead of O(n) std::find_if
-  int theta_idx = get_theta_index(self, thetaC);
-  int xs_idx = get_xs_index(self, xsC);
-  
-  if (theta_idx == -1 || xs_idx == -1) {
-    return; 
-  }
-
-
-  for (auto& [keyE, nodeE] : self->state().job_graph) {
-      if (keyE == job_key) continue; // skip self
-      if (std::get<0>(keyE) != gg) continue; // only same gg
-      
-      if (self->state().refinement_depth[keyE] != 0) continue;
-
-      auto [_, thetaE, xsE] = keyE;
-
-      int theta_idx_E = get_theta_index(self, thetaE);
-      int xs_idx_E = get_xs_index(self, xsE);
-      
-      if (theta_idx_E == -1 || xs_idx_E == -1) {
-        continue;
-      }
-      
-      // EXPLICIT 8-NEIGHBOR CONNECTIVITY (includes all diagonals)
-      // Calculate grid distance for both dimensions
-      int delta_theta = std::abs(theta_idx - theta_idx_E);
-      int delta_xs = std::abs(xs_idx - xs_idx_E);
-      
-      // Connect to all 8 surrounding neighbors:
-      bool is_horizontal = (delta_theta == 1 && delta_xs == 0);
-      bool is_vertical = (delta_theta == 0 && delta_xs == 1);
-      bool is_diagonal = (delta_theta == 1 && delta_xs == 1);
-      
-      if (is_horizontal || is_vertical || is_diagonal) {
-          // Add bidirectional connection
-          self->state().job_graph[job_key].neighbors.insert(keyE);
-          self->state().job_graph[keyE].neighbors.insert(job_key);
-      }
-  }
-}
-
-void schedule_job(stateful_actor<server_state>* self, job_t new_job, bool is_refinement = false) {
-  auto key = std::make_tuple(new_job.gg, new_job.theta, new_job.xs);
-
-  self->state().job_graph[key] = server_state::job_node{new_job, server_state::job_node::pending, 0.0, {}};
-  
-  self->state().total_jobs_created++;
-
-  self->state().spatial_mgr.add_job(key);
-
-  if (self->state().refinement_depth.find(key) == self->state().refinement_depth.end()) {
-      self->state().refinement_depth[key] = 0; 
-  }
-
-  // Add to pending_jobs + scheduled_jobs (ready for workers + prevents duplicates)
-  if (is_refinement) {
-    self->state().pending_jobs.push_back(new_job);
-  } else {
-    self->state().pending_jobs.push_back(new_job);
-  }
-  self->state().scheduled_jobs.insert(key);
-}
-
-
-// Use the bracket optimizer from the separate module
-void initialize_job_bracket(stateful_actor<server_state>* self, job_t& job) {
-  if (self->state().use_bracket) {
-    bracket_optimizer::initialize_bracket_from_cache(
-      job,
-      self->state().uq_cache,
-      self->state().neighbor_provider,
-      self->state().bracket_config
-    );
-  }
-}
-
-bool is_quenching_boundary(stateful_actor<server_state>* self,
-                           const std::tuple<int, float, float>& job_key,
-                           const std::tuple<int, float, float>& neighbor_key) {
-  
-  auto& job_node = self->state().job_graph[job_key];
-  auto& neighbor_node = self->state().job_graph[neighbor_key];
-  
-  double uq1 = job_node.uq;
-  double uq2 = neighbor_node.uq;
-  
-  bool job_quenches = (uq1 < 0.0);
-  bool neighbor_quenches = (uq2 < 0.0);
-  bool is_boundary = false;
-  
-  if (job_quenches != neighbor_quenches) {
-    is_boundary = true;
-  }
-  
-  // For both quenching: look for significant magnitude differences
-  if (!is_boundary && job_quenches && neighbor_quenches) {
-    int gg = std::get<0>(job_key); 
-    double threshold = 1.0;  // Default threshold
+// Helper function to determine if bracket updates should be applied
+bool should_apply_bracket_update(stateful_actor<server_state>* self, const job_t& job) {
+    if (!self->state().use_bracket) return false;
     
-    // Set gg-dependent thresholds based on observed uq ranges
-    if (gg == 0) {
-      threshold = 0.1;  
-    } else if (gg == 1) {
-      threshold = 0.2;  
-    } else if (gg == 2) {
-      threshold = 0.4;   
-    } else if (gg == 3) {
-      threshold = 1.0;  
+    // For dynamic version, we can apply bracket updates more liberally
+    // since we're not dealing with synchronized levels
+    return true;
+}
+
+void wake_idle_workers(stateful_actor<server_state>* self);
+
+// Create a new job for the given parameters
+void create_job(stateful_actor<server_state>* self, int gg, float theta, float xs) {
+    auto key = std::make_tuple(gg, theta, xs);
+    
+    // Check if job already exists
+    if (self->state().job_results.find(key) != self->state().job_results.end() || 
+        self->state().scheduled_jobs.count(key)) {
+        return; // Job already exists
     }
     
-    if (std::abs(uq1 - uq2) > threshold) {
-      is_boundary = true;
-    }
-  }
-
-  // Remove this neighbor pair from both jobs' neighbor lists
-  // since we've now processed them and won't need to check again
-  // If boundary found: the refinement job created between them will serve as the bridge
-  // If no boundary: no need to check this pair again
-  self->state().job_graph[job_key].neighbors.erase(neighbor_key);
-  self->state().job_graph[neighbor_key].neighbors.erase(job_key);
-  
-  return is_boundary;
-}
-
-// Helper function to get the maximum refinement depth
-int get_max_refinement_depth() {
-  return 5; 
-}
-
-void trigger_boundary_refinement(stateful_actor<server_state>* self,
-                                const std::tuple<int, float, float>& job_key,
-                                const std::tuple<int, float, float>& neighbor_key) {
-  // Start timing this refinement operation
-  auto refinement_start_time = std::chrono::high_resolution_clock::now();
-  
-  static const int max_depth = get_max_refinement_depth(); // Use centralized max depth
-  auto [gg1, theta1, xs1] = job_key;
-  auto [gg2, theta2, xs2] = neighbor_key;
-
-  // Only refine within the same gg value
-  if (gg1 != gg2) {
-    return;
-  }
-
-  // Check refinement depth for both jobs
-  int depth1 = self->state().refinement_depth[job_key];
-  int depth2 = self->state().refinement_depth[neighbor_key];
-  
-  // Check if we would create jobs beyond max_depth
-  int max_parent_depth = std::max(depth1, depth2);
-  if (max_parent_depth >= max_depth) {
-    return;
-  }
-
-  // Calculate midpoint between the two boundary jobs
-  float center_theta = (theta1 + theta2) / 2.0f;
-  float center_xs = (xs1 + xs2) / 2.0f;
-
-  // Check bounds - use dynamic parameters
-  if (center_theta < -self->state().max_theta || center_theta > self->state().max_theta ||
-      center_xs < self->state().xs_min || center_xs > self->state().xs_max) {
-    return;
-  }
-  
-  auto new_job_key = std::make_tuple(gg1, center_theta, center_xs);
-  if (self->state().job_graph.count(new_job_key) > 0) {
-    return;
-  }
-
-  // Calculate the refinement depth for new job (increment from max parent depth)
-  int new_depth = max_parent_depth + 1;
-  
-  // Calculate base spacing early for use in minimum distance calculations
-  float base_theta_spacing = self->state().theta_step;
-  float base_xs_spacing = self->state().xs_step;      
-  
-  // Create new job
-  std::string base = "/globalhome/tus210/HPC/quenchin_actor/";
-  std::string waved = base + "waves/index_11";
-  std::string crit = base + "waves/index_10";
-
-  job_t new_job{
-      gg1, center_theta, center_xs, 0,  // n=0 gives usmin=-1000, usmax=0
-      waved + "/" + std::to_string(gg1) + "/U",
-      waved + "/" + std::to_string(gg1) + "/p",
-      crit + "/" + std::to_string(gg1) + "/U",
-      crit + "/" + std::to_string(gg1) + "/p"
-  };
-  
-  // Set refinement depth for new job BEFORE scheduling
-  self->state().refinement_depth[new_job_key] = new_depth; 
-  
-  // Start timing the dynamic refinement process on first refinement job
-  if (!self->state().refinement_timing_started) {
-    self->state().first_refinement_start_time = std::chrono::high_resolution_clock::now();
-    self->state().refinement_timing_started = true;
-    self->state().initial_coarse_jobs = self->state().total_jobs_created; // Count before this refinement job
-    // self->println("REFINEMENT TIMING: Starting dynamic refinement timing with {} initial coarse jobs", 
-    //               self->state().initial_coarse_jobs);
-  }
-  
-  // Schedule the job to add it to spatial hash and job graph (add to END of queue)
-  schedule_job(self, new_job, true);  // true = is_refinement
-
-  // OPTIMIZATION: ADAPTIVE NEIGHBOR RADIUS for better distribution
-  // Use depth-adaptive radius that gradually decreases but maintains connectivity
-  // This balances refinement precision with neighbor connectivity
-  
-  // ADAPTIVE RADIUS: Slightly decrease with depth but maintain good connectivity
-  // This balances connectivity with performance at deeper levels
-  float depth_factor = 1.0f / (1.0f + 0.1f * new_depth);  // Gradual decrease
-  float fixed_radius_factor = 0.6f * depth_factor;  // Start at 60%, gradually decrease
-  float radius_theta = base_theta_spacing * fixed_radius_factor;
-  float radius_xs = base_xs_spacing * fixed_radius_factor;
-  
-  // Add a small tolerance factor to ensure we catch boundary neighbors
-  float tolerance_factor = 1.2f;  // 20% extra radius for safety
-  radius_theta *= tolerance_factor;
-  radius_xs *= tolerance_factor;
-  
-  // Optional: Add minimum radius to ensure connectivity
-  radius_theta = std::max(radius_theta, base_theta_spacing * 0.3f);
-  radius_xs = std::max(radius_xs, base_xs_spacing * 0.3f);
-
-  auto around = self->state().spatial_mgr.find_neighbors(new_job_key, radius_theta, radius_xs);
-  
-  // Connect to all jobs within the fixed radius
-  // This naturally includes horizontal, vertical, and diagonal connections
-  int connections_made = 0;
-  for (auto& existing_key : around) {
-    auto [existing_gg, existing_theta, existing_xs] = existing_key;
-    
-    // Note: find_neighbors already filters by same gg, so no need to check again
-    float d_theta = std::abs(existing_theta - center_theta);
-    float d_xs = std::abs(existing_xs - center_xs);
-
-    // This creates natural 8-directional connectivity (horizontal, vertical, diagonal)
-    if (d_theta <= radius_theta && d_xs <= radius_xs) {
-      self->state().job_graph[new_job_key].neighbors.insert(existing_key);
-      self->state().job_graph[existing_key].neighbors.insert(new_job_key);
-      connections_made++;
-    }
-  }
-  
-  // Record timing for this refinement operation
-  auto refinement_end_time = std::chrono::high_resolution_clock::now();
-  auto refinement_duration = std::chrono::duration_cast<std::chrono::microseconds>(refinement_end_time - refinement_start_time);
-  double refinement_time_ms = refinement_duration.count() / 1000.0;
-  
-  self->state().total_refinement_time_ms += refinement_time_ms;
-  self->state().total_refinement_jobs_created++;
-  self->state().refinement_operations++;
-  
-  // self->println("REFINEMENT: Created job: gg={}, theta={}, xs={} (depth={}) with {} neighbors in {:.3f}ms", 
-                // gg1, center_theta, center_xs, new_depth, connections_made, refinement_time_ms);
-}
-
-void create_all_coarse_grid_neighbors(stateful_actor<server_state>* self) {
-  
-  // Create all neighbor relationships for coarse grid jobs
-  for (auto& [job_key, job_node] : self->state().job_graph) {    
-    // Only process coarse grid jobs
-    if (self->state().refinement_depth[job_key] == 0) {
-      create_coarse_grid_neighbors(self, job_key);
-    }
-  }
-
-  int total_connections = 0;
-  for (auto& [job_key, job_node] : self->state().job_graph) {
-    if (self->state().refinement_depth[job_key] == 0) {
-      total_connections += job_node.neighbors.size();
-    }
-  }
-  
-}
-
-behavior server(stateful_actor<server_state>* self,
-                uint16_t port,
-                bool enable_bracket,
-                bool enable_early_termination) {
-  self->state().use_bracket = enable_bracket;
-  self->state().use_early_termination = enable_early_termination;
-  self->state().start_time  = std::chrono::high_resolution_clock::now();
-
-  // Initialize computation configuration
-  self->state().comp_config.enable_bracket_optimization = enable_bracket;
-  self->state().comp_config.enable_early_termination = enable_early_termination;
-  
-  // Initialize bracket optimization components
-  self->state().neighbor_provider = std::make_shared<bracket_optimizer::DynamicNeighborProvider>(&self->state().job_graph);
-  self->state().bracket_config = bracket_optimizer::BracketConfig{};
-
-  if (!self->system().middleman().publish(self, port)) {
-    self->println("Failed to publish server on port {}", port);
-    self->quit();
-  }
-      self->println("Server up on port {}, bracket-enabled={}, early-termination={}", 
-                port, enable_bracket, enable_early_termination);
-
-  self->state().xs_step = (self->state().xs_max - self->state().xs_min) / (self->state().NDNS - 1);
-  
-  // Initialize spatial hash cell sizes based on coarse grid parameters
-  self->state().spatial_mgr.initialize_cell_sizes(self->state().theta_step, self->state().xs_step);
-
-  // OPTIMIZATION: Initialize grid index lookups for O(1) access
-  initialize_grid_lookups(self);
-
-  std::vector<float> xs_values;
-  for (int i = 0; i < self->state().NDNS; ++i) {
-    float xs = self->state().xs_min + i * self->state().xs_step;
-    xs_values.push_back(xs);
-  }
-
-  std::vector<int> all_theta;
-  for (float theta = -self->state().max_theta; theta <= self->state().max_theta; theta += self->state().theta_step)
-    all_theta.push_back(theta);
-
-  // OPTIMIZATION: Pre-calculate job count and reserve hash map capacity to avoid rehashing
-  // Number of jobs = gg_count * theta_count * xs_count
-  std::vector<int> test_gg_values = {3, 2, 1, 0}; 
-  size_t estimated_job_count = test_gg_values.size() * all_theta.size() * xs_values.size();
-  size_t estimated_capacity = static_cast<size_t>(estimated_job_count * 1.5); // Extra capacity for refinement jobs
-  
-  self->state().job_graph.reserve(estimated_capacity);
-  self->state().scheduled_jobs.reserve(estimated_capacity);
-  self->state().refinement_depth.reserve(estimated_capacity);
-  self->state().spatial_mgr.grid.reserve(estimated_capacity / 10);
-  
-  // Create jobs in reverse gg order (FIFO execution)
-  for (int gg : test_gg_values) {
+    // Create the job
     std::string base = "/globalhome/tus210/HPC/quenchin_actor/";
     std::string waved = base + "waves/index_11";
     std::string crit = base + "waves/index_10";
+    
     auto Ufile = waved + "/" + std::to_string(gg) + "/U";
     auto Pfile = waved + "/" + std::to_string(gg) + "/p";
     auto ufile = crit + "/" + std::to_string(gg) + "/U";
     auto pfile = crit + "/" + std::to_string(gg) + "/p";
+    
+    job_t job{gg, theta, xs, 0, Ufile, Pfile, ufile, pfile};
+    self->state().pending_jobs.push_back(job);
+    self->state().scheduled_jobs.insert(key);
+    self->state().job_results[key] = {server_state::pending, 0.0};
+    self->state().total_jobs_created++;
+    
+    self->println("Created job: gg={}, theta={:.3f}, xs={:.3f}", gg, theta, xs);
+}
 
-    for (float xs : xs_values) {
-      for (float theta : all_theta) {
-        auto job_key = std::make_tuple(gg, theta, xs);
-        self->state().scheduled_jobs.insert(job_key);
-
-        job_t job{
-          gg, theta, xs, 0,  // n=0 gives usmin=-1000, usmax=0
-          Ufile, Pfile, ufile, pfile
-        };
-        schedule_job(self, job);
-      }
+// Enhanced early boundary detection - can detect with partial corner data
+bool can_detect_boundary_early(stateful_actor<server_state>* self, const dynamic_refinement_box& box) {
+    auto corner_points = box.get_corner_points();
+    std::vector<double> computed_uq_values;
+    int completed_corners = 0;
+    
+    for (auto [theta, xs] : corner_points) {
+        auto key = std::make_tuple(box.gg, theta, xs);
+        auto result_it = self->state().job_results.find(key);
+        
+        if (result_it != self->state().job_results.end() && 
+            result_it->second.first == server_state::done) {
+            double uq = result_it->second.second;
+            computed_uq_values.push_back(uq);
+            completed_corners++;
+        }
     }
-  }
-
-  self->println("Enqueued {} jobs", self->state().pending_jobs.size());
-  
-  // Create complete coarse grid neighbor map after all jobs are scheduled
-  create_all_coarse_grid_neighbors(self);
-
-  for (int i = 0; i < self->state().actor_number; ++i) {
-    auto worker = self->spawn(worker_actor, self, self->state().use_early_termination);
-    if (!self->state().pending_jobs.empty()) {
-      job_t job = self->state().pending_jobs.front();
-      self->state().pending_jobs.pop_front();
-
-      auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
-      self->state().job_graph[job_key].status = server_state::job_node::running;
-      self->anon_send(worker, std::move(job));
-      ++self->state().active_jobs;
-      
-    } else {
-      //we need to keep the worker alive for potential refinement jobs
-      self->state().idle_workers.insert(worker);
-      // self->println("Worker {} is now idle, waiting for potential jobs", worker.id());
-      // self->anon_send(worker, "quit");
+    
+    // Need at least 2 completed corners for early detection
+    if (completed_corners < 2) {
+        return false;
     }
-  }
+    
+    // Check for sign differences - early boundary detection
+    bool has_positive = false, has_negative = false;
+    for (double uq : computed_uq_values) {
+        if (uq >= 0.0) has_positive = true;
+        if (uq < 0.0) has_negative = true;
+        
+        // Early boundary detection with partial data
+        if (has_positive && has_negative) {
+            return true;
+        }
+    }
+    
+    return false; // No boundary detected with current data
+}
 
+// Check if a box has a quenching boundary (full 4-corner check)
+bool box_has_boundary_full(stateful_actor<server_state>* self, const dynamic_refinement_box& box) {
+    auto corner_points = box.get_corner_points();
+    bool has_positive = false, has_negative = false;
+    int completed_corners = 0;
+    
+    for (auto [theta, xs] : corner_points) {
+        auto key = std::make_tuple(box.gg, theta, xs);
+        auto result_it = self->state().job_results.find(key);
+        
+        if (result_it != self->state().job_results.end() && 
+            result_it->second.first == server_state::done) {
+            double uq = result_it->second.second;
+            completed_corners++;
+            
+            if (uq >= 0.0) has_positive = true;
+            if (uq < 0.0) has_negative = true;
+        }
+    }
+    
+    // Only consider boundary detection if all 4 corners are complete
+    return (completed_corners == 4) && has_positive && has_negative;
+}
 
-  return {
-    [=](actor remote, int) {
-      anon_mail(self->state().actor_number).send(remote);
-    },
+// Check if all corner points of a box are computed (done or scheduled)
+bool box_corners_all_computed_or_scheduled(stateful_actor<server_state>* self, const dynamic_refinement_box& box) {
+    auto corner_points = box.get_corner_points();
+    
+    for (auto [theta, xs] : corner_points) {
+        auto key = std::make_tuple(box.gg, theta, xs);
+        auto result_it = self->state().job_results.find(key);
+        
+        // Check if job is either completed or running/pending
+        if (result_it == self->state().job_results.end() && 
+            self->state().scheduled_jobs.count(key) == 0) {
+            return false; // Corner not computed and not scheduled
+        }
+    }
+    
+    return true;
+}
 
-    [=](actor worker) {
-      self->state().active_workers.insert(worker);
-      
-      if (!self->state().pending_jobs.empty()) {
+// Check if all corner points of a box are completed (done status)
+bool box_corners_all_completed(stateful_actor<server_state>* self, const dynamic_refinement_box& box) {
+    auto corner_points = box.get_corner_points();
+    
+    for (auto [theta, xs] : corner_points) {
+        auto key = std::make_tuple(box.gg, theta, xs);
+        auto result_it = self->state().job_results.find(key);
+        
+        if (result_it == self->state().job_results.end() || 
+            result_it->second.first != server_state::done) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// Refine a box by creating 4 child boxes and scheduling corner point jobs
+void refine_box(stateful_actor<server_state>* self, const dynamic_refinement_box& box) {
+    if (box.level >= self->state().max_refinement_level || box.is_too_small(0.1f, 1.0f)) {
+        return; // Skip refinement - max level reached or box too small
+    }
+    
+    self->println("Refining box: gg={}, level={}, theta=[{:.3f},{:.3f}], xs=[{:.3f},{:.3f}]", 
+                  box.gg, box.level, box.theta_min, box.theta_max, box.xs_min, box.xs_max);
+    
+    // Create child boxes
+    auto children = box.subdivide();
+    int new_jobs_created = 0;
+    
+    for (const auto& child : children) {
+        // Add child box to active boxes
+        std::string child_id = child.get_box_id();
+        self->state().active_boxes[child_id] = child;
+        
+        // Create jobs for child box corners that don't exist yet
+        auto corner_points = child.get_corner_points();
+        for (auto [theta, xs] : corner_points) {
+            auto key = std::make_tuple(child.gg, theta, xs);
+            
+            // Update point-to-box mapping - ADD to set of boxes (don't overwrite!)
+            self->state().point_to_box_map[key].insert(child_id);
+            
+            // Create job if it doesn't exist
+            if (self->state().job_results.find(key) == self->state().job_results.end() && 
+                self->state().scheduled_jobs.count(key) == 0) {
+                create_job(self, child.gg, theta, xs);
+                new_jobs_created++;
+            }
+        }
+        
+        self->println(" Created child box: level={}, theta=[{:.3f},{:.3f}], xs=[{:.3f},{:.3f}]", 
+                      child.level, child.theta_min, child.theta_max, child.xs_min, child.xs_max);
+    }
+    
+    // Remove the parent box since it's now refined
+    self->state().active_boxes.erase(box.get_box_id());
+    self->state().boxes_refined++;
+    self->state().refinement_operations++;
+    
+    // self->println("Box refinement complete: {} new jobs created", new_jobs_created);
+    
+    // Wake workers for new jobs
+    wake_idle_workers(self);
+} // Dynamic refinement check - called after each job completion with early detection
+void check_dynamic_refinement(stateful_actor<server_state>* self, int gg, float theta, float xs) {
+    auto point_key = std::make_tuple(gg, theta, xs);
+    
+    // Find which box(es) this point belongs to
+    auto box_it = self->state().point_to_box_map.find(point_key);
+    if (box_it == self->state().point_to_box_map.end()) {
+        return; // Point not associated with any box
+    }
+    
+    // Check ALL boxes that contain this point 
+    for (const std::string& box_id : box_it->second) {
+        auto active_box_it = self->state().active_boxes.find(box_id);
+        if (active_box_it == self->state().active_boxes.end()) {
+            continue; // Box no longer active 
+        }
+        
+        dynamic_refinement_box& box = active_box_it->second;
+        
+        // Skip if this box has already been checked for refinement
+        if (box.refinement_checked || box.refinement_complete) {
+            continue;
+        }
+        
+        // self->println("Checking box for boundary: gg={}, level={}, theta=[{:.3f},{:.3f}], xs=[{:.3f},{:.3f}]",
+        //               box.gg, box.level, box.theta_min, box.theta_max, box.xs_min, box.xs_max);
+        
+        // FIRST: Try early boundary detection with partial corner data
+        if (can_detect_boundary_early(self, box)) {
+            // self->println("*** EARLY BOUNDARY DETECTED with partial corners - Refining box immediately ***");
+            box.refinement_checked = true; // Mark as checked to avoid duplicate processing
+            refine_box(self, box);
+            continue; // Box was refined, move to next box
+        }
+        
+        // SECOND: Check if all corners are completed for full boundary analysis
+        if (!box_corners_all_completed(self, box)) {
+            self->println("Box corners not all completed yet, waiting for more results...");
+            continue; // Wait for other corners to complete
+        }
+        
+        // THIRD: All corners completed - do final comprehensive boundary check
+        box.refinement_checked = true; // Mark as checked to avoid duplicate checks
+        if (box_has_boundary_full(self, box)) {
+            // self->println("*** FULL BOUNDARY DETECTED with all corners - Refining box ***");
+            refine_box(self, box);
+        } else {
+            // self->println("No boundary detected - box refinement complete");
+            box.refinement_complete = true;
+        }
+    }
+} void wake_idle_workers(stateful_actor<server_state>* self) {
+    // Don't wake workers if termination has been initiated
+    if (self->state().termination_initiated) {
+        return;
+    }
+    
+    auto idle_it = self->state().idle_workers.begin();
+    while (idle_it != self->state().idle_workers.end() && !self->state().pending_jobs.empty()) {
+        auto idle_worker = *idle_it;
+        idle_it = self->state().idle_workers.erase(idle_it);
+        
         job_t job = self->state().pending_jobs.front();
         self->state().pending_jobs.pop_front();
-        initialize_job_bracket(self, job);
-        auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
-        self->state().job_graph[job_key].status = server_state::job_node::running;
-
         ++self->state().active_jobs;
-        self->anon_send(worker, std::move(job));
         
-        // self->println("REGISTER: Sent job to worker {}, {} jobs remaining", 
-        //               worker.id(), self->state().pending_jobs.size());
-      } else {
-        // No jobs available, but keep worker alive for potential refinement jobs
-        self->state().idle_workers.insert(worker);
-        // self->println("Worker {} is now idle, waiting for potential refinement jobs", worker.id());
-      }
-    },
-
-    [=](const std::string& msg, int gg, float theta, float xs, double uq, 
-      double usmin, double usmax, double runtime_sec, actor worker) {
-      try {
-        // self->println("SERVER DEBUG: Received message '{}' from worker {}", msg, worker.id());
-        
-        if (msg != "result") return;
-
-        // self->println("SERVER DEBUG: Processing result for gg={}, theta={}, xs={}, uq={}, runtime={}s", 
-        //               gg, theta, xs, uq, runtime_sec);
-      
-        auto job_key = std::make_tuple(gg, theta, xs);
-      
-        // self->println("RESULT RECEIVED: {} jobs pending before processing", 
-        //               self->state().pending_jobs.size());
-      
-        --self->state().active_jobs;
-        ++self->state().total_jobs_completed;
-        
-        // Track refinement job completion for dynamic timing
-        auto depth_it = self->state().refinement_depth.find(job_key);
-        int job_depth = (depth_it != self->state().refinement_depth.end()) ? depth_it->second : 0;
-        if (job_depth > 0) { // This is a refinement job (not coarse grid)
-            self->state().refinement_jobs_completed++;
+        if (should_apply_bracket_update(self, job)) {
+            initialize_job_bracket(self, job);
         }
-
-        // Update job_graph
-        self->state().job_graph[job_key].status = server_state::job_node::done;
-        self->state().job_graph[job_key].uq = uq;
-
-        // Update cache if uq < 0
-        if (uq < 0.0)
-            self->state().uq_cache[{gg, theta}].emplace_back(xs, uq);
-
-        int depth = 0;
-        auto depth_lookup = self->state().refinement_depth.find(job_key);
-        if (depth_lookup != self->state().refinement_depth.end())
-          depth = depth_lookup->second;
         
-        // Get neighbor count for this job
-        int neighbor_count = self->state().job_graph[job_key].neighbors.size();
+        auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
+        self->state().job_results[job_key].first = server_state::running;
+        self->anon_send(idle_worker, std::move(job));
+    }
+} // Initialize the coarse 5x5 grid and create initial boxes
+void initialize_coarse_grid_and_boxes(stateful_actor<server_state>* self) {
+    self->println("=== DYNAMIC BOX-BASED REFINEMENT: Initializing coarse grid ===");
+    
+    for (int gg : self->state().sys_config.gg_levels) {
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                float theta_min = -self->state().sys_config.max_theta + 
+                                  (2.0f * self->state().sys_config.max_theta * i) / 4.0f;
+                float theta_max = -self->state().sys_config.max_theta + 
+                                  (2.0f * self->state().sys_config.max_theta * (i+1)) / 4.0f;
+                float xs_min = self->state().sys_config.xs_min + 
+                               (self->state().sys_config.xs_max - self->state().sys_config.xs_min) * j / 4.0f;
+                float xs_max = self->state().sys_config.xs_min + 
+                               (self->state().sys_config.xs_max - self->state().sys_config.xs_min) * (j+1) / 4.0f;
+                
+                dynamic_refinement_box box{gg, theta_min, theta_max, xs_min, xs_max, 0, false, false};
+                std::string box_id = box.get_box_id();
+                self->state().active_boxes[box_id] = box;
+                
+                // Create jobs for all 4 corners of this box and update point-to-box mapping
+                auto corner_points = box.get_corner_points();
+                for (auto [theta, xs] : corner_points) {
+                    auto point_key = std::make_tuple(gg, theta, xs);
+                    self->state().point_to_box_map[point_key].insert(box_id);
+                    create_job(self, gg, theta, xs);
+                }
+                
+                self->println("Created Level 0 box: gg={}, theta=[{:.3f},{:.3f}], xs=[{:.3f},{:.3f}]", 
+                              gg, theta_min, theta_max, xs_min, xs_max);
+            }
+        }
+    }
+    
+    self->println("Initialization complete: {} active boxes, {} pending jobs", 
+                  self->state().active_boxes.size(), self->state().pending_jobs.size());
+}
 
-        self->println("Job completed: gg={}, theta={}, xs={}, result={}, usmin={}, usmax={}, runtime={}s, depth={}, neighbors={}", 
-                      gg, theta, xs, uq, usmin, usmax, runtime_sec, depth, neighbor_count);
-
-        // === IMMEDIATELY DISPATCH NEXT JOB TO KEEP WORKER BUSY ===
-        if (!self->state().pending_jobs.empty()) { 
+behavior server(stateful_actor<server_state>* self, uint16_t port, bool enable_bracket, bool enable_early_termination) {
+    self->state().use_bracket = enable_bracket;
+    self->state().use_early_termination = enable_early_termination;
+    self->state().start_time = std::chrono::high_resolution_clock::now();
+    
+    // Initialize system configuration
+    self->state().sys_config = system_config::create_static_config(enable_bracket, enable_early_termination);
+    self->state().sys_config.finalize();
+    
+    // Initialize computation configuration
+    self->state().comp_config.enable_bracket_optimization = enable_bracket;
+    self->state().comp_config.enable_early_termination = enable_early_termination;
+    
+    if (!self->system().middleman().publish(self, port)) {
+        self->println("Failed to publish server on port {}", port);
+        self->quit();
+    }
+    
+    self->println("DYNAMIC BOX Server up on port {}, bracket-enabled={}, early_termination={}", 
+                  port, enable_bracket, enable_early_termination);
+    
+    self->state().sys_config.gg_levels = {3, 2, 1, 0};
+    self->println("=== DYNAMIC BOX-BASED REFINEMENT TEST: gamma=3 only, max 3 levels ===");
+    
+    // Initialize coarse grid and boxes
+    initialize_coarse_grid_and_boxes(self);
+    
+    // Spawn workers (use full 31 workers for production)
+    for (int i = 0; i < self->state().sys_config.actor_number; ++i) {
+        auto worker = self->spawn(worker_actor, self, self->state().use_early_termination);
+        self->state().active_workers.insert(worker);
+        
+        if (!self->state().pending_jobs.empty()) {
             job_t job = self->state().pending_jobs.front();
             self->state().pending_jobs.pop_front();
-            ++self->state().active_jobs;
             
-            self->println("Queue: {}, Active: {}, Completed: {}/{}, Remaining: {}", 
-                          self->state().pending_jobs.size(), 
-                          self->state().active_jobs,
-                          self->state().total_jobs_completed,
-                          self->state().total_jobs_created,
-                          self->state().total_jobs_created - self->state().total_jobs_completed);
-
-            initialize_job_bracket(self, job);
-
-            auto next_job_key = std::make_tuple(job.gg, job.theta, job.xs);
-            self->state().job_graph[next_job_key].status = server_state::job_node::running;
+            if (should_apply_bracket_update(self, job)) {
+                initialize_job_bracket(self, job);
+            }
+            
+            auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
+            self->state().job_results[job_key].first = server_state::running;
             self->anon_send(worker, std::move(job));
-            
-            // self->println("RESULT: Sent next job to worker {}, {} jobs now remaining", 
-            //               worker.id(), self->state().pending_jobs.size());
+            ++self->state().active_jobs;
         } else {
-            // No pending jobs available right now - worker becomes idle
             self->state().idle_workers.insert(worker);
-            // self->println("Worker {} now idle, {} active jobs remaining", worker.id(), self->state().active_jobs);
         }
-
-        // Store number of pending jobs before boundary refinement (for tracking)
-        size_t pending_before = self->state().pending_jobs.size();
-
-        // === OPTIMIZED BOUNDARY PAIR PRE-FILTERING ===
-        // Collect all boundary pairs first, then process them efficiently to avoid redundant checks
-        std::unordered_set<std::pair<std::tuple<int, float, float>, std::tuple<int, float, float>>> boundary_pairs;
-        std::unordered_set<std::pair<std::tuple<int, float, float>, std::tuple<int, float, float>>> processed_pairs;
+    }     
+    return {
+        [=](actor remote, int) {
+            anon_mail(self->state().sys_config.actor_number).send(remote);
+        },
         
-        auto& node = self->state().job_graph[job_key];
-        size_t total_neighbors = node.neighbors.size();
-        
-        // OPTIMIZATION: Reserve capacity based on neighbor count to avoid rehashing
-        boundary_pairs.reserve(total_neighbors);
-        processed_pairs.reserve(total_neighbors * 2); // Both directions
-        
-        // Diagnostic check for excessive neighbor count (should be rare with current approach)
-        if (total_neighbors > 50) {
-            self->println("WARNING: Job ({},{},{}) has {} neighbors - investigating...",
-                          gg, theta, xs, total_neighbors);
+        [=](actor worker) {
+            self->state().active_workers.insert(worker);
             
-            // Count neighbors by type for diagnosis
-            int coarse_neighbors = 0, refinement_neighbors = 0;
-            for (auto neighbor_key : node.neighbors) {
-                int neighbor_depth = self->state().refinement_depth[neighbor_key];
-                if (neighbor_depth == 0) coarse_neighbors++;
-                else refinement_neighbors++;
-            }
-        }
-        
-        // Create a copy of neighbors to avoid iterator invalidation during is_quenching_boundary
-        auto neighbors_copy = node.neighbors;
-        
-        for (auto neighbor_key : neighbors_copy) {
-            auto& neighbor_node = self->state().job_graph[neighbor_key];
-
-            // Only process neighbors that are already done
-            if (neighbor_node.status == server_state::job_node::done) {
-                
-                // OPTIMIZATION: Pre-filter boundary pairs that have already reached max depth
-                // This prevents calling trigger_boundary_refinement for pairs that will be rejected
-                int depth1 = self->state().refinement_depth[job_key];
-                int depth2 = self->state().refinement_depth[neighbor_key];
-                int max_parent_depth = std::max(depth1, depth2);
-                
-                if (max_parent_depth >= get_max_refinement_depth()) { 
-                    // Skip - this pair has already reached maximum refinement depth
-                    continue;
-                }
-                
-                // Check if this is a quenching boundary
-                if (is_quenching_boundary(self, job_key, neighbor_key)) {
-                    // Create ordered pair to avoid duplicates
-                    auto pair1 = std::make_pair(job_key, neighbor_key);
-                    auto pair2 = std::make_pair(neighbor_key, job_key);
-                    
-                    // Only add if we haven't seen this pair in either direction
-                    if (boundary_pairs.count(pair1) == 0 && boundary_pairs.count(pair2) == 0) {
-                        boundary_pairs.insert(pair1);
-                    }
-                }
-            }
-        }
-        
-        for (auto& boundary_pair : boundary_pairs) {
-            auto job_key_pair = boundary_pair.first;
-            auto neighbor_key_pair = boundary_pair.second;
-            
-            // Ensure we don't process the same pair twice
-            if (processed_pairs.count(boundary_pair) == 0) {
-                auto reverse_pair = std::make_pair(neighbor_key_pair, job_key_pair);
-                processed_pairs.insert(boundary_pair);
-                processed_pairs.insert(reverse_pair);  // Mark both directions as processed
-                
-                trigger_boundary_refinement(self, job_key_pair, neighbor_key_pair);
-            }
-        }
-
-        // Check if new jobs were created and wake idle workers
-        size_t new_jobs_created = self->state().pending_jobs.size() - pending_before;
-        if (new_jobs_created > 0) {
-            // self->println("REFINEMENT: Created {} new jobs, waking up idle workers", new_jobs_created);
-            
-            // Wake up idle workers for new refinement jobs
-            auto idle_it = self->state().idle_workers.begin();
-            while (idle_it != self->state().idle_workers.end() && !self->state().pending_jobs.empty()) {
-                auto idle_worker = *idle_it;
-                idle_it = self->state().idle_workers.erase(idle_it);
-                
+            if (!self->state().pending_jobs.empty()) {
                 job_t job = self->state().pending_jobs.front();
                 self->state().pending_jobs.pop_front();
+                
+                if (should_apply_bracket_update(self, job)) {
+                    initialize_job_bracket(self, job);
+                }
+                
+                auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
+                self->state().job_results[job_key].first = server_state::running;
+                self->anon_send(worker, std::move(job));
                 ++self->state().active_jobs;
-                
-                initialize_job_bracket(self, job);
-                
-                auto wake_job_key = std::make_tuple(job.gg, job.theta, job.xs);
-                self->state().job_graph[wake_job_key].status = server_state::job_node::running;
-                self->anon_send(idle_worker, std::move(job));
-                
-                // self->println("WAKE: Sent refinement job to previously idle worker {}", idle_worker.id());
-            }
-        }
-
-        if (self->state().pending_jobs.empty() && self->state().active_jobs == 0) {
-            auto end_time = std::chrono::high_resolution_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - self->state().start_time);
-            self->println("=== ALL JOBS COMPLETED ===");
-            self->println("Total runtime: {} seconds", duration.count());
-            self->println("Jobs completed: {}/{}", self->state().total_jobs_completed, self->state().total_jobs_created);
-            
-            // Refinement timing summary
-            self->println("=== REFINEMENT TIMING SUMMARY (DYNAMIC) ===");
-            
-            // Job creation overhead timing (original measurement)
-            self->println("Refinement Job Creation Overhead:");
-            self->println("  Total refinement operations: {}", self->state().refinement_operations);
-            self->println("  Total refinement jobs created: {}", self->state().total_refinement_jobs_created);
-            self->println("  Job creation time: {:.3f} ms", self->state().total_refinement_time_ms);
-            if (self->state().refinement_operations > 0) {
-                double avg_refinement_time = self->state().total_refinement_time_ms / self->state().refinement_operations;
-                self->println("  Average job creation time: {:.3f} ms per operation", avg_refinement_time);
-            }
-            
-            // Dynamic refinement process timing (comprehensive measurement)
-            self->println("Dynamic Refinement Process Timing:");
-            self->println("  Initial coarse jobs: {}", self->state().initial_coarse_jobs);
-            self->println("  Refinement jobs completed: {}", self->state().refinement_jobs_completed);
-            
-            if (self->state().refinement_timing_started && self->state().refinement_jobs_completed > 0) {
-                auto refinement_end_time = std::chrono::high_resolution_clock::now();
-                auto total_refinement_duration = std::chrono::duration_cast<std::chrono::microseconds>(
-                    refinement_end_time - self->state().first_refinement_start_time);
-                double total_dynamic_refinement_time_ms = total_refinement_duration.count() / 1000.0;
-                
-                self->println("  Total dynamic refinement time: {:.2f} ms ({:.2f} seconds)", 
-                              total_dynamic_refinement_time_ms, total_dynamic_refinement_time_ms / 1000.0);
-                
-                double avg_refinement_job_time = total_dynamic_refinement_time_ms / self->state().refinement_jobs_completed;
-                self->println("  Average time per refinement job: {:.2f} ms", avg_refinement_job_time);
-                
-                // Dynamic refinement percentage
-                double dynamic_refinement_percentage = (duration.count() > 0) ? 
-                    (total_dynamic_refinement_time_ms / 1000.0) / duration.count() * 100.0 : 0.0;
-                    
-                self->println("Timing as Percentage of Total Runtime:");
-                self->println("  Job creation overhead: {:.3f}%", 
-                              (self->state().total_refinement_time_ms / 1000.0) / duration.count() * 100.0);
-                self->println("  Complete dynamic refinement: {:.2f}%", dynamic_refinement_percentage);
             } else {
-                self->println("  No refinement jobs were created or completed");
-                self->println("Timing as Percentage of Total Runtime:");
-                self->println("  Job creation overhead: {:.3f}%", 
-                              (self->state().total_refinement_time_ms / 1000.0) / duration.count() * 100.0);
-                self->println("  Complete dynamic refinement: 0.00%");
+                self->state().idle_workers.insert(worker);
             }
-            
-            for (auto worker : self->state().active_workers) {
-                anon_mail("quit").send(worker);
-            }
-            for (auto worker : self->state().idle_workers) {
-                anon_mail("quit").send(worker);
-            }
-            
-            self->quit();
-        }
-      
-      } catch (const std::exception& e) {
-        self->println("SERVER EXCEPTION in result handler: {}", e.what());
-      } catch (...) {
-        self->println("SERVER UNKNOWN EXCEPTION in result handler");
-      }
-    },
-
-    [=](const std::string& msg, actor worker) {
-      if (msg == "quit") {
-        // self->println("SERVER DEBUG: Worker {} acknowledged quit", worker.id());
-        self->state().active_workers.erase(worker);
-        self->state().idle_workers.erase(worker);
+        },
         
-        // Check if all workers have quit
-        if (self->state().active_workers.empty() && self->state().idle_workers.empty()) {
-          // self->println("SERVER: All workers have quit, server shutting down");
-          self->quit();
+        [=](const std::string& msg, int gg, float theta, float xs, double uq, 
+            double usmin, double usmax, double runtime_sec, actor worker) {
+            try {
+                if (msg != "result") return;
+                
+                // Store result
+                auto job_key = std::make_tuple(gg, theta, xs);
+                self->state().job_results[job_key] = {server_state::done, uq};
+                --self->state().active_jobs;
+                ++self->state().total_jobs_completed;
+                
+                // Update cache if uq < 0 (for bracket optimization)
+                if (uq < 0.0) {
+                    self->state().uq_cache[{gg, theta}].emplace_back(xs, uq);
+                }
+                
+                self->println("Job completed: gg={}, theta={:.3f}, xs={:.3f}, uq={:.6f}, bracket=[{:.3f},{:.3f}], runtime={:.3f}s", 
+                              gg, theta, xs, uq, usmin, usmax, runtime_sec);
+                
+                check_dynamic_refinement(self, gg, theta, xs);
+                
+                // Assign next job to worker or make worker idle
+                if (!self->state().pending_jobs.empty()) {
+                    job_t job = self->state().pending_jobs.front();
+                    self->state().pending_jobs.pop_front();
+                    ++self->state().active_jobs;
+                    
+                    if (should_apply_bracket_update(self, job)) {
+                        initialize_job_bracket(self, job);
+                    }
+                    
+                    auto next_job_key = std::make_tuple(job.gg, job.theta, job.xs);
+                    self->state().job_results[next_job_key].first = server_state::running;
+                    self->anon_send(worker, std::move(job));
+                } else {
+                    self->state().idle_workers.insert(worker);
+                }
+                
+                // TERMINATION CHECK: no pending jobs + no active jobs = terminate
+                if (self->state().pending_jobs.empty() && self->state().active_jobs == 0) {
+                    self->println("=== SYSTEM TERMINATION: No pending jobs and no active jobs ===");
+                    
+                    // Print final statistics
+                    int total_computed = self->state().job_results.size();
+                    int quenching_points = 0;
+                    for (const auto& [key, result] : self->state().job_results) {
+                        if (result.second < 0.0) quenching_points++;
+                    }
+                    
+                    self->println("Final statistics:");
+                    self->println(" Total points computed: {}", total_computed);
+                    self->println(" Quenching points: {} ({:.1f}%)", 
+                                  quenching_points, 100.0 * quenching_points / total_computed);
+                    self->println(" Boxes refined: {}", self->state().boxes_refined);
+                    self->println(" Refinement operations: {}", self->state().refinement_operations);
+                    self->println(" Active boxes remaining: {}", self->state().active_boxes.size());
+                    
+                    auto end_time = std::chrono::high_resolution_clock::now();
+                    auto duration = std::chrono::duration_cast<std::chrono::seconds>(
+                        end_time - self->state().start_time);
+                    self->println("Total runtime: {} seconds", duration.count());
+                    
+                    // Terminate all workers
+                    for (auto worker : self->state().active_workers) {
+                        anon_mail("quit").send(worker);
+                    }
+                    for (auto worker : self->state().idle_workers) {
+                        anon_mail("quit").send(worker);
+                    }
+                    
+                    self->state().termination_initiated = true;
+                }
+            } catch (const std::exception& e) {
+                self->println("SERVER EXCEPTION in result handler: {}", e.what());
+            } catch (...) {
+                self->println("SERVER UNKNOWN EXCEPTION in result handler");
+            }
+        },
+        
+        [=](const std::string& msg, actor worker) {
+            if (msg == "quit") {
+                self->state().active_workers.erase(worker);
+                self->state().idle_workers.erase(worker);
+                self->println("Worker quit received. Remaining workers: {} active, {} idle", 
+                              self->state().active_workers.size(), self->state().idle_workers.size());
+                
+                // Check if all workers have quit
+                if (self->state().active_workers.empty() && self->state().idle_workers.empty()) {
+                    self->println("All workers have quit. Terminating server...");
+                    self->quit();
+                }
+            }
         }
-      }
-    }
-  };
+    };
 }
 
-// Remote behavior for client mode
-behavior remote(stateful_actor<remote_state>* self,
-                const std::string& hostname,
-                uint16_t port,
-                bool enable_early_termination) {
-  auto server_actor = self->system().middleman().remote_actor(hostname, port);
-  if (!server_actor) {
-    self->println("Failed to connect to remote actor at {}:{}", hostname, port);
-    self->quit();
-    return {};
-  }
-  self->println("Connected to remote actor at {}:{}", hostname, port);
-  self->state().manager = *server_actor;
-  self->state().use_early_termination = enable_early_termination;
-
-  // initial handshake: send (self, 0)
-  anon_mail(self, 0).send(self->state().manager);
-
-  return {
-    [=](int actor_number) {
-      for (int i = 0; i < actor_number + 1; ++i) {
-        auto worker = self->spawn(worker_actor, self->state().manager, self->state().use_early_termination);
-        anon_mail(worker).send(self->state().manager);
-      }
-      self->quit();
-    }
-  };
-}
-
+/*
+==================================================================================================================
+MAIN
+====================================================================================================================
+*/
 void caf_main(actor_system& system, const config& cfg) {
-  scoped_actor self{system};
-
-  self->println("Port: {} Host: {}", cfg.port, cfg.host);
-  self->println("Server Mode: {}", cfg.server_mode);
-  self->println("Early Termination (Sundials): {}", cfg.enable_early_termination);
-
-  if (cfg.server_mode) {
-    auto server_actor = system.spawn(server, cfg.port, cfg.enable_bracket, cfg.enable_early_termination);
-    self->println("Server actor spawned");
-  } else {
-    auto remote_actor = system.spawn(remote, cfg.host, cfg.port, cfg.enable_early_termination);
-    self->println("Remote actor spawned");
-  }
+    scoped_actor self{system};
+    
+    self->println("Port: {} Host: {}", cfg.port, cfg.host);
+    self->println("Server Mode: {}", cfg.server_mode);
+    self->println("Early Termination (Sundials): {}", cfg.enable_early_termination);
+    self->println("Bracket Optimization: {}", cfg.enable_bracket);
+    
+    if (cfg.server_mode) {
+        auto server_actor = system.spawn(server, cfg.port, cfg.enable_bracket, cfg.enable_early_termination);
+        self->println("Server actor spawned");
+    } else {
+        auto remote_actor = system.spawn(remote, cfg.host, cfg.port, cfg.enable_early_termination);
+        self->println("Remote actor spawned");
+    }
 }
 
 CAF_MAIN(io::middleman, caf::id_block::my_project)

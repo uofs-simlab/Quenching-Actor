@@ -17,6 +17,11 @@ This directory contains the C++ implementation of the quenching study system usi
    - More systematic exploration of parameter space
    - Supports both early termination and bracket optimization
 
+3. **Shared Components**
+   - Both versions use the same bracket optimization and solver components
+   - Common header files define job structures and system configuration
+   - Unified physics model and numerical solver implementations
+
 ### Key Features
 
 #### Bracket Optimization
@@ -35,10 +40,9 @@ This directory contains the C++ implementation of the quenching study system usi
 cpp_implementation/
 ├── include/
 │   ├── bracket_optimizer.h          # Bracket optimization interface
-│   ├── dynamic_neighbor_provider.h  # Neighbor provider for dynamic system
-│   ├── static_neighbor_provider.h   # Neighbor provider for static system
+│   ├── box_neighbor_provider.h      # Spatial neighbor detection for both versions
 │   ├── job_structures.h             # Common data structures
-│   ├── system_config.h              # Configuration management
+│   ├── system_config.h              # Configuration management (L=2700 based)
 │   ├── config.h                     # CAF configuration
 │   ├── fitzhugh_nagumo.h           # Physics model
 │   ├── bisection_solver.h          # Numerical solver
@@ -50,27 +54,58 @@ cpp_implementation/
 │   ├── fitzhugh_nagumo.cpp         # Physics model implementation
 │   ├── bisection_solver.cpp        # Numerical solver implementation
 │   └── wave_loader.cpp             # Wave data loading implementation
-└── Makefile                        # Build configuration
+├── Makefile.cpp_dynamic            # Build configuration for dynamic version
+├── Makefile.cpp_static             # Build configuration for static version  
+└── Makefile                        # Unified build configuration (optional)
 ```
 
 ## Building
 
-```bash
-# Build both versions
-make all
+The project uses separate Makefiles for different versions:
 
-# Build individual versions
-make dynamic
-make static
+```bash
+# Build dynamic version
+make -f Makefile.cpp_dynamic clean all
+
+# Build static version  
+make -f Makefile.cpp_static clean
+make -f Makefile.cpp_static
 
 # Clean build artifacts
-make clean
+make -f Makefile.cpp_dynamic clean
+make -f Makefile.cpp_static clean
+```
+
+## Running with SLURM
+
+Use the provided SLURM scripts for HPC execution:
+
+```bash
+# Submit dynamic version job
+sbatch cpp_quench_dynamic.sh
+
+# Submit static version job
+sbatch cpp_quench_static.sh
 ```
 
 ### Configuration Options
 
 - `--server-mode`: Run as computation server
-- `--host HOST`: Connect to server at HOST (client mode)
+- `--host HOST`: Connect to server at HOST (client mode)  
 - `--port PORT`: Server port (default: 8080)
 - `--enable-bracket`: Enable bracket optimization 
-- `--enable-early-termination`: Enable early solver termination 
+- `--enable-early-termination`: Enable early solver termination
+
+### Script Configuration
+
+The SLURM scripts handle:
+- Environment module loading (gcc, openmpi, eigen, gsl, sundials)
+- Library path configuration
+- Multi-node execution with server/client pattern
+
+#### Dynamic Version (`cpp_quench_dynamic.sh`):
+- Builds executable: `actor_cpp_dynamic` 
+- Uses early termination and bracket optimization
+
+#### Static Version (`cpp_quench_static.sh`):
+- Builds executable: `actor_cpp_static`

@@ -32,25 +32,7 @@ namespace bracket_optimizer {
     ) {
         bool bracket_updated = false;
 
-        // STRATEGY 1: Check neighbors that are done and update usmin to their uq with trust margin
-        if (!bracket_updated && config.enable_neighbor_strategy && neighbor_provider) {
-            try {
-                auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
-                auto completed_neighbors = neighbor_provider->get_completed_neighbors(job_key);
-                
-                for (const auto& [neighbor_key, neighbor_uq] : completed_neighbors) {
-                    if (neighbor_uq < 0.0) {
-                        job.n = calculate_n_from_uq(neighbor_uq, config);
-                        bracket_updated = true;
-                        break; // Use first neighbor match
-                    }
-                }
-            } catch (...) {
-                // Silently continue to next strategy if neighbor lookup fails
-            }
-        }
-
-        // STRATEGY 2: Lower gg with same theta and exact xs match (from cache)
+        // STRATEGY 1: Cross-GG optimization with same theta and exact xs match
         if (!bracket_updated && config.enable_cache_strategy) {
             int search_limit = config.max_gg_search;
             if (search_limit == -1) {
@@ -76,6 +58,24 @@ namespace bracket_optimizer {
                     }
                     if (bracket_updated) break;
                 }
+            }
+        }
+
+        // STRATEGY 2: Spatial neighbors within same gg level
+        if (!bracket_updated && config.enable_neighbor_strategy && neighbor_provider) {
+            try {
+                auto job_key = std::make_tuple(job.gg, job.theta, job.xs);
+                auto completed_neighbors = neighbor_provider->get_completed_neighbors(job_key);
+                
+                for (const auto& [neighbor_key, neighbor_uq] : completed_neighbors) {
+                    if (neighbor_uq < 0.0) {
+                        job.n = calculate_n_from_uq(neighbor_uq, config);
+                        bracket_updated = true;
+                        break; // Use first neighbor match
+                    }
+                }
+            } catch (...) {
+                // Silently continue if neighbor lookup fails
             }
         }
 

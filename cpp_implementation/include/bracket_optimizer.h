@@ -34,11 +34,14 @@ namespace bracket_optimizer {
      * @brief Initialize job bracket parameters based on cache and neighbor information
      * 
      * This function optimizes the initial bracket [usmin, usmax] for the bisection solver
-     * by leveraging previous results from neighboring jobs and cached results.
+     * using a two-strategy approach with prioritized execution order:
+     * 
+     * Strategy 1 (Priority): Cross-GG optimization - uses higher gg results with same (theta, xs)
+     * Strategy 2 (Fallback): Spatial neighbors - uses nearby points within same gg level
      * 
      * @param job Reference to the job to optimize (n parameter will be modified)
      * @param uq_cache Cache of previous uq results indexed by (gg, theta)
-     * @param neighbor_provider Optional provider for getting neighbor information
+     * @param neighbor_provider Optional provider for getting spatial neighbor information
      * @param config Configuration parameters for optimization
      * @return true if bracket was successfully optimized, false if using default
      */

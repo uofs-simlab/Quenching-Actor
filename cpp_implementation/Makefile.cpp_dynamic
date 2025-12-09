@@ -20,7 +20,7 @@ SRCS = src/actor_cpp_dynamic.cc \
        src/wave_analysis.cpp
 
 # Target executable
-TARGET = actor_cpp_bisection
+TARGET = actor_cpp_dynamic
 
 # Set library path
 export LD_LIBRARY_PATH := /globalhome/tus210/HPC/lib64:$(LD_LIBRARY_PATH)

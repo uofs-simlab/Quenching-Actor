@@ -1,0 +1,2019 @@
+
+Lmod is automatically replacing "intel/2020.1.217" with "gcc/9.3.0".
+
+Building C++ CAF static actor using Makefile...
+g++ -std=c++17 -O2 -I/globalhome/tus210/HPC/include -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/MPI/gcc9/openmpi4/sundials/6.4.1/include -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/gcc9/gsl/2.6/include -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/eigen/3.4.0/include -Iinclude -L/globalhome/tus210/HPC/lib64 -L/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/MPI/gcc9/openmpi4/sundials/6.4.1/lib -L/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/gcc9/gsl/2.6/lib -o actor_cpp_static src/actor_cpp_static.cc src/bracket_optimizer.cpp src/fitzhugh_nagumo.cpp src/bisection_solver.cpp src/wave_loader.cpp src/finite_difference.cpp src/wave_analysis.cpp -lcaf_core -lcaf_io -lsundials_cvode -lsundials_nvecserial -lgsl -lgslcblas -lm
+Executable actor_cpp_static found
+Setting runtime library path...
+LD_LIBRARY_PATH: /globalhome/tus210/HPC/lib64:/globalhome/tus210/HPC/lib64:/cm/shared/apps/slurm/current/lib64/slurm:/cm/shared/apps/slurm/current/lib64:/cm/shared/apps/slurm/current/lib64/slurm:/cm/shared/apps/slurm/current/lib64:/cm/shared/apps/slurm/current/lib64/slurm:/cm/shared/apps/slurm/current/lib64
+Server node: platocpu038
+Client node(s): platocpu050 platocpu051 platocpu052
+Starting C++ CAF static actor server on platocpu038
+Port: 21444 Host: localhost
+Server Mode: true
+Early Termination (Sundials): false
+Server actor spawned
+BASELINE Server up on port 21444, bracket-enabled=false, early_termination=false
+=== BOX-BASED REFINEMENT TEST: gamma=3 only, 31 workers ===
+  Created initial grid job: gamma=3, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=3, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=3, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=3, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=3, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=0.00, xs=0.66
+  Created initial grid job: gamma=3, theta=0.00, xs=675.49
+  Created initial grid job: gamma=3, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=675.00, xs=0.66
+  Created initial grid job: gamma=3, theta=675.00, xs=675.49
+  Created initial grid job: gamma=3, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=3, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=3, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+  Created initial grid job: gamma=2, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=2, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=2, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=2, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=2, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=0.00, xs=0.66
+  Created initial grid job: gamma=2, theta=0.00, xs=675.49
+  Created initial grid job: gamma=2, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=675.00, xs=0.66
+  Created initial grid job: gamma=2, theta=675.00, xs=675.49
+  Created initial grid job: gamma=2, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=2, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=2, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+  Created initial grid job: gamma=1, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=1, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=1, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=1, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=1, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=0.00, xs=0.66
+  Created initial grid job: gamma=1, theta=0.00, xs=675.49
+  Created initial grid job: gamma=1, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=675.00, xs=0.66
+  Created initial grid job: gamma=1, theta=675.00, xs=675.49
+  Created initial grid job: gamma=1, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=1, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=1, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+  Created initial grid job: gamma=0, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=0, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=0, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=0, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=0, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=0.00, xs=0.66
+  Created initial grid job: gamma=0, theta=0.00, xs=675.49
+  Created initial grid job: gamma=0, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=675.00, xs=0.66
+  Created initial grid job: gamma=0, theta=675.00, xs=675.49
+  Created initial grid job: gamma=0, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=0, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=0, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+Initial grid: 25 jobs created, 64 boxes at level 0
+=== BOX-BASED INITIALIZATION COMPLETE: 100 pending jobs ===
+Starting client on platocpu050
+Starting client on platocpu051
+Starting client on platocpu052
+Port: 21444 Host: platocpu038
+Server Mode: false
+Early Termination (Sundials): false
+Remote actor spawned
+Port: 21444 Host: platocpu038
+Server Mode: false
+Early Termination (Sundials): false
+Remote actor spawned
+Port: 21444 Host: platocpu038
+Server Mode: false
+Early Termination (Sundials): false
+Connected to remote actor at platocpu038:21444
+Connected to remote actor at platocpu038:21444
+Remote actor spawned
+Connected to remote actor at platocpu038:21444
+Job completed: gg=3, theta=1350.000, xs=1350.330, uq=1.000000, runtime=41.601s
+Job completed: gg=3, theta=-1350.000, xs=2025.165, uq=1.000000, runtime=42.301s
+Job completed: gg=3, theta=1350.000, xs=2700.000, uq=1.000000, runtime=42.872s
+Job completed: gg=3, theta=675.000, xs=1350.330, uq=1.000000, runtime=43.073s
+Job completed: gg=3, theta=-675.000, xs=675.494, uq=1.000000, runtime=43.174s
+Job completed: gg=3, theta=-1350.000, xs=675.494, uq=1.000000, runtime=43.353s
+Job completed: gg=3, theta=-1350.000, xs=0.659, uq=1.000000, runtime=43.355s
+Job completed: gg=3, theta=-1350.000, xs=1350.330, uq=1.000000, runtime=44.254s
+Job completed: gg=3, theta=675.000, xs=0.659, uq=1.000000, runtime=44.270s
+Job completed: gg=3, theta=1350.000, xs=2025.165, uq=1.000000, runtime=44.379s
+Job completed: gg=3, theta=675.000, xs=675.494, uq=1.000000, runtime=44.478s
+Job completed: gg=3, theta=1350.000, xs=675.494, uq=1.000000, runtime=44.961s
+Job completed: gg=3, theta=-1350.000, xs=2700.000, uq=1.000000, runtime=45.762s
+Job completed: gg=0, theta=1350.000, xs=2025.165, uq=1.000000, runtime=40.964s
+Job completed: gg=2, theta=-1350.000, xs=2025.165, uq=1.000000, runtime=47.231s
+Job completed: gg=3, theta=-675.000, xs=1350.330, uq=1.000000, runtime=47.288s
+Job completed: gg=2, theta=-1350.000, xs=1350.330, uq=1.000000, runtime=47.524s
+Job completed: gg=3, theta=-675.000, xs=0.659, uq=1.000000, runtime=47.760s
+Job completed: gg=2, theta=-1350.000, xs=675.494, uq=1.000000, runtime=48.097s
+Job completed: gg=0, theta=1350.000, xs=1350.330, uq=1.000000, runtime=44.054s
+Job completed: gg=3, theta=1350.000, xs=0.659, uq=1.000000, runtime=49.354s
+Job completed: gg=3, theta=0.000, xs=0.659, uq=1.000000, runtime=49.434s
+Job completed: gg=2, theta=-1350.000, xs=2700.000, uq=1.000000, runtime=49.102s
+Job completed: gg=2, theta=-1350.000, xs=0.659, uq=1.000000, runtime=49.651s
+Job completed: gg=2, theta=-675.000, xs=0.659, uq=1.000000, runtime=49.939s
+Job completed: gg=0, theta=1350.000, xs=675.494, uq=1.000000, runtime=44.903s
+Job completed: gg=0, theta=1350.000, xs=0.659, uq=1.000000, runtime=45.243s
+Job completed: gg=2, theta=675.000, xs=675.494, uq=1.000000, runtime=48.145s
+Job completed: gg=2, theta=1350.000, xs=675.494, uq=1.000000, runtime=49.390s
+Job completed: gg=2, theta=-675.000, xs=1350.330, uq=1.000000, runtime=49.567s
+Job completed: gg=2, theta=0.000, xs=0.659, uq=1.000000, runtime=49.676s
+Job completed: gg=2, theta=1350.000, xs=1350.330, uq=1.000000, runtime=50.239s
+Job completed: gg=2, theta=-675.000, xs=675.494, uq=1.000000, runtime=50.273s
+Job completed: gg=2, theta=1350.000, xs=2025.165, uq=1.000000, runtime=50.908s
+Job completed: gg=1, theta=-1350.000, xs=2700.000, uq=1.000000, runtime=51.363s
+Job completed: gg=1, theta=-1350.000, xs=1350.330, uq=1.000000, runtime=51.871s
+Job completed: gg=1, theta=-675.000, xs=675.494, uq=1.000000, runtime=51.999s
+Job completed: gg=1, theta=1350.000, xs=1350.330, uq=1.000000, runtime=52.099s
+Job completed: gg=1, theta=-1350.000, xs=675.494, uq=1.000000, runtime=52.547s
+Job completed: gg=2, theta=1350.000, xs=0.659, uq=1.000000, runtime=52.799s
+Job completed: gg=1, theta=-1350.000, xs=0.659, uq=1.000000, runtime=52.869s
+Job completed: gg=2, theta=675.000, xs=0.659, uq=1.000000, runtime=52.943s
+Job completed: gg=1, theta=1350.000, xs=675.494, uq=1.000000, runtime=53.006s
+Job completed: gg=1, theta=1350.000, xs=2025.165, uq=1.000000, runtime=53.112s
+Job completed: gg=1, theta=0.000, xs=0.659, uq=1.000000, runtime=53.220s
+Job completed: gg=1, theta=675.000, xs=675.494, uq=1.000000, runtime=53.316s
+Job completed: gg=1, theta=-675.000, xs=0.659, uq=1.000000, runtime=54.463s
+Job completed: gg=1, theta=-1350.000, xs=2025.165, uq=1.000000, runtime=54.557s
+Job completed: gg=0, theta=-1350.000, xs=0.659, uq=1.000000, runtime=54.752s
+Job completed: gg=1, theta=-675.000, xs=1350.330, uq=1.000000, runtime=54.873s
+Job completed: gg=1, theta=1350.000, xs=0.659, uq=1.000000, runtime=54.923s
+Job completed: gg=0, theta=-1350.000, xs=675.494, uq=1.000000, runtime=55.166s
+Job completed: gg=0, theta=-1350.000, xs=2025.165, uq=1.000000, runtime=55.434s
+Job completed: gg=1, theta=675.000, xs=0.659, uq=1.000000, runtime=55.650s
+Job completed: gg=0, theta=-675.000, xs=675.494, uq=1.000000, runtime=55.957s
+Job completed: gg=0, theta=-1350.000, xs=1350.330, uq=1.000000, runtime=56.210s
+Job completed: gg=0, theta=675.000, xs=675.494, uq=1.000000, runtime=56.696s
+Job completed: gg=0, theta=675.000, xs=0.659, uq=1.000000, runtime=57.938s
+Job completed: gg=0, theta=-675.000, xs=0.659, uq=1.000000, runtime=59.113s
+Job completed: gg=3, theta=675.000, xs=2025.165, uq=-0.786435, runtime=273.324s
+Job completed: gg=3, theta=675.000, xs=2700.000, uq=-0.786435, runtime=279.362s
+Job completed: gg=3, theta=0.000, xs=1350.330, uq=-0.786435, runtime=291.931s
+Job completed: gg=3, theta=0.000, xs=675.494, uq=-0.786435, runtime=292.516s
+Job completed: gg=3, theta=-675.000, xs=2700.000, uq=-0.786435, runtime=295.411s
+Job completed: gg=3, theta=0.000, xs=2700.000, uq=-0.786435, runtime=299.216s
+Job completed: gg=3, theta=-675.000, xs=2025.165, uq=-0.786435, runtime=301.193s
+Job completed: gg=2, theta=675.000, xs=2025.165, uq=-0.505347, runtime=298.338s
+Job completed: gg=2, theta=-675.000, xs=2025.165, uq=-0.505347, runtime=298.591s
+Job completed: gg=2, theta=-675.000, xs=2700.000, uq=-0.505347, runtime=302.457s
+Job completed: gg=2, theta=0.000, xs=2025.165, uq=-0.505347, runtime=305.985s
+Job completed: gg=2, theta=675.000, xs=2700.000, uq=-0.505347, runtime=306.471s
+Job completed: gg=3, theta=0.000, xs=2025.165, uq=-0.786435, runtime=323.031s
+Job completed: gg=2, theta=0.000, xs=2700.000, uq=-0.505347, runtime=318.942s
+Job completed: gg=2, theta=0.000, xs=675.494, uq=-0.505347, runtime=322.947s
+Job completed: gg=2, theta=0.000, xs=1350.330, uq=-0.505347, runtime=325.931s
+Job completed: gg=0, theta=675.000, xs=2025.165, uq=-0.061374, runtime=335.845s
+Job completed: gg=0, theta=675.000, xs=2700.000, uq=-0.061374, runtime=349.386s
+Job completed: gg=1, theta=0.000, xs=675.494, uq=-0.233840, runtime=350.993s
+Job completed: gg=0, theta=0.000, xs=2025.165, uq=-0.061374, runtime=356.279s
+Job completed: gg=0, theta=-675.000, xs=2700.000, uq=-0.061374, runtime=357.702s
+Job completed: gg=0, theta=0.000, xs=1350.330, uq=-0.061374, runtime=362.571s
+Job completed: gg=2, theta=675.000, xs=1350.330, uq=-1.139287, runtime=363.047s
+Job completed: gg=2, theta=1350.000, xs=2700.000, uq=-1.139287, runtime=363.492s
+Job completed: gg=1, theta=-675.000, xs=2700.000, uq=-0.233840, runtime=365.178s
+Job completed: gg=1, theta=0.000, xs=1350.330, uq=-0.233840, runtime=366.979s
+Job completed: gg=0, theta=-675.000, xs=2025.165, uq=-0.061374, runtime=373.590s
+Job completed: gg=0, theta=0.000, xs=675.494, uq=-0.061374, runtime=374.508s
+Job completed: gg=1, theta=-675.000, xs=2025.165, uq=-0.233840, runtime=376.215s
+Job completed: gg=1, theta=0.000, xs=2700.000, uq=-0.233840, runtime=380.343s
+Job completed: gg=0, theta=1350.000, xs=2700.000, uq=-0.073109, runtime=387.116s
+Job completed: gg=1, theta=675.000, xs=2700.000, uq=-0.233840, runtime=392.226s
+Job completed: gg=0, theta=0.000, xs=2700.000, uq=-0.061374, runtime=394.840s
+Job completed: gg=0, theta=0.000, xs=0.659, uq=-1.808424, runtime=395.053s
+Job completed: gg=1, theta=0.000, xs=2025.165, uq=-0.233840, runtime=396.660s
+Job completed: gg=1, theta=675.000, xs=2025.165, uq=-0.233840, runtime=402.132s
+Job completed: gg=0, theta=-675.000, xs=1350.330, uq=-0.372093, runtime=411.883s
+Job completed: gg=1, theta=1350.000, xs=2700.000, uq=-0.289198, runtime=418.850s
+Job completed: gg=0, theta=675.000, xs=1350.330, uq=-0.073109, runtime=431.458s
+Job completed: gg=1, theta=675.000, xs=1350.330, uq=-0.289198, runtime=432.557s
+Job completed: gg=0, theta=-1350.000, xs=2700.000, uq=-0.422012, runtime=450.309s
+=== Level 0 COMPLETE: 256/256 corner points computed ===
+Box subdivided: gamma=3, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-675.00,0.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=3, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=3, level 0 -> 1, theta=[0.00,675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-675.00,0.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=2, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=2, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=2, level 0 -> 1, theta=[675.00,1350.00], xs=[675.49,1350.33]
+Box subdivided: gamma=2, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=2, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-675.00,0.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=1, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=1, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=1, level 0 -> 1, theta=[675.00,1350.00], xs=[675.49,1350.33]
+Box subdivided: gamma=1, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=1, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-1350.00,-675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=0, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[675.00,1350.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=0, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Level 0: 40 boxes had boundaries, 160 new boxes created, 159 new corner jobs, refinement time: 0.002320s
+Job completed: gg=3, theta=337.500, xs=0.659, uq=1.000000, runtime=41.511s
+Job completed: gg=3, theta=-337.500, xs=675.494, uq=1.000000, runtime=42.151s
+Job completed: gg=3, theta=-1012.500, xs=1350.330, uq=1.000000, runtime=41.946s
+Job completed: gg=3, theta=-1012.500, xs=1687.747, uq=1.000000, runtime=42.625s
+Job completed: gg=3, theta=-675.000, xs=338.077, uq=1.000000, runtime=42.787s
+Job completed: gg=3, theta=1012.500, xs=1687.747, uq=1.000000, runtime=43.255s
+Job completed: gg=3, theta=-1350.000, xs=1687.747, uq=1.000000, runtime=43.314s
+Job completed: gg=3, theta=337.500, xs=675.494, uq=1.000000, runtime=43.556s
+Job completed: gg=3, theta=675.000, xs=338.077, uq=1.000000, runtime=44.021s
+Job completed: gg=3, theta=1012.500, xs=2025.165, uq=1.000000, runtime=44.103s
+Job completed: gg=3, theta=1012.500, xs=1350.330, uq=1.000000, runtime=44.644s
+Job completed: gg=3, theta=675.000, xs=1012.912, uq=1.000000, runtime=44.905s
+Job completed: gg=3, theta=1350.000, xs=2362.583, uq=1.000000, runtime=45.481s
+Job completed: gg=3, theta=-1350.000, xs=2362.583, uq=1.000000, runtime=45.047s
+Job completed: gg=3, theta=337.500, xs=338.077, uq=1.000000, runtime=45.606s
+Job completed: gg=3, theta=1350.000, xs=1687.747, uq=1.000000, runtime=46.805s
+Job completed: gg=2, theta=337.500, xs=338.077, uq=1.000000, runtime=47.392s
+Job completed: gg=3, theta=-337.500, xs=338.077, uq=1.000000, runtime=47.443s
+Job completed: gg=2, theta=1350.000, xs=2362.583, uq=1.000000, runtime=47.310s
+Job completed: gg=2, theta=-337.500, xs=338.077, uq=1.000000, runtime=47.728s
+Job completed: gg=2, theta=1012.500, xs=1012.912, uq=1.000000, runtime=47.735s
+Job completed: gg=3, theta=-337.500, xs=0.659, uq=1.000000, runtime=47.719s
+Job completed: gg=2, theta=-675.000, xs=1012.912, uq=1.000000, runtime=48.088s
+Job completed: gg=2, theta=-1012.500, xs=1687.747, uq=1.000000, runtime=48.374s
+Job completed: gg=2, theta=-675.000, xs=338.077, uq=1.000000, runtime=48.396s
+Job completed: gg=2, theta=675.000, xs=1012.912, uq=1.000000, runtime=48.630s
+Job completed: gg=2, theta=1350.000, xs=1687.747, uq=1.000000, runtime=48.488s
+Job completed: gg=2, theta=-1350.000, xs=1687.747, uq=1.000000, runtime=48.549s
+Job completed: gg=2, theta=1012.500, xs=1687.747, uq=1.000000, runtime=48.853s
+Job completed: gg=2, theta=1012.500, xs=675.494, uq=1.000000, runtime=48.985s
+Job completed: gg=2, theta=-1350.000, xs=2362.583, uq=1.000000, runtime=49.174s
+Job completed: gg=3, theta=-1012.500, xs=2025.165, uq=1.000000, runtime=49.274s
+Job completed: gg=2, theta=1012.500, xs=1350.330, uq=1.000000, runtime=49.281s
+Job completed: gg=3, theta=-675.000, xs=1012.912, uq=1.000000, runtime=49.326s
+Job completed: gg=1, theta=1350.000, xs=1012.912, uq=1.000000, runtime=48.941s
+Job completed: gg=2, theta=1350.000, xs=1012.912, uq=1.000000, runtime=50.372s
+Job completed: gg=2, theta=-1012.500, xs=1350.330, uq=1.000000, runtime=50.374s
+Job completed: gg=1, theta=-1350.000, xs=2362.583, uq=1.000000, runtime=50.410s
+Job completed: gg=1, theta=1012.500, xs=1012.912, uq=1.000000, runtime=50.702s
+Job completed: gg=1, theta=-337.500, xs=675.494, uq=1.000000, runtime=51.097s
+Job completed: gg=1, theta=1012.500, xs=675.494, uq=1.000000, runtime=51.178s
+Job completed: gg=2, theta=-337.500, xs=675.494, uq=1.000000, runtime=51.340s
+Job completed: gg=2, theta=-1012.500, xs=2025.165, uq=1.000000, runtime=50.885s
+Job completed: gg=1, theta=1012.500, xs=1350.330, uq=1.000000, runtime=51.396s
+Job completed: gg=1, theta=-337.500, xs=338.077, uq=1.000000, runtime=52.279s
+Job completed: gg=2, theta=337.500, xs=0.659, uq=1.000000, runtime=52.289s
+Job completed: gg=2, theta=675.000, xs=338.077, uq=1.000000, runtime=51.332s
+Job completed: gg=1, theta=1012.500, xs=1687.747, uq=1.000000, runtime=51.976s
+Job completed: gg=2, theta=-337.500, xs=0.659, uq=1.000000, runtime=52.445s
+Job completed: gg=1, theta=675.000, xs=338.077, uq=1.000000, runtime=52.558s
+Job completed: gg=1, theta=675.000, xs=1012.912, uq=1.000000, runtime=52.569s
+Job completed: gg=1, theta=-675.000, xs=1012.912, uq=1.000000, runtime=52.667s
+Job completed: gg=1, theta=-1012.500, xs=1350.330, uq=1.000000, runtime=52.690s
+Job completed: gg=1, theta=-1012.500, xs=1687.747, uq=1.000000, runtime=53.239s
+Job completed: gg=0, theta=-1350.000, xs=1687.747, uq=1.000000, runtime=53.263s
+Job completed: gg=0, theta=-1012.500, xs=1687.747, uq=1.000000, runtime=53.486s
+Job completed: gg=1, theta=-1350.000, xs=1687.747, uq=1.000000, runtime=53.827s
+Job completed: gg=1, theta=-1012.500, xs=2025.165, uq=1.000000, runtime=53.975s
+Job completed: gg=0, theta=-1012.500, xs=1012.912, uq=1.000000, runtime=53.339s
+Job completed: gg=1, theta=337.500, xs=0.659, uq=1.000000, runtime=53.814s
+Job completed: gg=1, theta=1350.000, xs=1687.747, uq=1.000000, runtime=54.448s
+Job completed: gg=1, theta=337.500, xs=338.077, uq=1.000000, runtime=54.739s
+Job completed: gg=0, theta=-1012.500, xs=675.494, uq=1.000000, runtime=54.965s
+Job completed: gg=1, theta=1350.000, xs=2362.583, uq=1.000000, runtime=55.202s
+Job completed: gg=0, theta=-1012.500, xs=1350.330, uq=1.000000, runtime=55.221s
+Job completed: gg=1, theta=-337.500, xs=0.659, uq=1.000000, runtime=55.652s
+Job completed: gg=0, theta=-675.000, xs=1012.912, uq=1.000000, runtime=56.202s
+Job completed: gg=0, theta=-1350.000, xs=1012.912, uq=1.000000, runtime=56.525s
+Job completed: gg=1, theta=-675.000, xs=338.077, uq=1.000000, runtime=56.676s
+Job completed: gg=0, theta=-337.500, xs=338.077, uq=1.000000, runtime=47.571s
+Job completed: gg=0, theta=-1350.000, xs=2362.583, uq=1.000000, runtime=52.076s
+Job completed: gg=0, theta=-337.500, xs=0.659, uq=1.000000, runtime=50.910s
+Job completed: gg=0, theta=-675.000, xs=338.077, uq=1.000000, runtime=50.971s
+Job completed: gg=0, theta=1012.500, xs=1012.912, uq=1.000000, runtime=47.518s
+Job completed: gg=0, theta=1350.000, xs=1687.747, uq=1.000000, runtime=46.197s
+Job completed: gg=0, theta=337.500, xs=338.077, uq=1.000000, runtime=49.073s
+Job completed: gg=0, theta=1012.500, xs=1350.330, uq=1.000000, runtime=49.659s
+Job completed: gg=0, theta=1012.500, xs=1687.747, uq=1.000000, runtime=49.849s
+Job completed: gg=0, theta=337.500, xs=0.659, uq=1.000000, runtime=53.078s
+Job completed: gg=0, theta=1012.500, xs=675.494, uq=1.000000, runtime=51.512s
+Job completed: gg=0, theta=1350.000, xs=2362.583, uq=1.000000, runtime=50.966s
+Job completed: gg=0, theta=675.000, xs=338.077, uq=1.000000, runtime=53.587s
+Job completed: gg=0, theta=675.000, xs=1012.912, uq=1.000000, runtime=53.506s
+Job completed: gg=0, theta=1350.000, xs=1012.912, uq=1.000000, runtime=54.188s
+Job completed: gg=3, theta=-337.500, xs=2025.165, uq=-0.786435, runtime=292.585s
+Job completed: gg=3, theta=1012.500, xs=2700.000, uq=-0.786435, runtime=296.209s
+Job completed: gg=3, theta=675.000, xs=1687.747, uq=-0.786435, runtime=296.442s
+Job completed: gg=3, theta=1012.500, xs=2362.583, uq=-0.786435, runtime=296.908s
+Job completed: gg=3, theta=337.500, xs=1350.330, uq=-0.786435, runtime=298.380s
+Job completed: gg=3, theta=-337.500, xs=1687.747, uq=-0.786435, runtime=305.754s
+Job completed: gg=3, theta=0.000, xs=338.077, uq=-0.786435, runtime=305.797s
+Job completed: gg=2, theta=-675.000, xs=1687.747, uq=-0.505347, runtime=307.080s
+Job completed: gg=2, theta=1012.500, xs=2700.000, uq=-0.505347, runtime=306.919s
+Job completed: gg=2, theta=-337.500, xs=2025.165, uq=-0.505347, runtime=308.516s
+Job completed: gg=2, theta=1012.500, xs=2362.583, uq=-0.505347, runtime=308.598s
+Job completed: gg=3, theta=337.500, xs=2025.165, uq=-0.786435, runtime=309.653s
+Job completed: gg=2, theta=-1012.500, xs=2362.583, uq=-0.505347, runtime=310.010s
+Job completed: gg=2, theta=0.000, xs=338.077, uq=-0.505347, runtime=310.640s
+Job completed: gg=3, theta=675.000, xs=2362.583, uq=-0.786435, runtime=311.687s
+Job completed: gg=2, theta=-337.500, xs=1687.747, uq=-0.505347, runtime=313.583s
+Job completed: gg=2, theta=-1012.500, xs=2700.000, uq=-0.505347, runtime=313.605s
+Job completed: gg=2, theta=0.000, xs=1012.912, uq=-0.505347, runtime=313.796s
+Job completed: gg=3, theta=0.000, xs=1687.747, uq=-0.786435, runtime=314.422s
+Job completed: gg=2, theta=337.500, xs=675.494, uq=-1.139287, runtime=314.505s
+Job completed: gg=2, theta=675.000, xs=1687.747, uq=-0.505347, runtime=314.963s
+Job completed: gg=3, theta=337.500, xs=1012.912, uq=-0.786435, runtime=315.495s
+Job completed: gg=2, theta=-337.500, xs=1012.912, uq=-0.505347, runtime=315.907s
+Job completed: gg=3, theta=-337.500, xs=1012.912, uq=-0.786435, runtime=316.025s
+Job completed: gg=2, theta=-675.000, xs=2362.583, uq=-0.505347, runtime=317.044s
+Job completed: gg=3, theta=-675.000, xs=2362.583, uq=-0.786435, runtime=317.869s
+Job completed: gg=2, theta=675.000, xs=2362.583, uq=-0.505347, runtime=321.299s
+Job completed: gg=2, theta=0.000, xs=1687.747, uq=-0.505347, runtime=321.611s
+Job completed: gg=2, theta=337.500, xs=1350.330, uq=-0.505347, runtime=329.635s
+Job completed: gg=2, theta=337.500, xs=1012.912, uq=-0.505347, runtime=330.347s
+Job completed: gg=2, theta=-337.500, xs=1350.330, uq=-0.505347, runtime=332.085s
+Job completed: gg=3, theta=-337.500, xs=1350.330, uq=-0.786435, runtime=340.059s
+Job completed: gg=3, theta=-1012.500, xs=2700.000, uq=-0.786435, runtime=342.104s
+Job completed: gg=3, theta=0.000, xs=1012.912, uq=-0.786435, runtime=360.893s
+Job completed: gg=3, theta=337.500, xs=1687.747, uq=-0.786435, runtime=362.634s
+Job completed: gg=0, theta=-675.000, xs=1687.747, uq=-0.061374, runtime=366.401s
+Job completed: gg=2, theta=1012.500, xs=2025.165, uq=-1.139287, runtime=368.696s
+Job completed: gg=1, theta=-337.500, xs=1350.330, uq=-0.233840, runtime=369.343s
+Job completed: gg=3, theta=-675.000, xs=1687.747, uq=-0.786435, runtime=372.688s
+Job completed: gg=0, theta=1012.500, xs=2700.000, uq=-0.061374, runtime=325.512s
+Job completed: gg=1, theta=0.000, xs=1012.912, uq=-0.233840, runtime=375.502s
+Job completed: gg=1, theta=-337.500, xs=1687.747, uq=-0.233840, runtime=375.453s
+Job completed: gg=3, theta=-1012.500, xs=2362.583, uq=-0.786435, runtime=378.290s
+Job completed: gg=1, theta=-337.500, xs=2025.165, uq=-0.233840, runtime=379.341s
+Job completed: gg=1, theta=337.500, xs=1350.330, uq=-0.233840, runtime=380.027s
+Job completed: gg=0, theta=-1012.500, xs=2700.000, uq=-0.061374, runtime=340.006s
+Job completed: gg=0, theta=675.000, xs=1687.747, uq=-0.061374, runtime=335.040s
+Job completed: gg=1, theta=337.500, xs=1012.912, uq=-0.233840, runtime=383.346s
+Job completed: gg=0, theta=-675.000, xs=2362.583, uq=-0.061374, runtime=342.267s
+Job completed: gg=1, theta=0.000, xs=1687.747, uq=-0.233840, runtime=385.026s
+Job completed: gg=1, theta=-1012.500, xs=2700.000, uq=-0.233840, runtime=387.136s
+Job completed: gg=0, theta=675.000, xs=2362.583, uq=-0.061374, runtime=337.691s
+Job completed: gg=0, theta=0.000, xs=338.077, uq=-0.061374, runtime=343.278s
+Job completed: gg=0, theta=337.500, xs=1012.912, uq=-0.061374, runtime=339.904s
+Job completed: gg=0, theta=-337.500, xs=1350.330, uq=-0.061374, runtime=342.218s
+Job completed: gg=1, theta=-337.500, xs=1012.912, uq=-0.233840, runtime=389.782s
+Job completed: gg=1, theta=1012.500, xs=2700.000, uq=-0.233840, runtime=392.451s
+Job completed: gg=0, theta=1012.500, xs=2362.583, uq=-0.061374, runtime=344.952s
+Job completed: gg=0, theta=-1012.500, xs=2362.583, uq=-0.061374, runtime=352.249s
+Job completed: gg=0, theta=0.000, xs=1012.912, uq=-0.061374, runtime=353.672s
+Job completed: gg=1, theta=-1012.500, xs=2362.583, uq=-0.233840, runtime=401.281s
+Job completed: gg=0, theta=337.500, xs=1350.330, uq=-0.061374, runtime=363.225s
+Job completed: gg=1, theta=1012.500, xs=2362.583, uq=-0.233840, runtime=411.144s
+Job completed: gg=1, theta=0.000, xs=338.077, uq=-0.233840, runtime=412.409s
+Job completed: gg=1, theta=675.000, xs=1687.747, uq=-0.233840, runtime=414.170s
+Job completed: gg=1, theta=1012.500, xs=2025.165, uq=-0.289198, runtime=413.848s
+Job completed: gg=1, theta=-675.000, xs=1687.747, uq=-0.233840, runtime=415.421s
+Job completed: gg=1, theta=675.000, xs=2362.583, uq=-0.233840, runtime=416.757s
+Job completed: gg=0, theta=-337.500, xs=1012.912, uq=-0.061374, runtime=374.494s
+Job completed: gg=1, theta=337.500, xs=675.494, uq=-0.289198, runtime=423.092s
+Job completed: gg=1, theta=-675.000, xs=2362.583, uq=-0.233840, runtime=430.023s
+Job completed: gg=0, theta=-1012.500, xs=2025.165, uq=-0.372093, runtime=397.288s
+Job completed: gg=0, theta=-337.500, xs=675.494, uq=-0.372093, runtime=396.028s
+Job completed: gg=0, theta=337.500, xs=675.494, uq=-0.073109, runtime=392.700s
+Job completed: gg=0, theta=1012.500, xs=2025.165, uq=-0.073109, runtime=407.302s
+=== Level 1 COMPLETE: 640/640 corner points computed ===
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1012.50,-675.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-337.50,0.00], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-675.00,-337.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=3, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=3, level 1 -> 2, theta=[0.00,337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=3, level 1 -> 2, theta=[337.50,675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=3, level 1 -> 2, theta=[675.00,1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1012.50,-675.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-337.50,0.00], xs=[675.49,1012.91]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-675.00,-337.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=2, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=2, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=2, level 1 -> 2, theta=[337.50,675.00], xs=[338.08,675.49]
+Box subdivided: gamma=2, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=2, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=2, level 1 -> 2, theta=[675.00,1012.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=2, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=2, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=2, level 1 -> 2, theta=[1012.50,1350.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=2, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=2, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1012.50,-675.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-337.50,0.00], xs=[675.49,1012.91]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-675.00,-337.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=1, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=1, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=1, level 1 -> 2, theta=[337.50,675.00], xs=[338.08,675.49]
+Box subdivided: gamma=1, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=1, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=1, level 1 -> 2, theta=[675.00,1012.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=1, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=1, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=1, level 1 -> 2, theta=[1012.50,1350.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=1, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=1, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-675.00,-337.50], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=0, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[337.50,675.00], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=0, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[675.00,1012.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=0, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[1012.50,1350.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=0, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Level 1: 88 boxes had boundaries, 352 new boxes created, 351 new corner jobs, refinement time: 0.004842s
+Job completed: gg=3, theta=337.500, xs=169.368, uq=1.000000, runtime=41.605s
+Job completed: gg=3, theta=675.000, xs=1181.621, uq=1.000000, runtime=42.071s
+Job completed: gg=3, theta=-1350.000, xs=2531.291, uq=1.000000, runtime=42.493s
+Job completed: gg=3, theta=168.750, xs=0.659, uq=1.000000, runtime=42.710s
+Job completed: gg=3, theta=843.750, xs=1687.747, uq=1.000000, runtime=42.786s
+Job completed: gg=3, theta=-1012.500, xs=1856.456, uq=1.000000, runtime=42.792s
+Job completed: gg=3, theta=-168.750, xs=338.077, uq=1.000000, runtime=42.843s
+Job completed: gg=3, theta=1350.000, xs=2193.874, uq=1.000000, runtime=42.599s
+Job completed: gg=3, theta=1181.250, xs=2362.583, uq=1.000000, runtime=42.952s
+Job completed: gg=3, theta=168.750, xs=169.368, uq=1.000000, runtime=43.154s
+Job completed: gg=3, theta=1012.500, xs=1856.456, uq=1.000000, runtime=43.281s
+Job completed: gg=3, theta=506.250, xs=675.494, uq=1.000000, runtime=43.292s
+Job completed: gg=3, theta=506.250, xs=844.203, uq=1.000000, runtime=43.320s
+Job completed: gg=3, theta=-843.750, xs=1519.038, uq=1.000000, runtime=43.487s
+Job completed: gg=3, theta=-1181.250, xs=2193.874, uq=1.000000, runtime=43.434s
+Job completed: gg=3, theta=1012.500, xs=1519.038, uq=1.000000, runtime=43.645s
+Job completed: gg=3, theta=-1012.500, xs=1519.038, uq=1.000000, runtime=43.766s
+Job completed: gg=3, theta=843.750, xs=1519.038, uq=1.000000, runtime=43.919s
+Job completed: gg=3, theta=1181.250, xs=2025.165, uq=1.000000, runtime=44.339s
+Job completed: gg=3, theta=337.500, xs=506.786, uq=1.000000, runtime=44.622s
+Job completed: gg=3, theta=-506.250, xs=675.494, uq=1.000000, runtime=44.631s
+Job completed: gg=3, theta=-1181.250, xs=2025.165, uq=1.000000, runtime=44.734s
+Job completed: gg=3, theta=1181.250, xs=2193.874, uq=1.000000, runtime=44.837s
+Job completed: gg=3, theta=-168.750, xs=0.659, uq=1.000000, runtime=44.862s
+Job completed: gg=3, theta=506.250, xs=1012.912, uq=1.000000, runtime=44.783s
+Job completed: gg=3, theta=-506.250, xs=844.203, uq=1.000000, runtime=45.126s
+Job completed: gg=3, theta=675.000, xs=844.203, uq=1.000000, runtime=45.026s
+Job completed: gg=3, theta=-1350.000, xs=2193.874, uq=1.000000, runtime=45.213s
+Job completed: gg=3, theta=-843.750, xs=1350.330, uq=1.000000, runtime=45.720s
+Job completed: gg=3, theta=-675.000, xs=844.203, uq=1.000000, runtime=45.569s
+Job completed: gg=3, theta=-675.000, xs=1181.621, uq=1.000000, runtime=45.603s
+Job completed: gg=3, theta=-506.250, xs=1012.912, uq=1.000000, runtime=45.755s
+Job completed: gg=3, theta=-337.500, xs=169.368, uq=1.000000, runtime=46.417s
+Job completed: gg=2, theta=-1350.000, xs=2193.874, uq=1.000000, runtime=46.229s
+Job completed: gg=3, theta=168.750, xs=338.077, uq=1.000000, runtime=46.697s
+Job completed: gg=3, theta=1350.000, xs=2531.291, uq=1.000000, runtime=46.605s
+Job completed: gg=3, theta=-337.500, xs=506.786, uq=1.000000, runtime=46.863s
+Job completed: gg=3, theta=-168.750, xs=169.368, uq=1.000000, runtime=46.905s
+Job completed: gg=2, theta=-337.500, xs=169.368, uq=1.000000, runtime=46.667s
+Job completed: gg=3, theta=843.750, xs=1350.330, uq=1.000000, runtime=47.618s
+Job completed: gg=3, theta=-1181.250, xs=2362.583, uq=1.000000, runtime=47.801s
+Job completed: gg=2, theta=-1181.250, xs=2025.165, uq=1.000000, runtime=48.157s
+Job completed: gg=2, theta=-843.750, xs=1687.747, uq=1.000000, runtime=48.161s
+Job completed: gg=2, theta=-1012.500, xs=1856.456, uq=1.000000, runtime=48.373s
+Job completed: gg=2, theta=-1181.250, xs=2362.583, uq=1.000000, runtime=48.557s
+Job completed: gg=2, theta=-675.000, xs=1181.621, uq=1.000000, runtime=48.578s
+Job completed: gg=2, theta=-168.750, xs=0.659, uq=1.000000, runtime=48.586s
+Job completed: gg=2, theta=-1350.000, xs=2531.291, uq=1.000000, runtime=48.874s
+Job completed: gg=2, theta=-506.250, xs=844.203, uq=1.000000, runtime=48.276s
+Job completed: gg=2, theta=-1181.250, xs=2193.874, uq=1.000000, runtime=49.655s
+Job completed: gg=2, theta=-843.750, xs=1350.330, uq=1.000000, runtime=49.866s
+Job completed: gg=2, theta=-506.250, xs=675.494, uq=1.000000, runtime=49.886s
+Job completed: gg=2, theta=-168.750, xs=169.368, uq=1.000000, runtime=50.009s
+Job completed: gg=3, theta=-843.750, xs=1687.747, uq=1.000000, runtime=50.185s
+Job completed: gg=2, theta=-843.750, xs=1519.038, uq=1.000000, runtime=50.176s
+Job completed: gg=2, theta=-1012.500, xs=1519.038, uq=1.000000, runtime=50.372s
+Job completed: gg=2, theta=-168.750, xs=338.077, uq=1.000000, runtime=50.901s
+Job completed: gg=2, theta=-337.500, xs=506.786, uq=1.000000, runtime=51.519s
+Job completed: gg=2, theta=-675.000, xs=844.203, uq=1.000000, runtime=52.212s
+Job completed: gg=2, theta=-506.250, xs=1012.912, uq=1.000000, runtime=55.883s
+Job completed: gg=2, theta=337.500, xs=169.368, uq=1.000000, runtime=49.242s
+Job completed: gg=2, theta=168.750, xs=169.368, uq=1.000000, runtime=49.008s
+Job completed: gg=2, theta=337.500, xs=506.786, uq=1.000000, runtime=48.784s
+Job completed: gg=2, theta=506.250, xs=506.786, uq=1.000000, runtime=49.289s
+Job completed: gg=2, theta=843.750, xs=1012.912, uq=1.000000, runtime=47.954s
+Job completed: gg=2, theta=675.000, xs=506.786, uq=1.000000, runtime=49.808s
+Job completed: gg=2, theta=675.000, xs=844.203, uq=1.000000, runtime=49.081s
+Job completed: gg=2, theta=843.750, xs=1181.621, uq=1.000000, runtime=48.510s
+Job completed: gg=2, theta=843.750, xs=1350.330, uq=1.000000, runtime=48.532s
+Job completed: gg=2, theta=675.000, xs=1181.621, uq=1.000000, runtime=49.193s
+Job completed: gg=2, theta=506.250, xs=675.494, uq=1.000000, runtime=50.522s
+Job completed: gg=2, theta=506.250, xs=844.203, uq=1.000000, runtime=50.594s
+Job completed: gg=2, theta=168.750, xs=0.659, uq=1.000000, runtime=51.910s
+Job completed: gg=2, theta=506.250, xs=338.077, uq=1.000000, runtime=51.268s
+Job completed: gg=2, theta=843.750, xs=1519.038, uq=1.000000, runtime=49.201s
+Job completed: gg=2, theta=1181.250, xs=1856.456, uq=1.000000, runtime=48.243s
+Job completed: gg=2, theta=1012.500, xs=1181.621, uq=1.000000, runtime=49.846s
+Job completed: gg=2, theta=1012.500, xs=1519.038, uq=1.000000, runtime=49.601s
+Job completed: gg=2, theta=1012.500, xs=1856.456, uq=1.000000, runtime=48.877s
+Job completed: gg=2, theta=1350.000, xs=2193.874, uq=1.000000, runtime=48.597s
+Job completed: gg=2, theta=1350.000, xs=1856.456, uq=1.000000, runtime=50.206s
+Job completed: gg=2, theta=1181.250, xs=2193.874, uq=1.000000, runtime=48.935s
+Job completed: gg=2, theta=1350.000, xs=2531.291, uq=1.000000, runtime=48.865s
+Job completed: gg=2, theta=1181.250, xs=1687.747, uq=1.000000, runtime=50.926s
+Job completed: gg=2, theta=1181.250, xs=2025.165, uq=1.000000, runtime=51.379s
+Job completed: gg=1, theta=-843.750, xs=1350.330, uq=1.000000, runtime=53.190s
+Job completed: gg=1, theta=-1012.500, xs=1856.456, uq=1.000000, runtime=52.531s
+Job completed: gg=1, theta=-843.750, xs=1519.038, uq=1.000000, runtime=52.454s
+Job completed: gg=1, theta=-1012.500, xs=1519.038, uq=1.000000, runtime=54.171s
+Job completed: gg=1, theta=-1181.250, xs=2025.165, uq=1.000000, runtime=52.309s
+Job completed: gg=1, theta=-843.750, xs=1687.747, uq=1.000000, runtime=56.523s
+Job completed: gg=1, theta=-1350.000, xs=2193.874, uq=1.000000, runtime=54.593s
+Job completed: gg=1, theta=-1181.250, xs=2193.874, uq=1.000000, runtime=51.992s
+Job completed: gg=1, theta=-337.500, xs=169.368, uq=1.000000, runtime=51.861s
+Job completed: gg=1, theta=-506.250, xs=675.494, uq=1.000000, runtime=51.082s
+Job completed: gg=1, theta=-168.750, xs=169.368, uq=1.000000, runtime=51.955s
+Job completed: gg=1, theta=-506.250, xs=844.203, uq=1.000000, runtime=50.335s
+Job completed: gg=1, theta=-1350.000, xs=2531.291, uq=1.000000, runtime=54.151s
+Job completed: gg=1, theta=-1181.250, xs=2362.583, uq=1.000000, runtime=55.645s
+Job completed: gg=1, theta=-337.500, xs=506.786, uq=1.000000, runtime=53.564s
+Job completed: gg=1, theta=-506.250, xs=1012.912, uq=1.000000, runtime=51.052s
+Job completed: gg=1, theta=-675.000, xs=844.203, uq=1.000000, runtime=53.059s
+Job completed: gg=1, theta=-168.750, xs=0.659, uq=1.000000, runtime=56.884s
+Job completed: gg=1, theta=-168.750, xs=338.077, uq=1.000000, runtime=56.695s
+Job completed: gg=1, theta=-675.000, xs=1181.621, uq=1.000000, runtime=53.261s
+Job completed: gg=1, theta=168.750, xs=169.368, uq=1.000000, runtime=50.827s
+Job completed: gg=1, theta=337.500, xs=169.368, uq=1.000000, runtime=52.403s
+Job completed: gg=1, theta=168.750, xs=0.659, uq=1.000000, runtime=54.879s
+Job completed: gg=1, theta=506.250, xs=338.077, uq=1.000000, runtime=53.192s
+Job completed: gg=1, theta=337.500, xs=506.786, uq=1.000000, runtime=55.010s
+Job completed: gg=1, theta=506.250, xs=506.786, uq=1.000000, runtime=52.195s
+Job completed: gg=1, theta=506.250, xs=675.494, uq=1.000000, runtime=52.805s
+Job completed: gg=1, theta=675.000, xs=506.786, uq=1.000000, runtime=55.204s
+Job completed: gg=1, theta=506.250, xs=844.203, uq=1.000000, runtime=52.332s
+Job completed: gg=1, theta=675.000, xs=844.203, uq=1.000000, runtime=52.311s
+Job completed: gg=1, theta=675.000, xs=1181.621, uq=1.000000, runtime=55.986s
+Job completed: gg=1, theta=843.750, xs=1012.912, uq=1.000000, runtime=54.113s
+Job completed: gg=1, theta=843.750, xs=1181.621, uq=1.000000, runtime=53.074s
+Job completed: gg=1, theta=1012.500, xs=1181.621, uq=1.000000, runtime=53.765s
+Job completed: gg=1, theta=843.750, xs=1350.330, uq=1.000000, runtime=55.927s
+Job completed: gg=3, theta=843.750, xs=2362.583, uq=-0.786435, runtime=344.729s
+Job completed: gg=3, theta=506.250, xs=1687.747, uq=-0.786435, runtime=347.700s
+Job completed: gg=2, theta=-506.250, xs=1181.621, uq=-0.505347, runtime=348.844s
+Job completed: gg=3, theta=506.250, xs=1350.330, uq=-0.786435, runtime=349.506s
+Job completed: gg=3, theta=337.500, xs=844.203, uq=-0.786435, runtime=350.140s
+Job completed: gg=3, theta=843.750, xs=2025.165, uq=-0.786435, runtime=350.642s
+Job completed: gg=2, theta=-337.500, xs=844.203, uq=-0.505347, runtime=350.998s
+Job completed: gg=3, theta=843.750, xs=1856.456, uq=-0.786435, runtime=352.338s
+Job completed: gg=3, theta=-337.500, xs=1519.038, uq=-0.786435, runtime=352.547s
+Job completed: gg=3, theta=168.750, xs=506.786, uq=-0.786435, runtime=353.780s
+Job completed: gg=3, theta=1181.250, xs=2700.000, uq=-0.786435, runtime=355.074s
+Job completed: gg=2, theta=-675.000, xs=1856.456, uq=-0.505347, runtime=355.190s
+Job completed: gg=2, theta=-168.750, xs=1012.912, uq=-0.505347, runtime=357.386s
+Job completed: gg=3, theta=168.750, xs=1012.912, uq=-0.786435, runtime=357.993s
+Job completed: gg=3, theta=168.750, xs=675.494, uq=-0.786435, runtime=358.547s
+Job completed: gg=3, theta=1012.500, xs=2193.874, uq=-0.786435, runtime=359.127s
+Job completed: gg=3, theta=337.500, xs=1519.038, uq=-0.786435, runtime=359.333s
+Job completed: gg=1, theta=843.750, xs=1519.038, uq=1.000000, runtime=53.463s
+Job completed: gg=1, theta=1012.500, xs=1519.038, uq=1.000000, runtime=54.554s
+Job completed: gg=3, theta=-506.250, xs=1181.621, uq=-0.786435, runtime=364.482s
+Job completed: gg=3, theta=0.000, xs=169.368, uq=-0.786435, runtime=364.827s
+Job completed: gg=3, theta=506.250, xs=1181.621, uq=-0.786435, runtime=365.460s
+Job completed: gg=3, theta=-675.000, xs=2193.874, uq=-0.786435, runtime=365.224s
+Job completed: gg=3, theta=843.750, xs=2193.874, uq=-0.786435, runtime=366.767s
+Job completed: gg=3, theta=1181.250, xs=2531.291, uq=-0.786435, runtime=366.987s
+Job completed: gg=2, theta=-843.750, xs=2193.874, uq=-0.505347, runtime=367.699s
+Job completed: gg=3, theta=675.000, xs=1519.038, uq=-0.786435, runtime=368.328s
+Job completed: gg=2, theta=-843.750, xs=2362.583, uq=-0.505347, runtime=368.563s
+Job completed: gg=2, theta=-1012.500, xs=2531.291, uq=-0.505347, runtime=370.257s
+Job completed: gg=3, theta=1012.500, xs=2531.291, uq=-0.786435, runtime=372.630s
+Job completed: gg=3, theta=-843.750, xs=2362.583, uq=-0.786435, runtime=373.383s
+Job completed: gg=2, theta=-1181.250, xs=2700.000, uq=-0.505347, runtime=374.794s
+Job completed: gg=2, theta=-843.750, xs=2025.165, uq=-0.505347, runtime=375.607s
+Job completed: gg=2, theta=0.000, xs=169.368, uq=-0.505347, runtime=379.348s
+Job completed: gg=2, theta=-1012.500, xs=2193.874, uq=-0.505347, runtime=379.659s
+Job completed: gg=2, theta=-843.750, xs=1856.456, uq=-0.505347, runtime=381.030s
+Job completed: gg=2, theta=0.000, xs=844.203, uq=-0.505347, runtime=382.392s
+Job completed: gg=3, theta=675.000, xs=1856.456, uq=-0.786435, runtime=383.525s
+Job completed: gg=3, theta=-843.750, xs=2193.874, uq=-0.786435, runtime=385.640s
+Job completed: gg=2, theta=-1181.250, xs=2531.291, uq=-0.505347, runtime=386.675s
+Job completed: gg=2, theta=-168.750, xs=675.494, uq=-0.505347, runtime=387.926s
+Job completed: gg=2, theta=-337.500, xs=1181.621, uq=-0.505347, runtime=346.715s
+Job completed: gg=2, theta=-168.750, xs=844.203, uq=-0.505347, runtime=390.060s
+Job completed: gg=3, theta=-675.000, xs=1856.456, uq=-0.786435, runtime=392.634s
+Job completed: gg=3, theta=506.250, xs=1519.038, uq=-0.786435, runtime=392.251s
+Job completed: gg=3, theta=-506.250, xs=1687.747, uq=-0.786435, runtime=394.785s
+Job completed: gg=3, theta=-337.500, xs=844.203, uq=-0.786435, runtime=393.247s
+Job completed: gg=3, theta=-675.000, xs=1519.038, uq=-0.786435, runtime=394.964s
+Job completed: gg=3, theta=-1012.500, xs=2531.291, uq=-0.786435, runtime=396.163s
+Job completed: gg=2, theta=-675.000, xs=2193.874, uq=-0.505347, runtime=396.524s
+Job completed: gg=2, theta=-506.250, xs=1687.747, uq=-0.505347, runtime=354.331s
+Job completed: gg=2, theta=-675.000, xs=1519.038, uq=-0.505347, runtime=398.712s
+Job completed: gg=3, theta=-1012.500, xs=2193.874, uq=-0.786435, runtime=399.915s
+Job completed: gg=1, theta=1012.500, xs=1856.456, uq=1.000000, runtime=51.119s
+Job completed: gg=1, theta=1350.000, xs=1856.456, uq=1.000000, runtime=49.808s
+Job completed: gg=3, theta=337.500, xs=1181.621, uq=-0.786435, runtime=402.122s
+Job completed: gg=2, theta=843.750, xs=2025.165, uq=-0.505347, runtime=355.067s
+Job completed: gg=1, theta=1181.250, xs=1687.747, uq=1.000000, runtime=52.606s
+Job completed: gg=3, theta=-843.750, xs=1856.456, uq=-0.786435, runtime=403.160s
+Job completed: gg=3, theta=0.000, xs=844.203, uq=-0.786435, runtime=403.635s
+Job completed: gg=1, theta=1181.250, xs=1856.456, uq=1.000000, runtime=52.458s
+Job completed: gg=2, theta=-337.500, xs=1519.038, uq=-0.505347, runtime=362.092s
+Job completed: gg=1, theta=1181.250, xs=2193.874, uq=1.000000, runtime=52.637s
+Job completed: gg=2, theta=-506.250, xs=1519.038, uq=-0.505347, runtime=364.608s
+Job completed: gg=1, theta=1181.250, xs=2025.165, uq=1.000000, runtime=55.464s
+Job completed: gg=2, theta=843.750, xs=1856.456, uq=-0.505347, runtime=362.555s
+Job completed: gg=3, theta=-1181.250, xs=2700.000, uq=-0.786435, runtime=409.255s
+Job completed: gg=2, theta=506.250, xs=1181.621, uq=-0.505347, runtime=365.276s
+Job completed: gg=2, theta=168.750, xs=338.077, uq=-1.139287, runtime=366.937s
+Job completed: gg=2, theta=337.500, xs=1181.621, uq=-0.505347, runtime=365.237s
+Job completed: gg=3, theta=675.000, xs=2193.874, uq=-0.786435, runtime=410.793s
+Job completed: gg=1, theta=1350.000, xs=2193.874, uq=1.000000, runtime=55.939s
+Job completed: gg=1, theta=1350.000, xs=2531.291, uq=1.000000, runtime=51.587s
+Job completed: gg=2, theta=0.000, xs=506.786, uq=-0.505347, runtime=410.585s
+Job completed: gg=2, theta=1181.250, xs=2700.000, uq=-0.505347, runtime=362.987s
+Job completed: gg=3, theta=0.000, xs=506.786, uq=-0.786435, runtime=412.799s
+Job completed: gg=2, theta=1012.500, xs=2531.291, uq=-0.505347, runtime=364.150s
+Job completed: gg=3, theta=-506.250, xs=1350.330, uq=-0.786435, runtime=413.368s
+Job completed: gg=0, theta=-1012.500, xs=1181.621, uq=1.000000, runtime=54.678s
+Job completed: gg=0, theta=-843.750, xs=1012.912, uq=1.000000, runtime=53.907s
+Job completed: gg=2, theta=1012.500, xs=2193.874, uq=-0.505347, runtime=367.013s
+Job completed: gg=2, theta=168.750, xs=675.494, uq=-0.505347, runtime=371.997s
+Job completed: gg=2, theta=675.000, xs=1519.038, uq=-0.505347, runtime=371.536s
+Job completed: gg=2, theta=1181.250, xs=2531.291, uq=-0.505347, runtime=368.405s
+Job completed: gg=3, theta=-168.750, xs=675.494, uq=-0.786435, runtime=417.707s
+Job completed: gg=0, theta=-675.000, xs=1181.621, uq=1.000000, runtime=53.465s
+Job completed: gg=3, theta=-1181.250, xs=2531.291, uq=-0.786435, runtime=418.253s
+Job completed: gg=0, theta=-843.750, xs=1181.621, uq=1.000000, runtime=56.605s
+Job completed: gg=0, theta=-843.750, xs=1519.038, uq=1.000000, runtime=53.300s
+Job completed: gg=2, theta=-506.250, xs=1350.330, uq=-0.505347, runtime=376.583s
+Job completed: gg=0, theta=-843.750, xs=1350.330, uq=1.000000, runtime=55.332s
+Job completed: gg=3, theta=-506.250, xs=1519.038, uq=-0.786435, runtime=420.814s
+Job completed: gg=0, theta=-1012.500, xs=1519.038, uq=1.000000, runtime=56.505s
+Job completed: gg=2, theta=-168.750, xs=506.786, uq=-0.505347, runtime=422.609s
+Job completed: gg=0, theta=-1181.250, xs=1687.747, uq=1.000000, runtime=55.582s
+Job completed: gg=0, theta=-1181.250, xs=1856.456, uq=1.000000, runtime=56.560s
+Job completed: gg=3, theta=-168.750, xs=1012.912, uq=-0.786435, runtime=425.479s
+Job completed: gg=2, theta=675.000, xs=1856.456, uq=-0.505347, runtime=378.922s
+Job completed: gg=0, theta=-1350.000, xs=1856.456, uq=1.000000, runtime=58.451s
+Job completed: gg=0, theta=-1012.500, xs=1856.456, uq=1.000000, runtime=56.516s
+Job completed: gg=0, theta=-1181.250, xs=2025.165, uq=1.000000, runtime=56.677s
+Job completed: gg=3, theta=168.750, xs=844.203, uq=-0.786435, runtime=429.904s
+Job completed: gg=3, theta=-168.750, xs=844.203, uq=-0.786435, runtime=431.932s
+Job completed: gg=0, theta=-1350.000, xs=2193.874, uq=1.000000, runtime=53.077s
+Job completed: gg=0, theta=-1181.250, xs=2193.874, uq=1.000000, runtime=55.154s
+Job completed: gg=2, theta=506.250, xs=1350.330, uq=-0.505347, runtime=390.068s
+Job completed: gg=0, theta=-1350.000, xs=2531.291, uq=1.000000, runtime=53.472s
+Job completed: gg=0, theta=-337.500, xs=169.368, uq=1.000000, runtime=54.064s
+Job completed: gg=0, theta=-168.750, xs=0.659, uq=1.000000, runtime=57.831s
+Job completed: gg=0, theta=-506.250, xs=506.786, uq=1.000000, runtime=52.285s
+Job completed: gg=0, theta=-168.750, xs=169.368, uq=1.000000, runtime=56.803s
+Job completed: gg=2, theta=168.750, xs=506.786, uq=-0.505347, runtime=406.369s
+Job completed: gg=0, theta=-337.500, xs=506.786, uq=1.000000, runtime=53.135s
+Job completed: gg=0, theta=-675.000, xs=506.786, uq=1.000000, runtime=55.627s
+Job completed: gg=0, theta=-506.250, xs=338.077, uq=1.000000, runtime=56.161s
+Job completed: gg=3, theta=-337.500, xs=1181.621, uq=-0.786435, runtime=452.339s
+Job completed: gg=0, theta=-506.250, xs=675.494, uq=1.000000, runtime=55.329s
+Job completed: gg=0, theta=-675.000, xs=844.203, uq=1.000000, runtime=51.979s
+Job completed: gg=2, theta=337.500, xs=844.203, uq=-0.505347, runtime=410.992s
+Job completed: gg=0, theta=-506.250, xs=844.203, uq=1.000000, runtime=55.446s
+Job completed: gg=2, theta=506.250, xs=1012.912, uq=-1.139287, runtime=413.997s
+Job completed: gg=0, theta=337.500, xs=169.368, uq=1.000000, runtime=52.378s
+Job completed: gg=3, theta=-168.750, xs=506.786, uq=-0.786435, runtime=459.841s
+Job completed: gg=0, theta=168.750, xs=169.368, uq=1.000000, runtime=54.868s
+Job completed: gg=0, theta=506.250, xs=338.077, uq=1.000000, runtime=53.009s
+Job completed: gg=0, theta=337.500, xs=506.786, uq=1.000000, runtime=53.383s
+Job completed: gg=0, theta=168.750, xs=0.659, uq=1.000000, runtime=58.694s
+Job completed: gg=0, theta=506.250, xs=506.786, uq=1.000000, runtime=53.014s
+Job completed: gg=0, theta=506.250, xs=844.203, uq=1.000000, runtime=52.740s
+Job completed: gg=3, theta=-843.750, xs=2025.165, uq=-0.786435, runtime=465.113s
+Job completed: gg=0, theta=675.000, xs=844.203, uq=1.000000, runtime=53.681s
+Job completed: gg=0, theta=675.000, xs=506.786, uq=1.000000, runtime=56.340s
+Job completed: gg=0, theta=843.750, xs=1012.912, uq=1.000000, runtime=52.979s
+Job completed: gg=0, theta=675.000, xs=1181.621, uq=1.000000, runtime=54.346s
+Job completed: gg=0, theta=506.250, xs=675.494, uq=1.000000, runtime=57.906s
+Job completed: gg=0, theta=843.750, xs=1181.621, uq=1.000000, runtime=53.740s
+Job completed: gg=0, theta=1012.500, xs=1181.621, uq=1.000000, runtime=53.303s
+Job completed: gg=0, theta=843.750, xs=1350.330, uq=1.000000, runtime=53.656s
+Job completed: gg=0, theta=843.750, xs=1519.038, uq=1.000000, runtime=53.507s
+Job completed: gg=0, theta=1012.500, xs=1519.038, uq=1.000000, runtime=54.546s
+Job completed: gg=0, theta=1012.500, xs=1856.456, uq=1.000000, runtime=53.190s
+Job completed: gg=0, theta=1181.250, xs=1856.456, uq=1.000000, runtime=51.644s
+Job completed: gg=0, theta=1181.250, xs=1687.747, uq=1.000000, runtime=53.367s
+Job completed: gg=0, theta=1181.250, xs=2193.874, uq=1.000000, runtime=50.249s
+Job completed: gg=0, theta=1350.000, xs=2193.874, uq=1.000000, runtime=50.794s
+Job completed: gg=0, theta=1181.250, xs=2025.165, uq=1.000000, runtime=52.248s
+Job completed: gg=0, theta=1350.000, xs=1856.456, uq=1.000000, runtime=54.615s
+Job completed: gg=2, theta=843.750, xs=1687.747, uq=-1.139287, runtime=433.239s
+Job completed: gg=0, theta=1350.000, xs=2531.291, uq=1.000000, runtime=52.064s
+Job completed: gg=2, theta=1181.250, xs=2362.583, uq=-1.139287, runtime=436.349s
+Job completed: gg=1, theta=-843.750, xs=1856.456, uq=-0.233840, runtime=438.136s
+Job completed: gg=1, theta=-675.000, xs=1519.038, uq=-0.233840, runtime=439.932s
+Job completed: gg=1, theta=-675.000, xs=1856.456, uq=-0.233840, runtime=462.620s
+Job completed: gg=1, theta=-168.750, xs=675.494, uq=-0.233840, runtime=425.410s
+Job completed: gg=1, theta=-1012.500, xs=2193.874, uq=-0.233840, runtime=434.207s
+Job completed: gg=1, theta=-843.750, xs=2025.165, uq=-0.233840, runtime=477.032s
+Job completed: gg=1, theta=-1181.250, xs=2531.291, uq=-0.233840, runtime=437.680s
+Job completed: gg=1, theta=-843.750, xs=2362.583, uq=-0.233840, runtime=444.164s
+Job completed: gg=1, theta=-168.750, xs=506.786, uq=-0.233840, runtime=442.453s
+Job completed: gg=1, theta=0.000, xs=506.786, uq=-0.233840, runtime=442.408s
+Job completed: gg=1, theta=-843.750, xs=2193.874, uq=-0.233840, runtime=446.099s
+Job completed: gg=1, theta=-1012.500, xs=2531.291, uq=-0.233840, runtime=445.460s
+Job completed: gg=1, theta=-675.000, xs=2193.874, uq=-0.233840, runtime=450.470s
+Job completed: gg=1, theta=0.000, xs=169.368, uq=-0.233840, runtime=449.929s
+Job completed: gg=1, theta=-168.750, xs=844.203, uq=-0.233840, runtime=450.529s
+Job completed: gg=1, theta=-506.250, xs=1350.330, uq=-0.233840, runtime=449.157s
+Job completed: gg=1, theta=-506.250, xs=1687.747, uq=-0.233840, runtime=446.603s
+Job completed: gg=1, theta=-168.750, xs=1012.912, uq=-0.233840, runtime=457.779s
+Job completed: gg=1, theta=-1181.250, xs=2700.000, uq=-0.233840, runtime=469.065s
+Job completed: gg=1, theta=0.000, xs=844.203, uq=-0.233840, runtime=472.675s
+Job completed: gg=1, theta=-337.500, xs=844.203, uq=-0.233840, runtime=473.712s
+Job completed: gg=1, theta=-337.500, xs=1519.038, uq=-0.233840, runtime=465.790s
+Job completed: gg=1, theta=168.750, xs=675.494, uq=-0.233840, runtime=428.150s
+Job completed: gg=1, theta=-506.250, xs=1519.038, uq=-0.233840, runtime=470.947s
+Job completed: gg=1, theta=-337.500, xs=1181.621, uq=-0.233840, runtime=478.263s
+Job completed: gg=1, theta=337.500, xs=844.203, uq=-0.233840, runtime=434.212s
+Job completed: gg=1, theta=168.750, xs=506.786, uq=-0.233840, runtime=446.154s
+Job completed: gg=1, theta=-506.250, xs=1181.621, uq=-0.233840, runtime=491.800s
+Job completed: gg=1, theta=506.250, xs=1181.621, uq=-0.233840, runtime=421.079s
+Job completed: gg=1, theta=506.250, xs=1350.330, uq=-0.233840, runtime=434.734s
+Job completed: gg=1, theta=168.750, xs=338.077, uq=-0.289198, runtime=494.084s
+Job completed: gg=1, theta=337.500, xs=1181.621, uq=-0.233840, runtime=440.279s
+Job completed: gg=1, theta=675.000, xs=1519.038, uq=-0.233840, runtime=415.147s
+Job completed: gg=1, theta=506.250, xs=1012.912, uq=-0.289198, runtime=498.379s
+Job completed: gg=0, theta=-675.000, xs=1519.038, uq=-0.061374, runtime=338.973s
+Job completed: gg=0, theta=-1012.500, xs=2193.874, uq=-0.061374, runtime=338.316s
+Job completed: gg=0, theta=-843.750, xs=1856.456, uq=-0.061374, runtime=347.028s
+Job completed: gg=0, theta=-675.000, xs=1856.456, uq=-0.061374, runtime=345.698s
+Job completed: gg=0, theta=-1181.250, xs=2531.291, uq=-0.061374, runtime=341.284s
+Job completed: gg=0, theta=-843.750, xs=2025.165, uq=-0.061374, runtime=354.427s
+Job completed: gg=0, theta=337.500, xs=844.203, uq=-0.061374, runtime=319.387s
+Job completed: gg=0, theta=0.000, xs=169.368, uq=-0.061374, runtime=339.130s
+Job completed: gg=0, theta=-1012.500, xs=2531.291, uq=-0.061374, runtime=346.665s
+Job completed: gg=1, theta=1012.500, xs=2193.874, uq=-0.233840, runtime=383.371s
+Job completed: gg=1, theta=1181.250, xs=2531.291, uq=-0.233840, runtime=379.520s
+Job completed: gg=1, theta=843.750, xs=1856.456, uq=-0.233840, runtime=390.228s
+Job completed: gg=0, theta=-506.250, xs=1350.330, uq=-0.061374, runtime=336.669s
+Job completed: gg=0, theta=-337.500, xs=844.203, uq=-0.061374, runtime=338.984s
+Job completed: gg=1, theta=843.750, xs=1687.747, uq=-0.289198, runtime=431.073s
+Job completed: gg=1, theta=1012.500, xs=2531.291, uq=-0.233840, runtime=392.499s
+Job completed: gg=0, theta=-1181.250, xs=2700.000, uq=-0.061374, runtime=362.236s
+Job completed: gg=0, theta=1181.250, xs=2700.000, uq=-0.061374, runtime=321.701s
+Job completed: gg=0, theta=506.250, xs=1181.621, uq=-0.061374, runtime=341.577s
+Job completed: gg=0, theta=843.750, xs=2025.165, uq=-0.061374, runtime=337.269s
+Job completed: gg=1, theta=675.000, xs=1856.456, uq=-0.233840, runtime=412.786s
+Job completed: gg=0, theta=506.250, xs=1350.330, uq=-0.061374, runtime=345.876s
+Job completed: gg=0, theta=675.000, xs=1856.456, uq=-0.061374, runtime=345.208s
+Job completed: gg=0, theta=337.500, xs=1181.621, uq=-0.061374, runtime=352.629s
+Job completed: gg=0, theta=-168.750, xs=506.786, uq=-0.061374, runtime=367.783s
+Job completed: gg=1, theta=843.750, xs=2025.165, uq=-0.233840, runtime=419.554s
+Job completed: gg=0, theta=1012.500, xs=2531.291, uq=-0.061374, runtime=342.391s
+Job completed: gg=0, theta=168.750, xs=675.494, uq=-0.061374, runtime=362.012s
+Job completed: gg=1, theta=1181.250, xs=2362.583, uq=-0.289198, runtime=419.618s
+Job completed: gg=0, theta=-843.750, xs=1687.747, uq=-0.372093, runtime=407.033s
+Job completed: gg=1, theta=1181.250, xs=2700.000, uq=-0.233840, runtime=416.146s
+Job completed: gg=0, theta=-1181.250, xs=2362.583, uq=-0.372093, runtime=394.021s
+Job completed: gg=0, theta=-337.500, xs=1181.621, uq=-0.061374, runtime=373.410s
+Job completed: gg=0, theta=168.750, xs=506.786, uq=-0.061374, runtime=368.863s
+Job completed: gg=0, theta=843.750, xs=1856.456, uq=-0.061374, runtime=360.160s
+Job completed: gg=0, theta=-506.250, xs=1181.621, uq=-0.061374, runtime=377.328s
+Job completed: gg=0, theta=1012.500, xs=2193.874, uq=-0.061374, runtime=357.273s
+Job completed: gg=0, theta=1181.250, xs=2531.291, uq=-0.061374, runtime=355.350s
+Job completed: gg=0, theta=675.000, xs=1519.038, uq=-0.061374, runtime=369.932s
+Job completed: gg=0, theta=0.000, xs=506.786, uq=-0.061374, runtime=396.497s
+Job completed: gg=0, theta=-168.750, xs=675.494, uq=-0.061374, runtime=400.713s
+Job completed: gg=0, theta=506.250, xs=1012.912, uq=-0.073109, runtime=388.901s
+Job completed: gg=0, theta=-506.250, xs=1012.912, uq=-0.372093, runtime=400.968s
+Job completed: gg=0, theta=843.750, xs=1687.747, uq=-0.073109, runtime=401.302s
+Job completed: gg=0, theta=168.750, xs=338.077, uq=-0.073109, runtime=418.420s
+Job completed: gg=0, theta=1181.250, xs=2362.583, uq=-0.073109, runtime=404.336s
+Job completed: gg=0, theta=-168.750, xs=338.077, uq=-0.372093, runtime=438.557s
+=== Level 2 COMPLETE: 1408/1408 corner points computed ===
+Box subdivided: gamma=3, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-843.75,-675.00], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1012.50,-843.75], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-168.75,0.00], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-337.50,-168.75], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-506.25,-337.50], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-675.00,-506.25], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=3, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=3, level 2 -> 3, theta=[0.00,168.75], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=3, level 2 -> 3, theta=[168.75,337.50], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=3, level 2 -> 3, theta=[337.50,506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=3, level 2 -> 3, theta=[506.25,675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=3, level 2 -> 3, theta=[675.00,843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=3, level 2 -> 3, theta=[843.75,1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1012.50,1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-843.75,-675.00], xs=[1687.75,1856.46]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1012.50,-843.75], xs=[2025.16,2193.87]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2362.58,2531.29]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-168.75,0.00], xs=[338.08,506.79]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-337.50,-168.75], xs=[675.49,844.20]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-506.25,-337.50], xs=[1012.91,1181.62]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-675.00,-506.25], xs=[1350.33,1519.04]
+Box subdivided: gamma=2, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=2, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=2, level 2 -> 3, theta=[168.75,337.50], xs=[169.37,338.08]
+Box subdivided: gamma=2, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=2, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=2, level 2 -> 3, theta=[337.50,506.25], xs=[506.79,675.49]
+Box subdivided: gamma=2, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=2, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=2, level 2 -> 3, theta=[506.25,675.00], xs=[844.20,1012.91]
+Box subdivided: gamma=2, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=2, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=2, level 2 -> 3, theta=[675.00,843.75], xs=[1181.62,1350.33]
+Box subdivided: gamma=2, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=2, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=2, level 2 -> 3, theta=[843.75,1012.50], xs=[1519.04,1687.75]
+Box subdivided: gamma=2, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=2, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1012.50,1181.25], xs=[1856.46,2025.16]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1181.25,1350.00], xs=[2193.87,2362.58]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-843.75,-675.00], xs=[1687.75,1856.46]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1012.50,-843.75], xs=[2025.16,2193.87]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2362.58,2531.29]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-168.75,0.00], xs=[338.08,506.79]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-337.50,-168.75], xs=[675.49,844.20]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-506.25,-337.50], xs=[1012.91,1181.62]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-675.00,-506.25], xs=[1350.33,1519.04]
+Box subdivided: gamma=1, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=1, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=1, level 2 -> 3, theta=[168.75,337.50], xs=[169.37,338.08]
+Box subdivided: gamma=1, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=1, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=1, level 2 -> 3, theta=[337.50,506.25], xs=[506.79,675.49]
+Box subdivided: gamma=1, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=1, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=1, level 2 -> 3, theta=[506.25,675.00], xs=[844.20,1012.91]
+Box subdivided: gamma=1, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=1, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=1, level 2 -> 3, theta=[675.00,843.75], xs=[1181.62,1350.33]
+Box subdivided: gamma=1, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=1, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=1, level 2 -> 3, theta=[843.75,1012.50], xs=[1519.04,1687.75]
+Box subdivided: gamma=1, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=1, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1012.50,1181.25], xs=[1856.46,2025.16]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1181.25,1350.00], xs=[2193.87,2362.58]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-843.75,-675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-337.50,-168.75], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-506.25,-337.50], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-675.00,-506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=0, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[168.75,337.50], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=0, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[337.50,506.25], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=0, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[506.25,675.00], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=0, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[675.00,843.75], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=0, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[843.75,1012.50], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=0, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1012.50,1181.25], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1181.25,1350.00], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Level 2: 184 boxes had boundaries, 736 new boxes created, 735 new corner jobs, refinement time: 0.009817s
+Job completed: gg=3, theta=337.500, xs=422.431, uq=1.000000, runtime=41.758s
+Job completed: gg=3, theta=-84.375, xs=0.659, uq=1.000000, runtime=42.581s
+Job completed: gg=3, theta=-506.250, xs=928.558, uq=1.000000, runtime=42.575s
+Job completed: gg=3, theta=168.750, xs=422.431, uq=1.000000, runtime=42.740s
+Job completed: gg=3, theta=-590.625, xs=1181.621, uq=1.000000, runtime=42.893s
+Job completed: gg=3, theta=421.875, xs=844.203, uq=1.000000, runtime=43.085s
+Job completed: gg=3, theta=-590.625, xs=1097.266, uq=1.000000, runtime=43.196s
+Job completed: gg=3, theta=-253.125, xs=506.786, uq=1.000000, runtime=43.224s
+Job completed: gg=3, theta=-253.125, xs=422.431, uq=1.000000, runtime=43.296s
+Job completed: gg=3, theta=-759.375, xs=1434.684, uq=1.000000, runtime=43.292s
+Job completed: gg=3, theta=-1265.625, xs=2362.583, uq=1.000000, runtime=43.327s
+Job completed: gg=3, theta=84.375, xs=169.368, uq=1.000000, runtime=43.675s
+Job completed: gg=3, theta=0.000, xs=85.014, uq=1.000000, runtime=43.715s
+Job completed: gg=3, theta=-1012.500, xs=1940.810, uq=1.000000, runtime=43.350s
+Job completed: gg=3, theta=421.875, xs=759.849, uq=1.000000, runtime=43.835s
+Job completed: gg=3, theta=-843.750, xs=1603.393, uq=1.000000, runtime=43.868s
+Job completed: gg=3, theta=253.125, xs=338.077, uq=1.000000, runtime=43.923s
+Job completed: gg=3, theta=84.375, xs=253.722, uq=1.000000, runtime=43.923s
+Job completed: gg=3, theta=253.125, xs=591.140, uq=1.000000, runtime=43.993s
+Job completed: gg=3, theta=-843.750, xs=1434.684, uq=1.000000, runtime=44.168s
+Job completed: gg=3, theta=506.250, xs=759.849, uq=1.000000, runtime=44.089s
+Job completed: gg=3, theta=-421.875, xs=844.203, uq=1.000000, runtime=43.944s
+Job completed: gg=3, theta=-1096.875, xs=2025.165, uq=1.000000, runtime=44.155s
+Job completed: gg=3, theta=-506.250, xs=759.849, uq=1.000000, runtime=44.251s
+Job completed: gg=3, theta=-928.125, xs=1687.747, uq=1.000000, runtime=44.275s
+Job completed: gg=3, theta=337.500, xs=759.849, uq=1.000000, runtime=43.953s
+Job completed: gg=3, theta=-675.000, xs=1097.266, uq=1.000000, runtime=44.407s
+Job completed: gg=3, theta=-1096.875, xs=2109.519, uq=1.000000, runtime=44.570s
+Job completed: gg=3, theta=-168.750, xs=253.722, uq=1.000000, runtime=44.578s
+Job completed: gg=3, theta=337.500, xs=591.140, uq=1.000000, runtime=44.676s
+Job completed: gg=3, theta=84.375, xs=85.014, uq=1.000000, runtime=44.688s
+Job completed: gg=3, theta=-928.125, xs=1772.102, uq=1.000000, runtime=44.698s
+Job completed: gg=3, theta=-1350.000, xs=2446.937, uq=1.000000, runtime=44.720s
+Job completed: gg=3, theta=84.375, xs=0.659, uq=1.000000, runtime=44.742s
+Job completed: gg=3, theta=506.250, xs=1097.266, uq=1.000000, runtime=44.752s
+Job completed: gg=3, theta=-337.500, xs=591.140, uq=1.000000, runtime=44.859s
+Job completed: gg=3, theta=-84.375, xs=169.368, uq=1.000000, runtime=44.868s
+Job completed: gg=3, theta=-759.375, xs=1350.330, uq=1.000000, runtime=44.902s
+Job completed: gg=3, theta=-1181.250, xs=2109.519, uq=1.000000, runtime=45.000s
+Job completed: gg=3, theta=421.875, xs=675.494, uq=1.000000, runtime=44.488s
+Job completed: gg=3, theta=-590.625, xs=1012.912, uq=1.000000, runtime=45.002s
+Job completed: gg=3, theta=-337.500, xs=422.431, uq=1.000000, runtime=45.003s
+Job completed: gg=3, theta=168.750, xs=85.014, uq=1.000000, runtime=44.888s
+Job completed: gg=3, theta=-253.125, xs=338.077, uq=1.000000, runtime=45.427s
+Job completed: gg=3, theta=-421.875, xs=675.494, uq=1.000000, runtime=45.425s
+Job completed: gg=3, theta=-675.000, xs=1265.975, uq=1.000000, runtime=45.557s
+Job completed: gg=3, theta=-421.875, xs=759.849, uq=1.000000, runtime=45.611s
+Job completed: gg=3, theta=-1181.250, xs=2278.228, uq=1.000000, runtime=45.764s
+Job completed: gg=3, theta=-1265.625, xs=2446.937, uq=1.000000, runtime=45.912s
+Job completed: gg=3, theta=253.125, xs=422.431, uq=1.000000, runtime=45.704s
+Job completed: gg=3, theta=421.875, xs=928.558, uq=1.000000, runtime=46.071s
+Job completed: gg=3, theta=-1350.000, xs=2615.646, uq=1.000000, runtime=46.306s
+Job completed: gg=3, theta=-1012.500, xs=1772.102, uq=1.000000, runtime=46.630s
+Job completed: gg=3, theta=253.125, xs=506.786, uq=1.000000, runtime=46.553s
+Job completed: gg=3, theta=506.250, xs=928.558, uq=1.000000, runtime=45.888s
+Job completed: gg=3, theta=-928.125, xs=1856.456, uq=1.000000, runtime=47.517s
+Job completed: gg=3, theta=-1265.625, xs=2531.291, uq=1.000000, runtime=48.599s
+Job completed: gg=3, theta=-1096.875, xs=2193.874, uq=1.000000, runtime=49.219s
+Job completed: gg=3, theta=-84.375, xs=85.014, uq=1.000000, runtime=49.466s
+Job completed: gg=3, theta=168.750, xs=253.722, uq=1.000000, runtime=49.474s
+Job completed: gg=3, theta=-759.375, xs=1519.038, uq=1.000000, runtime=49.498s
+Job completed: gg=3, theta=-168.750, xs=85.014, uq=1.000000, runtime=49.374s
+Job completed: gg=3, theta=590.625, xs=1012.912, uq=1.000000, runtime=42.608s
+Job completed: gg=3, theta=675.000, xs=1097.266, uq=1.000000, runtime=43.233s
+Job completed: gg=3, theta=590.625, xs=1181.621, uq=1.000000, runtime=43.116s
+Job completed: gg=3, theta=590.625, xs=1097.266, uq=1.000000, runtime=43.815s
+Job completed: gg=3, theta=759.375, xs=1434.684, uq=1.000000, runtime=42.451s
+Job completed: gg=3, theta=843.750, xs=1603.393, uq=1.000000, runtime=42.976s
+Job completed: gg=3, theta=759.375, xs=1519.038, uq=1.000000, runtime=43.268s
+Job completed: gg=3, theta=928.125, xs=1772.102, uq=1.000000, runtime=42.825s
+Job completed: gg=3, theta=675.000, xs=1434.684, uq=1.000000, runtime=43.559s
+Job completed: gg=3, theta=590.625, xs=1265.975, uq=1.000000, runtime=44.340s
+Job completed: gg=3, theta=675.000, xs=1265.975, uq=1.000000, runtime=44.429s
+Job completed: gg=3, theta=928.125, xs=1856.456, uq=1.000000, runtime=43.220s
+Job completed: gg=3, theta=1265.625, xs=2446.937, uq=1.000000, runtime=42.190s
+Job completed: gg=3, theta=759.375, xs=1350.330, uq=1.000000, runtime=44.859s
+Job completed: gg=3, theta=843.750, xs=1434.684, uq=1.000000, runtime=44.954s
+Job completed: gg=3, theta=1012.500, xs=2109.519, uq=1.000000, runtime=44.607s
+Job completed: gg=3, theta=928.125, xs=1940.810, uq=1.000000, runtime=44.538s
+Job completed: gg=3, theta=1012.500, xs=1940.810, uq=1.000000, runtime=44.819s
+Job completed: gg=3, theta=843.750, xs=1772.102, uq=1.000000, runtime=45.281s
+Job completed: gg=3, theta=1181.250, xs=2278.228, uq=1.000000, runtime=44.429s
+Job completed: gg=3, theta=759.375, xs=1603.393, uq=1.000000, runtime=45.706s
+Job completed: gg=3, theta=1012.500, xs=1772.102, uq=1.000000, runtime=45.130s
+Job completed: gg=3, theta=1096.875, xs=2109.519, uq=1.000000, runtime=44.854s
+Job completed: gg=3, theta=1096.875, xs=2193.874, uq=1.000000, runtime=44.732s
+Job completed: gg=3, theta=928.125, xs=1687.747, uq=1.000000, runtime=45.656s
+Job completed: gg=3, theta=1096.875, xs=2278.228, uq=1.000000, runtime=44.640s
+Job completed: gg=3, theta=1350.000, xs=2615.646, uq=1.000000, runtime=43.359s
+Job completed: gg=3, theta=1096.875, xs=2025.165, uq=1.000000, runtime=45.855s
+Job completed: gg=3, theta=1265.625, xs=2362.583, uq=1.000000, runtime=45.230s
+Job completed: gg=3, theta=1181.250, xs=2109.519, uq=1.000000, runtime=46.177s
+Job completed: gg=3, theta=1181.250, xs=2446.937, uq=1.000000, runtime=45.723s
+Job completed: gg=3, theta=1350.000, xs=2446.937, uq=1.000000, runtime=46.096s
+Job completed: gg=3, theta=1265.625, xs=2531.291, uq=1.000000, runtime=45.955s
+Job completed: gg=3, theta=1265.625, xs=2615.646, uq=1.000000, runtime=47.638s
+Job completed: gg=2, theta=-843.750, xs=1434.684, uq=1.000000, runtime=48.886s
+Job completed: gg=2, theta=-759.375, xs=1434.684, uq=1.000000, runtime=50.393s
+Job completed: gg=2, theta=-843.750, xs=1603.393, uq=1.000000, runtime=51.385s
+Job completed: gg=2, theta=-759.375, xs=1350.330, uq=1.000000, runtime=51.798s
+Job completed: gg=2, theta=-759.375, xs=1519.038, uq=1.000000, runtime=52.003s
+Job completed: gg=2, theta=-928.125, xs=1856.456, uq=1.000000, runtime=48.335s
+Job completed: gg=2, theta=-928.125, xs=1687.747, uq=1.000000, runtime=48.559s
+Job completed: gg=2, theta=-1012.500, xs=1772.102, uq=1.000000, runtime=48.850s
+Job completed: gg=2, theta=-1012.500, xs=1940.810, uq=1.000000, runtime=49.090s
+Job completed: gg=2, theta=-928.125, xs=1772.102, uq=1.000000, runtime=50.437s
+Job completed: gg=2, theta=-1096.875, xs=2193.874, uq=1.000000, runtime=48.673s
+Job completed: gg=2, theta=-1181.250, xs=2109.519, uq=1.000000, runtime=48.923s
+Job completed: gg=2, theta=-1096.875, xs=2109.519, uq=1.000000, runtime=49.721s
+Job completed: gg=2, theta=-1096.875, xs=2025.165, uq=1.000000, runtime=50.458s
+Job completed: gg=2, theta=-1265.625, xs=2362.583, uq=1.000000, runtime=49.079s
+Job completed: gg=2, theta=-1350.000, xs=2446.937, uq=1.000000, runtime=50.106s
+Job completed: gg=2, theta=-1265.625, xs=2446.937, uq=1.000000, runtime=50.811s
+Job completed: gg=2, theta=-1265.625, xs=2531.291, uq=1.000000, runtime=50.135s
+Job completed: gg=2, theta=-1181.250, xs=2278.228, uq=1.000000, runtime=53.537s
+Job completed: gg=2, theta=-1350.000, xs=2615.646, uq=1.000000, runtime=50.563s
+Job completed: gg=2, theta=-168.750, xs=85.014, uq=1.000000, runtime=48.216s
+Job completed: gg=2, theta=-84.375, xs=85.014, uq=1.000000, runtime=48.949s
+Job completed: gg=2, theta=-168.750, xs=253.722, uq=1.000000, runtime=49.288s
+Job completed: gg=2, theta=-84.375, xs=169.368, uq=1.000000, runtime=49.624s
+Job completed: gg=2, theta=-84.375, xs=0.659, uq=1.000000, runtime=54.963s
+Job completed: gg=2, theta=-337.500, xs=422.431, uq=1.000000, runtime=49.889s
+Job completed: gg=2, theta=-253.125, xs=422.431, uq=1.000000, runtime=49.639s
+Job completed: gg=2, theta=-253.125, xs=338.077, uq=1.000000, runtime=51.526s
+Job completed: gg=2, theta=-253.125, xs=506.786, uq=1.000000, runtime=51.650s
+Job completed: gg=2, theta=-337.500, xs=591.140, uq=1.000000, runtime=50.597s
+Job completed: gg=2, theta=-421.875, xs=675.494, uq=1.000000, runtime=50.869s
+Job completed: gg=2, theta=-506.250, xs=759.849, uq=1.000000, runtime=52.645s
+Job completed: gg=2, theta=-421.875, xs=759.849, uq=1.000000, runtime=50.954s
+Job completed: gg=2, theta=-421.875, xs=844.203, uq=1.000000, runtime=50.121s
+Job completed: gg=2, theta=-506.250, xs=928.558, uq=1.000000, runtime=52.054s
+Job completed: gg=3, theta=337.500, xs=928.558, uq=-0.786435, runtime=335.946s
+Job completed: gg=3, theta=421.875, xs=1181.621, uq=-0.786435, runtime=338.631s
+Job completed: gg=3, theta=-253.125, xs=759.849, uq=-0.786435, runtime=341.731s
+Job completed: gg=3, theta=0.000, xs=253.722, uq=-0.786435, runtime=343.756s
+Job completed: gg=3, theta=-84.375, xs=253.722, uq=-0.786435, runtime=345.269s
+Job completed: gg=3, theta=253.125, xs=844.203, uq=-0.786435, runtime=345.670s
+Job completed: gg=3, theta=168.750, xs=591.140, uq=-0.786435, runtime=352.535s
+Job completed: gg=3, theta=-506.250, xs=1097.266, uq=-0.786435, runtime=353.556s
+Job completed: gg=3, theta=421.875, xs=1097.266, uq=-0.786435, runtime=355.050s
+Job completed: gg=3, theta=84.375, xs=422.431, uq=-0.786435, runtime=356.909s
+Job completed: gg=3, theta=-337.500, xs=928.558, uq=-0.786435, runtime=357.054s
+Job completed: gg=3, theta=-337.500, xs=759.849, uq=-0.786435, runtime=360.784s
+Job completed: gg=3, theta=84.375, xs=338.077, uq=-0.786435, runtime=361.977s
+Job completed: gg=3, theta=84.375, xs=506.786, uq=-0.786435, runtime=366.114s
+Job completed: gg=3, theta=-84.375, xs=338.077, uq=-0.786435, runtime=367.773s
+Job completed: gg=3, theta=0.000, xs=422.431, uq=-0.786435, runtime=368.573s
+Job completed: gg=3, theta=421.875, xs=1012.912, uq=-0.786435, runtime=368.790s
+Job completed: gg=3, theta=-253.125, xs=591.140, uq=-0.786435, runtime=368.853s
+Job completed: gg=3, theta=253.125, xs=759.849, uq=-0.786435, runtime=369.034s
+Job completed: gg=3, theta=-421.875, xs=1181.621, uq=-0.786435, runtime=370.207s
+Job completed: gg=3, theta=253.125, xs=675.494, uq=-0.786435, runtime=372.741s
+Job completed: gg=3, theta=-421.875, xs=1012.912, uq=-0.786435, runtime=373.753s
+Job completed: gg=3, theta=-253.125, xs=844.203, uq=-0.786435, runtime=377.656s
+Job completed: gg=3, theta=-675.000, xs=1772.102, uq=-0.786435, runtime=379.597s
+Job completed: gg=3, theta=590.625, xs=1434.684, uq=-0.786435, runtime=337.401s
+Job completed: gg=3, theta=675.000, xs=1603.393, uq=-0.786435, runtime=338.637s
+Job completed: gg=3, theta=590.625, xs=1350.330, uq=-0.786435, runtime=340.695s
+Job completed: gg=3, theta=506.250, xs=1265.975, uq=-0.786435, runtime=341.634s
+Job completed: gg=3, theta=-337.500, xs=1097.266, uq=-0.786435, runtime=385.103s
+Job completed: gg=3, theta=168.750, xs=759.849, uq=-0.786435, runtime=385.333s
+Job completed: gg=3, theta=759.375, xs=1856.456, uq=-0.786435, runtime=341.809s
+Job completed: gg=3, theta=843.750, xs=1940.810, uq=-0.786435, runtime=342.198s
+Job completed: gg=3, theta=928.125, xs=2109.519, uq=-0.786435, runtime=342.265s
+Job completed: gg=3, theta=-759.375, xs=1772.102, uq=-0.786435, runtime=387.188s
+Job completed: gg=3, theta=759.375, xs=1772.102, uq=-0.786435, runtime=343.981s
+Job completed: gg=3, theta=-168.750, xs=422.431, uq=-0.786435, runtime=388.912s
+Job completed: gg=3, theta=-675.000, xs=1603.393, uq=-0.786435, runtime=389.298s
+Job completed: gg=3, theta=-421.875, xs=928.558, uq=-0.786435, runtime=389.456s
+Job completed: gg=3, theta=-1012.500, xs=2446.937, uq=-0.786435, runtime=390.015s
+Job completed: gg=3, theta=-1096.875, xs=2278.228, uq=-0.786435, runtime=390.072s
+Job completed: gg=3, theta=-1181.250, xs=2615.646, uq=-0.786435, runtime=391.361s
+Job completed: gg=3, theta=-843.750, xs=1940.810, uq=-0.786435, runtime=391.478s
+Job completed: gg=2, theta=-675.000, xs=1097.266, uq=1.000000, runtime=46.509s
+Job completed: gg=3, theta=-759.375, xs=1603.393, uq=-0.786435, runtime=392.367s
+Job completed: gg=3, theta=-1265.625, xs=2615.646, uq=-0.786435, runtime=393.928s
+Job completed: gg=2, theta=-590.625, xs=1012.912, uq=1.000000, runtime=51.463s
+Job completed: gg=3, theta=1096.875, xs=2531.291, uq=-0.786435, runtime=350.077s
+Job completed: gg=3, theta=-421.875, xs=1097.266, uq=-0.786435, runtime=396.151s
+Job completed: gg=3, theta=-168.750, xs=591.140, uq=-0.786435, runtime=396.292s
+Job completed: gg=3, theta=-928.125, xs=2025.165, uq=-0.786435, runtime=396.994s
+Job completed: gg=2, theta=-590.625, xs=1097.266, uq=1.000000, runtime=51.845s
+Job completed: gg=3, theta=590.625, xs=1519.038, uq=-0.786435, runtime=354.517s
+Job completed: gg=3, theta=-1012.500, xs=2109.519, uq=-0.786435, runtime=398.431s
+Job completed: gg=3, theta=-506.250, xs=1265.975, uq=-0.786435, runtime=398.457s
+Job completed: gg=3, theta=1012.500, xs=2278.228, uq=-0.786435, runtime=353.161s
+Job completed: gg=3, theta=-1181.250, xs=2446.937, uq=-0.786435, runtime=398.704s
+Job completed: gg=3, theta=-759.375, xs=1687.747, uq=-0.786435, runtime=399.143s
+Job completed: gg=3, theta=-1096.875, xs=2362.583, uq=-0.786435, runtime=398.774s
+Job completed: gg=2, theta=-590.625, xs=1181.621, uq=1.000000, runtime=46.372s
+Job completed: gg=3, theta=759.375, xs=1687.747, uq=-0.786435, runtime=357.908s
+Job completed: gg=3, theta=1181.250, xs=2615.646, uq=-0.786435, runtime=355.065s
+Job completed: gg=3, theta=-928.125, xs=2109.519, uq=-0.786435, runtime=402.700s
+Job completed: gg=3, theta=1096.875, xs=2446.937, uq=-0.786435, runtime=357.048s
+Job completed: gg=3, theta=1265.625, xs=2700.000, uq=-0.786435, runtime=355.563s
+Job completed: gg=3, theta=337.500, xs=1097.266, uq=-0.786435, runtime=404.955s
+Job completed: gg=3, theta=-843.750, xs=1772.102, uq=-0.786435, runtime=405.236s
+Job completed: gg=3, theta=928.125, xs=2193.874, uq=-0.786435, runtime=361.233s
+Job completed: gg=3, theta=-1012.500, xs=2278.228, uq=-0.786435, runtime=406.484s
+Job completed: gg=3, theta=-928.125, xs=1940.810, uq=-0.786435, runtime=406.609s
+Job completed: gg=3, theta=-1096.875, xs=2446.937, uq=-0.786435, runtime=409.067s
+Job completed: gg=3, theta=-843.750, xs=2109.519, uq=-0.786435, runtime=409.473s
+Job completed: gg=3, theta=1096.875, xs=2362.583, uq=-0.786435, runtime=363.957s
+Job completed: gg=3, theta=-506.250, xs=1434.684, uq=-0.786435, runtime=409.780s
+Job completed: gg=2, theta=-675.000, xs=1265.975, uq=1.000000, runtime=49.892s
+Job completed: gg=3, theta=-675.000, xs=1434.684, uq=-0.786435, runtime=414.078s
+Job completed: gg=3, theta=-84.375, xs=422.431, uq=-0.786435, runtime=415.313s
+Job completed: gg=3, theta=-84.375, xs=506.786, uq=-0.786435, runtime=417.870s
+Job completed: gg=3, theta=928.125, xs=2025.165, uq=-0.786435, runtime=373.522s
+Job completed: gg=3, theta=-253.125, xs=675.494, uq=-0.786435, runtime=420.171s
+Job completed: gg=2, theta=84.375, xs=85.014, uq=1.000000, runtime=48.536s
+Job completed: gg=3, theta=506.250, xs=1434.684, uq=-0.786435, runtime=377.141s
+Job completed: gg=2, theta=84.375, xs=0.659, uq=1.000000, runtime=52.955s
+Job completed: gg=2, theta=168.750, xs=85.014, uq=1.000000, runtime=51.277s
+Job completed: gg=2, theta=168.750, xs=253.722, uq=1.000000, runtime=46.776s
+Job completed: gg=3, theta=1012.500, xs=2446.937, uq=-0.786435, runtime=381.406s
+Job completed: gg=3, theta=-590.625, xs=1519.038, uq=-0.786435, runtime=427.559s
+Job completed: gg=2, theta=-675.000, xs=1772.102, uq=-0.505347, runtime=340.874s
+Job completed: gg=3, theta=-590.625, xs=1265.975, uq=-0.786435, runtime=429.214s
+Job completed: gg=2, theta=253.125, xs=169.368, uq=1.000000, runtime=48.526s
+Job completed: gg=3, theta=-590.625, xs=1434.684, uq=-0.786435, runtime=431.872s
+Job completed: gg=2, theta=253.125, xs=253.722, uq=1.000000, runtime=47.529s
+Job completed: gg=2, theta=337.500, xs=253.722, uq=1.000000, runtime=48.432s
+Job completed: gg=2, theta=-843.750, xs=2109.519, uq=-0.505347, runtime=345.300s
+Job completed: gg=2, theta=253.125, xs=422.431, uq=1.000000, runtime=48.773s
+Job completed: gg=2, theta=337.500, xs=422.431, uq=1.000000, runtime=49.331s
+Job completed: gg=3, theta=-1265.625, xs=2700.000, uq=-0.786435, runtime=437.860s
+Job completed: gg=3, theta=-168.750, xs=759.849, uq=-0.786435, runtime=438.028s
+Job completed: gg=2, theta=337.500, xs=591.140, uq=1.000000, runtime=49.328s
+Job completed: gg=2, theta=506.250, xs=591.140, uq=1.000000, runtime=48.365s
+Job completed: gg=2, theta=421.875, xs=759.849, uq=1.000000, runtime=46.749s
+Job completed: gg=2, theta=421.875, xs=506.786, uq=1.000000, runtime=49.356s
+Job completed: gg=3, theta=843.750, xs=2109.519, uq=-0.786435, runtime=394.909s
+Job completed: gg=2, theta=506.250, xs=759.849, uq=1.000000, runtime=48.859s
+Job completed: gg=2, theta=253.125, xs=338.077, uq=1.000000, runtime=54.773s
+Job completed: gg=2, theta=-759.375, xs=1772.102, uq=-0.505347, runtime=353.195s
+Job completed: gg=2, theta=421.875, xs=591.140, uq=1.000000, runtime=51.053s
+Job completed: gg=2, theta=421.875, xs=675.494, uq=1.000000, runtime=51.047s
+Job completed: gg=2, theta=-675.000, xs=1603.393, uq=-0.505347, runtime=356.504s
+Job completed: gg=3, theta=675.000, xs=1772.102, uq=-0.786435, runtime=399.075s
+Job completed: gg=2, theta=506.250, xs=928.558, uq=1.000000, runtime=48.162s
+Job completed: gg=2, theta=590.625, xs=928.558, uq=1.000000, runtime=50.377s
+Job completed: gg=2, theta=675.000, xs=1097.266, uq=1.000000, runtime=49.165s
+Job completed: gg=2, theta=590.625, xs=1012.912, uq=1.000000, runtime=49.948s
+Job completed: gg=2, theta=590.625, xs=844.203, uq=1.000000, runtime=50.554s
+Job completed: gg=2, theta=675.000, xs=928.558, uq=1.000000, runtime=50.340s
+Job completed: gg=2, theta=-928.125, xs=2109.519, uq=-0.505347, runtime=359.268s
+Job completed: gg=2, theta=590.625, xs=1097.266, uq=1.000000, runtime=50.340s
+Job completed: gg=2, theta=675.000, xs=1265.975, uq=1.000000, runtime=49.855s
+Job completed: gg=3, theta=-759.375, xs=1856.456, uq=-0.786435, runtime=452.268s
+Job completed: gg=2, theta=759.375, xs=1265.975, uq=1.000000, runtime=49.121s
+Job completed: gg=2, theta=-1012.500, xs=2446.937, uq=-0.505347, runtime=358.757s
+Job completed: gg=2, theta=759.375, xs=1181.621, uq=1.000000, runtime=50.593s
+Job completed: gg=2, theta=843.750, xs=1265.975, uq=1.000000, runtime=51.359s
+Job completed: gg=2, theta=843.750, xs=1434.684, uq=1.000000, runtime=48.852s
+Job completed: gg=2, theta=-759.375, xs=1856.456, uq=-0.505347, runtime=366.064s
+Job completed: gg=2, theta=759.375, xs=1434.684, uq=1.000000, runtime=49.159s
+Job completed: gg=2, theta=759.375, xs=1350.330, uq=1.000000, runtime=50.985s
+Job completed: gg=3, theta=-1096.875, xs=2531.291, uq=-0.786435, runtime=458.073s
+Job completed: gg=2, theta=843.750, xs=1603.393, uq=1.000000, runtime=48.917s
+Job completed: gg=2, theta=-1012.500, xs=2278.228, uq=-0.505347, runtime=370.041s
+Job completed: gg=2, theta=928.125, xs=1519.038, uq=1.000000, runtime=49.661s
+Job completed: gg=2, theta=-928.125, xs=2193.874, uq=-0.505347, runtime=371.128s
+Job completed: gg=2, theta=1012.500, xs=1603.393, uq=1.000000, runtime=47.856s
+Job completed: gg=2, theta=-843.750, xs=1940.810, uq=-0.505347, runtime=375.908s
+Job completed: gg=2, theta=-675.000, xs=1434.684, uq=-0.505347, runtime=416.481s
+Job completed: gg=2, theta=928.125, xs=1603.393, uq=1.000000, runtime=51.643s
+Job completed: gg=2, theta=-1096.875, xs=2446.937, uq=-0.505347, runtime=374.132s
+Job completed: gg=2, theta=928.125, xs=1687.747, uq=1.000000, runtime=51.088s
+Job completed: gg=2, theta=1012.500, xs=1772.102, uq=1.000000, runtime=49.799s
+Job completed: gg=2, theta=928.125, xs=1772.102, uq=1.000000, runtime=50.742s
+Job completed: gg=3, theta=-928.125, xs=2193.874, uq=-0.786435, runtime=473.407s
+Job completed: gg=2, theta=1012.500, xs=1940.810, uq=1.000000, runtime=48.235s
+Job completed: gg=2, theta=1096.875, xs=1856.456, uq=1.000000, runtime=47.356s
+Job completed: gg=2, theta=-759.375, xs=1603.393, uq=-0.505347, runtime=392.676s
+Job completed: gg=2, theta=1096.875, xs=1940.810, uq=1.000000, runtime=48.035s
+Job completed: gg=2, theta=-928.125, xs=2025.165, uq=-0.505347, runtime=391.088s
+Job completed: gg=2, theta=1096.875, xs=2025.165, uq=1.000000, runtime=49.095s
+Job completed: gg=2, theta=-1096.875, xs=2531.291, uq=-0.505347, runtime=381.929s
+Job completed: gg=2, theta=1181.250, xs=1940.810, uq=1.000000, runtime=51.300s
+Job completed: gg=2, theta=-1181.250, xs=2615.646, uq=-0.505347, runtime=381.287s
+Job completed: gg=2, theta=1096.875, xs=2109.519, uq=1.000000, runtime=50.023s
+Job completed: gg=2, theta=1181.250, xs=2109.519, uq=1.000000, runtime=48.776s
+Job completed: gg=2, theta=-1096.875, xs=2362.583, uq=-0.505347, runtime=393.838s
+Job completed: gg=2, theta=1350.000, xs=2278.228, uq=1.000000, runtime=47.218s
+Job completed: gg=2, theta=1265.625, xs=2193.874, uq=1.000000, runtime=49.314s
+Job completed: gg=2, theta=1181.250, xs=2278.228, uq=1.000000, runtime=49.504s
+Job completed: gg=2, theta=1265.625, xs=2446.937, uq=1.000000, runtime=47.172s
+Job completed: gg=2, theta=1265.625, xs=2278.228, uq=1.000000, runtime=49.666s
+Job completed: gg=2, theta=-759.375, xs=1687.747, uq=-0.505347, runtime=403.094s
+Job completed: gg=2, theta=1265.625, xs=2362.583, uq=1.000000, runtime=51.232s
+Job completed: gg=2, theta=-84.375, xs=253.722, uq=-0.505347, runtime=353.150s
+Job completed: gg=2, theta=1350.000, xs=2615.646, uq=1.000000, runtime=48.560s
+Job completed: gg=2, theta=1350.000, xs=2446.937, uq=1.000000, runtime=51.215s
+Job completed: gg=2, theta=-843.750, xs=1772.102, uq=-0.505347, runtime=407.261s
+Job completed: gg=1, theta=-759.375, xs=1350.330, uq=1.000000, runtime=51.874s
+Job completed: gg=1, theta=-843.750, xs=1434.684, uq=1.000000, runtime=52.029s
+Job completed: gg=2, theta=-1181.250, xs=2446.937, uq=-0.505347, runtime=407.990s
+Job completed: gg=1, theta=-759.375, xs=1434.684, uq=1.000000, runtime=52.256s
+Job completed: gg=1, theta=-843.750, xs=1603.393, uq=1.000000, runtime=52.133s
+Job completed: gg=1, theta=-759.375, xs=1519.038, uq=1.000000, runtime=54.762s
+Job completed: gg=1, theta=-1012.500, xs=1772.102, uq=1.000000, runtime=50.698s
+Job completed: gg=2, theta=-1096.875, xs=2278.228, uq=-0.505347, runtime=414.933s
+Job completed: gg=1, theta=-928.125, xs=1687.747, uq=1.000000, runtime=53.005s
+Job completed: gg=2, theta=-1012.500, xs=2109.519, uq=-0.505347, runtime=416.704s
+Job completed: gg=1, theta=-928.125, xs=1772.102, uq=1.000000, runtime=53.330s
+Job completed: gg=3, theta=-590.625, xs=1350.330, uq=-0.786435, runtime=508.642s
+Job completed: gg=2, theta=-928.125, xs=1940.810, uq=-0.505347, runtime=421.235s
+Job completed: gg=2, theta=-1265.625, xs=2700.000, uq=-0.505347, runtime=407.427s
+Job completed: gg=1, theta=-1012.500, xs=1940.810, uq=1.000000, runtime=54.043s
+Job completed: gg=1, theta=-1181.250, xs=2109.519, uq=1.000000, runtime=50.991s
+Job completed: gg=1, theta=-1096.875, xs=2025.165, uq=1.000000, runtime=52.645s
+Job completed: gg=1, theta=-928.125, xs=1856.456, uq=1.000000, runtime=57.993s
+Job completed: gg=1, theta=-1096.875, xs=2109.519, uq=1.000000, runtime=51.281s
+Job completed: gg=1, theta=-1181.250, xs=2278.228, uq=1.000000, runtime=53.673s
+Job completed: gg=1, theta=-1096.875, xs=2193.874, uq=1.000000, runtime=54.467s
+Job completed: gg=1, theta=-1265.625, xs=2362.583, uq=1.000000, runtime=50.153s
+Job completed: gg=1, theta=-1350.000, xs=2446.937, uq=1.000000, runtime=50.046s
+Job completed: gg=1, theta=-1265.625, xs=2446.937, uq=1.000000, runtime=49.882s
+Job completed: gg=2, theta=-1265.625, xs=2615.646, uq=-0.505347, runtime=429.560s
+Job completed: gg=1, theta=-1350.000, xs=2615.646, uq=1.000000, runtime=51.250s
+Job completed: gg=1, theta=-1265.625, xs=2531.291, uq=1.000000, runtime=56.541s
+Job completed: gg=1, theta=-84.375, xs=0.659, uq=1.000000, runtime=50.793s
+Job completed: gg=1, theta=-168.750, xs=85.014, uq=1.000000, runtime=53.182s
+Job completed: gg=1, theta=-168.750, xs=253.722, uq=1.000000, runtime=52.527s
+Job completed: gg=1, theta=-84.375, xs=169.368, uq=1.000000, runtime=53.672s
+Job completed: gg=1, theta=-84.375, xs=85.014, uq=1.000000, runtime=57.078s
+Job completed: gg=1, theta=-253.125, xs=338.077, uq=1.000000, runtime=50.836s
+Job completed: gg=2, theta=-84.375, xs=338.077, uq=-0.505347, runtime=405.387s
+Job completed: gg=1, theta=-337.500, xs=422.431, uq=1.000000, runtime=51.312s
+Job completed: gg=2, theta=0.000, xs=85.014, uq=-0.505347, runtime=410.009s
+Job completed: gg=1, theta=-253.125, xs=422.431, uq=1.000000, runtime=52.857s
+Job completed: gg=1, theta=-253.125, xs=506.786, uq=1.000000, runtime=54.266s
+Job completed: gg=1, theta=-337.500, xs=591.140, uq=1.000000, runtime=52.225s
+Job completed: gg=2, theta=-253.125, xs=591.140, uq=-0.505347, runtime=370.141s
+Job completed: gg=1, theta=-506.250, xs=759.849, uq=1.000000, runtime=50.054s
+Job completed: gg=1, theta=-421.875, xs=759.849, uq=1.000000, runtime=51.804s
+Job completed: gg=1, theta=-421.875, xs=675.494, uq=1.000000, runtime=55.003s
+Job completed: gg=2, theta=-253.125, xs=675.494, uq=-0.505347, runtime=373.271s
+Job completed: gg=2, theta=0.000, xs=253.722, uq=-0.505347, runtime=425.538s
+Job completed: gg=1, theta=-506.250, xs=928.558, uq=1.000000, runtime=51.915s
+Job completed: gg=2, theta=-84.375, xs=422.431, uq=-0.505347, runtime=419.661s
+Job completed: gg=1, theta=-421.875, xs=844.203, uq=1.000000, runtime=61.597s
+Job completed: gg=2, theta=-168.750, xs=422.431, uq=-0.505347, runtime=434.770s
+Job completed: gg=1, theta=-590.625, xs=1012.912, uq=1.000000, runtime=51.933s
+Job completed: gg=1, theta=-675.000, xs=1097.266, uq=1.000000, runtime=53.972s
+Job completed: gg=1, theta=-590.625, xs=1097.266, uq=1.000000, runtime=52.939s
+Job completed: gg=2, theta=-84.375, xs=506.786, uq=-0.505347, runtime=401.530s
+Job completed: gg=1, theta=-590.625, xs=1181.621, uq=1.000000, runtime=58.061s
+Job completed: gg=1, theta=-675.000, xs=1265.975, uq=1.000000, runtime=51.387s
+Job completed: gg=2, theta=-168.750, xs=591.140, uq=-0.505347, runtime=411.383s
+Job completed: gg=2, theta=-337.500, xs=759.849, uq=-0.505347, runtime=370.445s
+Job completed: gg=1, theta=84.375, xs=85.014, uq=1.000000, runtime=50.101s
+Job completed: gg=2, theta=0.000, xs=422.431, uq=-0.505347, runtime=426.072s
+Job completed: gg=1, theta=84.375, xs=0.659, uq=1.000000, runtime=55.421s
+Job completed: gg=1, theta=168.750, xs=85.014, uq=1.000000, runtime=52.375s
+Job completed: gg=1, theta=253.125, xs=169.368, uq=1.000000, runtime=52.056s
+Job completed: gg=1, theta=168.750, xs=253.722, uq=1.000000, runtime=52.676s
+Job completed: gg=1, theta=253.125, xs=253.722, uq=1.000000, runtime=53.224s
+Job completed: gg=1, theta=337.500, xs=253.722, uq=1.000000, runtime=56.015s
+Job completed: gg=1, theta=253.125, xs=338.077, uq=1.000000, runtime=51.774s
+Job completed: gg=2, theta=-421.875, xs=928.558, uq=-0.505347, runtime=382.396s
+Job completed: gg=1, theta=253.125, xs=422.431, uq=1.000000, runtime=53.953s
+Job completed: gg=1, theta=337.500, xs=422.431, uq=1.000000, runtime=50.627s
+Job completed: gg=1, theta=337.500, xs=591.140, uq=1.000000, runtime=53.701s
+Job completed: gg=1, theta=421.875, xs=506.786, uq=1.000000, runtime=52.608s
+Job completed: gg=1, theta=421.875, xs=591.140, uq=1.000000, runtime=51.214s
+Job completed: gg=1, theta=506.250, xs=591.140, uq=1.000000, runtime=49.742s
+Job completed: gg=1, theta=421.875, xs=675.494, uq=1.000000, runtime=55.511s
+Job completed: gg=1, theta=421.875, xs=759.849, uq=1.000000, runtime=51.304s
+Job completed: gg=2, theta=-168.750, xs=759.849, uq=-0.505347, runtime=335.982s
+Job completed: gg=2, theta=-253.125, xs=759.849, uq=-0.505347, runtime=341.712s
+Job completed: gg=1, theta=506.250, xs=759.849, uq=1.000000, runtime=51.833s
+Job completed: gg=2, theta=-337.500, xs=928.558, uq=-0.505347, runtime=393.329s
+Job completed: gg=1, theta=506.250, xs=928.558, uq=1.000000, runtime=53.505s
+Job completed: gg=2, theta=-421.875, xs=1012.912, uq=-0.505347, runtime=394.950s
+Job completed: gg=2, theta=-506.250, xs=1097.266, uq=-0.505347, runtime=350.239s
+Job completed: gg=1, theta=590.625, xs=844.203, uq=1.000000, runtime=54.356s
+Job completed: gg=1, theta=590.625, xs=928.558, uq=1.000000, runtime=51.587s
+Job completed: gg=1, theta=675.000, xs=928.558, uq=1.000000, runtime=50.998s
+Job completed: gg=1, theta=590.625, xs=1012.912, uq=1.000000, runtime=51.922s
+Job completed: gg=2, theta=-421.875, xs=1097.266, uq=-0.505347, runtime=363.175s
+Job completed: gg=2, theta=-421.875, xs=1181.621, uq=-0.505347, runtime=362.423s
+Job completed: gg=1, theta=590.625, xs=1097.266, uq=1.000000, runtime=52.301s
+Job completed: gg=1, theta=675.000, xs=1097.266, uq=1.000000, runtime=49.520s
+Job completed: gg=2, theta=-253.125, xs=844.203, uq=-0.505347, runtime=388.375s
+Job completed: gg=2, theta=-337.500, xs=1097.266, uq=-0.505347, runtime=375.579s
+Job completed: gg=2, theta=-590.625, xs=1519.038, uq=-0.505347, runtime=372.487s
+Job completed: gg=2, theta=-590.625, xs=1265.975, uq=-0.505347, runtime=380.632s
+Job completed: gg=1, theta=675.000, xs=1265.975, uq=1.000000, runtime=52.755s
+Job completed: gg=2, theta=337.500, xs=759.849, uq=-0.505347, runtime=353.990s
+Job completed: gg=2, theta=-506.250, xs=1434.684, uq=-0.505347, runtime=377.902s
+Job completed: gg=2, theta=-590.625, xs=1350.330, uq=-0.505347, runtime=383.257s
+Job completed: gg=2, theta=-590.625, xs=1434.684, uq=-0.505347, runtime=384.703s
+Job completed: gg=2, theta=84.375, xs=169.368, uq=-1.139287, runtime=379.661s
+Job completed: gg=2, theta=253.125, xs=591.140, uq=-0.505347, runtime=367.871s
+Job completed: gg=2, theta=506.250, xs=1097.266, uq=-0.505347, runtime=358.577s
+Job completed: gg=1, theta=759.375, xs=1181.621, uq=1.000000, runtime=53.171s
+Job completed: gg=2, theta=-506.250, xs=1265.975, uq=-0.505347, runtime=392.548s
+Job completed: gg=2, theta=168.750, xs=591.140, uq=-0.505347, runtime=372.749s
+Job completed: gg=2, theta=421.875, xs=1012.912, uq=-0.505347, runtime=365.487s
+Job completed: gg=2, theta=337.500, xs=928.558, uq=-0.505347, runtime=366.171s
+Job completed: gg=1, theta=759.375, xs=1265.975, uq=1.000000, runtime=52.882s
+Job completed: gg=2, theta=168.750, xs=422.431, uq=-0.505347, runtime=378.099s
+Job completed: gg=2, theta=84.375, xs=253.722, uq=-0.505347, runtime=387.186s
+Job completed: gg=2, theta=590.625, xs=1265.975, uq=-0.505347, runtime=365.394s
+Job completed: gg=1, theta=843.750, xs=1265.975, uq=1.000000, runtime=51.792s
+Job completed: gg=1, theta=759.375, xs=1350.330, uq=1.000000, runtime=51.570s
+Job completed: gg=1, theta=843.750, xs=1434.684, uq=1.000000, runtime=51.521s
+Job completed: gg=2, theta=84.375, xs=338.077, uq=-0.505347, runtime=393.889s
+Job completed: gg=2, theta=675.000, xs=1434.684, uq=-0.505347, runtime=371.048s
+Job completed: gg=1, theta=759.375, xs=1434.684, uq=1.000000, runtime=56.833s
+Job completed: gg=2, theta=759.375, xs=1603.393, uq=-0.505347, runtime=370.684s
+Job completed: gg=2, theta=590.625, xs=1350.330, uq=-0.505347, runtime=379.262s
+Job completed: gg=2, theta=590.625, xs=1181.621, uq=-1.139287, runtime=384.092s
+Job completed: gg=1, theta=843.750, xs=1603.393, uq=1.000000, runtime=51.965s
+Job completed: gg=2, theta=253.125, xs=675.494, uq=-0.505347, runtime=398.733s
+Job completed: gg=2, theta=928.125, xs=2025.165, uq=-0.505347, runtime=363.567s
+Job completed: gg=2, theta=253.125, xs=506.786, uq=-1.139287, runtime=407.110s
+Job completed: gg=1, theta=1012.500, xs=1603.393, uq=1.000000, runtime=49.152s
+Job completed: gg=2, theta=759.375, xs=1687.747, uq=-0.505347, runtime=386.639s
+Job completed: gg=1, theta=928.125, xs=1603.393, uq=1.000000, runtime=52.386s
+Job completed: gg=1, theta=928.125, xs=1519.038, uq=1.000000, runtime=54.475s
+Job completed: gg=2, theta=421.875, xs=928.558, uq=-0.505347, runtime=402.456s
+Job completed: gg=1, theta=928.125, xs=1687.747, uq=1.000000, runtime=52.300s
+Job completed: gg=2, theta=1181.250, xs=2446.937, uq=-0.505347, runtime=361.786s
+Job completed: gg=2, theta=843.750, xs=1772.102, uq=-0.505347, runtime=384.336s
+Job completed: gg=1, theta=928.125, xs=1772.102, uq=1.000000, runtime=51.337s
+Job completed: gg=1, theta=1012.500, xs=1772.102, uq=1.000000, runtime=51.602s
+Job completed: gg=2, theta=1096.875, xs=2278.228, uq=-0.505347, runtime=369.877s
+Job completed: gg=2, theta=1012.500, xs=2109.519, uq=-0.505347, runtime=376.387s
+Job completed: gg=2, theta=1265.625, xs=2615.646, uq=-0.505347, runtime=368.819s
+Job completed: gg=2, theta=1096.875, xs=2362.583, uq=-0.505347, runtime=374.777s
+Job completed: gg=2, theta=421.875, xs=844.203, uq=-1.139287, runtime=419.412s
+Job completed: gg=2, theta=928.125, xs=1940.810, uq=-0.505347, runtime=389.142s
+Job completed: gg=1, theta=1012.500, xs=1940.810, uq=1.000000, runtime=55.989s
+Job completed: gg=1, theta=1096.875, xs=1940.810, uq=1.000000, runtime=52.023s
+Job completed: gg=1, theta=1096.875, xs=1856.456, uq=1.000000, runtime=53.168s
+Job completed: gg=1, theta=1096.875, xs=2025.165, uq=1.000000, runtime=51.389s
+Job completed: gg=2, theta=1265.625, xs=2700.000, uq=-0.505347, runtime=371.379s
+Job completed: gg=1, theta=1181.250, xs=2109.519, uq=1.000000, runtime=50.056s
+Job completed: gg=1, theta=1181.250, xs=1940.810, uq=1.000000, runtime=54.633s
+Job completed: gg=1, theta=1096.875, xs=2109.519, uq=1.000000, runtime=52.495s
+Job completed: gg=2, theta=506.250, xs=1265.975, uq=-0.505347, runtime=425.615s
+Job completed: gg=1, theta=1181.250, xs=2278.228, uq=1.000000, runtime=53.396s
+Job completed: gg=1, theta=1265.625, xs=2278.228, uq=1.000000, runtime=52.648s
+Job completed: gg=1, theta=1350.000, xs=2278.228, uq=1.000000, runtime=52.319s
+Job completed: gg=1, theta=1265.625, xs=2193.874, uq=1.000000, runtime=56.918s
+Job completed: gg=1, theta=1265.625, xs=2362.583, uq=1.000000, runtime=52.534s
+Job completed: gg=1, theta=1265.625, xs=2446.937, uq=1.000000, runtime=51.591s
+Job completed: gg=1, theta=1350.000, xs=2446.937, uq=1.000000, runtime=53.512s
+Job completed: gg=1, theta=1350.000, xs=2615.646, uq=1.000000, runtime=54.226s
+Job completed: gg=0, theta=-759.375, xs=1181.621, uq=1.000000, runtime=55.085s
+Job completed: gg=0, theta=-843.750, xs=1265.975, uq=1.000000, runtime=55.775s
+Job completed: gg=2, theta=759.375, xs=1519.038, uq=-1.139287, runtime=453.432s
+Job completed: gg=0, theta=-759.375, xs=1350.330, uq=1.000000, runtime=53.487s
+Job completed: gg=0, theta=-759.375, xs=1265.975, uq=1.000000, runtime=56.152s
+Job completed: gg=0, theta=-675.000, xs=1265.975, uq=1.000000, runtime=56.099s
+Job completed: gg=0, theta=-843.750, xs=1434.684, uq=1.000000, runtime=54.646s
+Job completed: gg=0, theta=-759.375, xs=1434.684, uq=1.000000, runtime=55.464s
+Job completed: gg=2, theta=928.125, xs=1856.456, uq=-1.139287, runtime=444.525s
+Job completed: gg=2, theta=843.750, xs=1940.810, uq=-0.505347, runtime=443.030s
+Job completed: gg=0, theta=-928.125, xs=1519.038, uq=1.000000, runtime=54.612s
+Job completed: gg=0, theta=-928.125, xs=1687.747, uq=1.000000, runtime=54.222s
+Job completed: gg=0, theta=-928.125, xs=1603.393, uq=1.000000, runtime=55.532s
+Job completed: gg=0, theta=-843.750, xs=1603.393, uq=1.000000, runtime=55.442s
+Job completed: gg=0, theta=-1096.875, xs=1856.456, uq=1.000000, runtime=54.224s
+Job completed: gg=2, theta=675.000, xs=1603.393, uq=-0.505347, runtime=463.481s
+Job completed: gg=0, theta=-1012.500, xs=1603.393, uq=1.000000, runtime=59.225s
+Job completed: gg=2, theta=1181.250, xs=2615.646, uq=-0.505347, runtime=430.992s
+Job completed: gg=0, theta=-1181.250, xs=1940.810, uq=1.000000, runtime=56.488s
+Job completed: gg=2, theta=1265.625, xs=2531.291, uq=-1.139287, runtime=434.163s
+Job completed: gg=0, theta=-1096.875, xs=1940.810, uq=1.000000, runtime=55.938s
+Job completed: gg=2, theta=1012.500, xs=2278.228, uq=-0.505347, runtime=450.689s
+Job completed: gg=0, theta=-1012.500, xs=1940.810, uq=1.000000, runtime=56.619s
+Job completed: gg=0, theta=-1096.875, xs=2025.165, uq=1.000000, runtime=55.310s
+Job completed: gg=0, theta=-1012.500, xs=1772.102, uq=1.000000, runtime=55.157s
+Job completed: gg=0, theta=-928.125, xs=1772.102, uq=1.000000, runtime=53.949s
+Job completed: gg=2, theta=1096.875, xs=2193.874, uq=-1.139287, runtime=458.790s
+Job completed: gg=1, theta=-759.375, xs=1603.393, uq=-0.233840, runtime=445.824s
+Job completed: gg=1, theta=-759.375, xs=1687.747, uq=-0.233840, runtime=449.188s
+Job completed: gg=1, theta=-928.125, xs=2025.165, uq=-0.233840, runtime=443.863s
+Job completed: gg=1, theta=-675.000, xs=1434.684, uq=-0.233840, runtime=455.999s
+Job completed: gg=1, theta=-675.000, xs=1772.102, uq=-0.233840, runtime=449.909s
+Job completed: gg=1, theta=-928.125, xs=1940.810, uq=-0.233840, runtime=454.501s
+Job completed: gg=0, theta=-1181.250, xs=2109.519, uq=1.000000, runtime=54.408s
+Job completed: gg=1, theta=-843.750, xs=1772.102, uq=-0.233840, runtime=460.515s
+Job completed: gg=0, theta=-1096.875, xs=2109.519, uq=1.000000, runtime=54.004s
+Job completed: gg=0, theta=-1265.625, xs=2193.874, uq=1.000000, runtime=53.775s
+Job completed: gg=0, theta=-1265.625, xs=2278.228, uq=1.000000, runtime=55.253s
+Job completed: gg=0, theta=-1265.625, xs=2362.583, uq=1.000000, runtime=53.608s
+Job completed: gg=0, theta=-1181.250, xs=2278.228, uq=1.000000, runtime=55.237s
+Job completed: gg=0, theta=-1350.000, xs=2278.228, uq=1.000000, runtime=57.236s
+Job completed: gg=1, theta=-675.000, xs=1603.393, uq=-0.233840, runtime=470.827s
+Job completed: gg=1, theta=-1265.625, xs=2700.000, uq=-0.233840, runtime=437.827s
+Job completed: gg=1, theta=-1096.875, xs=2278.228, uq=-0.233840, runtime=457.022s
+Job completed: gg=1, theta=-1012.500, xs=2109.519, uq=-0.233840, runtime=460.033s
+Job completed: gg=1, theta=-1096.875, xs=2362.583, uq=-0.233840, runtime=454.301s
+Job completed: gg=1, theta=-759.375, xs=1772.102, uq=-0.233840, runtime=470.886s
+Job completed: gg=0, theta=-1350.000, xs=2446.937, uq=1.000000, runtime=54.530s
+Job completed: gg=0, theta=-1265.625, xs=2446.937, uq=1.000000, runtime=55.397s
+Job completed: gg=1, theta=-843.750, xs=2109.519, uq=-0.233840, runtime=455.065s
+Job completed: gg=0, theta=-1350.000, xs=2615.646, uq=1.000000, runtime=55.937s
+Job completed: gg=1, theta=-1181.250, xs=2446.937, uq=-0.233840, runtime=449.127s
+Job completed: gg=1, theta=-1012.500, xs=2446.937, uq=-0.233840, runtime=449.952s
+Job completed: gg=1, theta=-928.125, xs=2193.874, uq=-0.233840, runtime=466.742s
+Job completed: gg=1, theta=-928.125, xs=2109.519, uq=-0.233840, runtime=469.376s
+Job completed: gg=1, theta=-1265.625, xs=2615.646, uq=-0.233840, runtime=459.081s
+Job completed: gg=0, theta=-84.375, xs=0.659, uq=1.000000, runtime=55.779s
+Job completed: gg=1, theta=-759.375, xs=1856.456, uq=-0.233840, runtime=487.391s
+Job completed: gg=0, theta=-168.750, xs=85.014, uq=1.000000, runtime=55.735s
+Job completed: gg=1, theta=-843.750, xs=1940.810, uq=-0.233840, runtime=488.143s
+Job completed: gg=1, theta=-1012.500, xs=2278.228, uq=-0.233840, runtime=475.982s
+Job completed: gg=0, theta=-84.375, xs=85.014, uq=1.000000, runtime=57.606s
+Job completed: gg=0, theta=-253.125, xs=169.368, uq=1.000000, runtime=56.951s
+Job completed: gg=0, theta=-337.500, xs=253.722, uq=1.000000, runtime=56.163s
+Job completed: gg=1, theta=-1096.875, xs=2446.937, uq=-0.233840, runtime=473.177s
+Job completed: gg=1, theta=-168.750, xs=591.140, uq=-0.233840, runtime=447.644s
+Job completed: gg=1, theta=-1181.250, xs=2615.646, uq=-0.233840, runtime=473.383s
+Job completed: gg=0, theta=-253.125, xs=253.722, uq=1.000000, runtime=56.251s
+Job completed: gg=0, theta=-253.125, xs=338.077, uq=1.000000, runtime=56.406s
+Job completed: gg=0, theta=-168.750, xs=253.722, uq=1.000000, runtime=56.795s
+Job completed: gg=1, theta=-253.125, xs=591.140, uq=-0.233840, runtime=457.216s
+Job completed: gg=1, theta=-168.750, xs=422.431, uq=-0.233840, runtime=465.685s
+Job completed: gg=1, theta=-253.125, xs=675.494, uq=-0.233840, runtime=459.696s
+Job completed: gg=0, theta=-506.250, xs=591.140, uq=1.000000, runtime=52.907s
+Job completed: gg=0, theta=-421.875, xs=506.786, uq=1.000000, runtime=54.759s
+Job completed: gg=1, theta=-1096.875, xs=2531.291, uq=-0.233840, runtime=486.557s
+Job completed: gg=0, theta=-421.875, xs=591.140, uq=1.000000, runtime=54.420s
+Job completed: gg=1, theta=-337.500, xs=759.849, uq=-0.233840, runtime=461.717s
+Job completed: gg=1, theta=0.000, xs=422.431, uq=-0.233840, runtime=469.260s
+Job completed: gg=0, theta=-253.125, xs=422.431, uq=1.000000, runtime=53.658s
+Job completed: gg=0, theta=-421.875, xs=675.494, uq=1.000000, runtime=54.928s
+Job completed: gg=1, theta=-168.750, xs=759.849, uq=-0.233840, runtime=449.988s
+Job completed: gg=0, theta=-337.500, xs=591.140, uq=1.000000, runtime=55.058s
+Job completed: gg=1, theta=0.000, xs=85.014, uq=-0.233840, runtime=484.956s
+Job completed: gg=0, theta=-337.500, xs=422.431, uq=1.000000, runtime=58.394s
+Job completed: gg=0, theta=-421.875, xs=759.849, uq=1.000000, runtime=52.406s
+Job completed: gg=1, theta=-84.375, xs=506.786, uq=-0.233840, runtime=476.520s
+Job completed: gg=1, theta=-253.125, xs=844.203, uq=-0.233840, runtime=454.167s
+Job completed: gg=0, theta=-590.625, xs=844.203, uq=1.000000, runtime=52.970s
+Job completed: gg=0, theta=-506.250, xs=759.849, uq=1.000000, runtime=56.202s
+Job completed: gg=1, theta=-84.375, xs=253.722, uq=-0.233840, runtime=491.776s
+Job completed: gg=0, theta=-675.000, xs=928.558, uq=1.000000, runtime=55.248s
+Job completed: gg=1, theta=0.000, xs=253.722, uq=-0.233840, runtime=493.337s
+Job completed: gg=1, theta=-84.375, xs=422.431, uq=-0.233840, runtime=483.212s
+Job completed: gg=0, theta=-590.625, xs=928.558, uq=1.000000, runtime=54.604s
+Job completed: gg=1, theta=-506.250, xs=1265.975, uq=-0.233840, runtime=442.881s
+Job completed: gg=1, theta=-421.875, xs=1012.912, uq=-0.233840, runtime=469.472s
+Job completed: gg=1, theta=-506.250, xs=1097.266, uq=-0.233840, runtime=454.349s
+Job completed: gg=1, theta=-84.375, xs=338.077, uq=-0.233840, runtime=500.497s
+Job completed: gg=0, theta=-506.250, xs=928.558, uq=1.000000, runtime=53.035s
+Job completed: gg=0, theta=-675.000, xs=1097.266, uq=1.000000, runtime=53.122s
+Job completed: gg=1, theta=-590.625, xs=1350.330, uq=-0.233840, runtime=451.149s
+Job completed: gg=0, theta=-590.625, xs=1012.912, uq=1.000000, runtime=59.927s
+Job completed: gg=1, theta=-421.875, xs=1097.266, uq=-0.233840, runtime=460.688s
+Job completed: gg=0, theta=-590.625, xs=1097.266, uq=1.000000, runtime=54.711s
+Job completed: gg=1, theta=-421.875, xs=928.558, uq=-0.233840, runtime=489.847s
+Job completed: gg=1, theta=-337.500, xs=928.558, uq=-0.233840, runtime=495.516s
+Job completed: gg=1, theta=-337.500, xs=1097.266, uq=-0.233840, runtime=469.166s
+Job completed: gg=0, theta=168.750, xs=85.014, uq=1.000000, runtime=57.677s
+Job completed: gg=0, theta=84.375, xs=85.014, uq=1.000000, runtime=58.001s
+Job completed: gg=1, theta=-253.125, xs=759.849, uq=-0.233840, runtime=493.347s
+Job completed: gg=0, theta=84.375, xs=0.659, uq=1.000000, runtime=60.608s
+Job completed: gg=0, theta=168.750, xs=253.722, uq=1.000000, runtime=53.878s
+Job completed: gg=1, theta=-590.625, xs=1265.975, uq=-0.233840, runtime=474.830s
+Job completed: gg=0, theta=337.500, xs=253.722, uq=1.000000, runtime=54.803s
+Job completed: gg=0, theta=253.125, xs=253.722, uq=1.000000, runtime=56.503s
+Job completed: gg=0, theta=253.125, xs=338.077, uq=1.000000, runtime=57.611s
+Job completed: gg=0, theta=253.125, xs=422.431, uq=1.000000, runtime=54.163s
+Job completed: gg=0, theta=337.500, xs=422.431, uq=1.000000, runtime=54.930s
+Job completed: gg=0, theta=253.125, xs=169.368, uq=1.000000, runtime=60.963s
+Job completed: gg=0, theta=337.500, xs=591.140, uq=1.000000, runtime=53.373s
+Job completed: gg=1, theta=-506.250, xs=1434.684, uq=-0.233840, runtime=479.867s
+Job completed: gg=0, theta=421.875, xs=506.786, uq=1.000000, runtime=55.175s
+Job completed: gg=0, theta=421.875, xs=675.494, uq=1.000000, runtime=52.429s
+Job completed: gg=0, theta=421.875, xs=591.140, uq=1.000000, runtime=54.293s
+Job completed: gg=0, theta=506.250, xs=591.140, uq=1.000000, runtime=52.681s
+Job completed: gg=0, theta=506.250, xs=759.849, uq=1.000000, runtime=56.682s
+Job completed: gg=0, theta=421.875, xs=759.849, uq=1.000000, runtime=55.996s
+Job completed: gg=1, theta=-590.625, xs=1434.684, uq=-0.233840, runtime=494.498s
+Job completed: gg=0, theta=506.250, xs=928.558, uq=1.000000, runtime=54.445s
+Job completed: gg=0, theta=590.625, xs=844.203, uq=1.000000, runtime=54.329s
+Job completed: gg=0, theta=590.625, xs=928.558, uq=1.000000, runtime=54.122s
+Job completed: gg=0, theta=590.625, xs=1012.912, uq=1.000000, runtime=53.672s
+Job completed: gg=0, theta=675.000, xs=928.558, uq=1.000000, runtime=54.901s
+Job completed: gg=1, theta=168.750, xs=591.140, uq=-0.233840, runtime=453.616s
+Job completed: gg=0, theta=590.625, xs=1097.266, uq=1.000000, runtime=53.851s
+Job completed: gg=1, theta=-590.625, xs=1519.038, uq=-0.233840, runtime=498.622s
+Job completed: gg=1, theta=168.750, xs=422.431, uq=-0.233840, runtime=471.542s
+Job completed: gg=0, theta=675.000, xs=1097.266, uq=1.000000, runtime=56.257s
+Job completed: gg=1, theta=-421.875, xs=1181.621, uq=-0.233840, runtime=513.426s
+Job completed: gg=1, theta=84.375, xs=338.077, uq=-0.233840, runtime=494.826s
+Job completed: gg=0, theta=675.000, xs=1265.975, uq=1.000000, runtime=54.595s
+Job completed: gg=0, theta=759.375, xs=1181.621, uq=1.000000, runtime=54.353s
+Job completed: gg=1, theta=253.125, xs=675.494, uq=-0.233840, runtime=461.565s
+Job completed: gg=0, theta=843.750, xs=1265.975, uq=1.000000, runtime=55.032s
+Job completed: gg=0, theta=759.375, xs=1265.975, uq=1.000000, runtime=56.338s
+Job completed: gg=0, theta=759.375, xs=1350.330, uq=1.000000, runtime=54.886s
+Job completed: gg=0, theta=843.750, xs=1434.684, uq=1.000000, runtime=53.308s
+Job completed: gg=0, theta=759.375, xs=1434.684, uq=1.000000, runtime=60.502s
+Job completed: gg=0, theta=928.125, xs=1519.038, uq=1.000000, runtime=53.110s
+Job completed: gg=1, theta=84.375, xs=253.722, uq=-0.233840, runtime=518.187s
+Job completed: gg=0, theta=928.125, xs=1687.747, uq=1.000000, runtime=50.844s
+Job completed: gg=1, theta=337.500, xs=759.849, uq=-0.233840, runtime=468.738s
+Job completed: gg=0, theta=843.750, xs=1603.393, uq=1.000000, runtime=59.141s
+Job completed: gg=1, theta=421.875, xs=928.558, uq=-0.233840, runtime=456.032s
+Job completed: gg=0, theta=928.125, xs=1603.393, uq=1.000000, runtime=55.202s
+Job completed: gg=1, theta=253.125, xs=591.140, uq=-0.233840, runtime=493.522s
+Job completed: gg=0, theta=1012.500, xs=1603.393, uq=1.000000, runtime=56.612s
+Job completed: gg=0, theta=928.125, xs=1772.102, uq=1.000000, runtime=56.780s
+Job completed: gg=0, theta=1012.500, xs=1772.102, uq=1.000000, runtime=56.130s
+Job completed: gg=1, theta=421.875, xs=1012.912, uq=-0.233840, runtime=457.444s
+Job completed: gg=0, theta=1096.875, xs=1856.456, uq=1.000000, runtime=52.198s
+Job completed: gg=0, theta=1012.500, xs=1940.810, uq=1.000000, runtime=57.687s
+Job completed: gg=0, theta=1096.875, xs=1940.810, uq=1.000000, runtime=56.140s
+Job completed: gg=0, theta=1181.250, xs=1940.810, uq=1.000000, runtime=55.394s
+Job completed: gg=0, theta=1096.875, xs=2025.165, uq=1.000000, runtime=54.664s
+Job completed: gg=0, theta=1096.875, xs=2109.519, uq=1.000000, runtime=57.863s
+Job completed: gg=0, theta=1181.250, xs=2109.519, uq=1.000000, runtime=55.350s
+Job completed: gg=0, theta=1265.625, xs=2193.874, uq=1.000000, runtime=52.334s
+Job completed: gg=0, theta=1265.625, xs=2278.228, uq=1.000000, runtime=53.618s
+Job completed: gg=0, theta=1181.250, xs=2278.228, uq=1.000000, runtime=55.811s
+Job completed: gg=1, theta=506.250, xs=1097.266, uq=-0.233840, runtime=457.412s
+Job completed: gg=1, theta=337.500, xs=928.558, uq=-0.233840, runtime=497.466s
+Job completed: gg=0, theta=1350.000, xs=2278.228, uq=1.000000, runtime=56.314s
+Job completed: gg=0, theta=1265.625, xs=2362.583, uq=1.000000, runtime=51.105s
+Job completed: gg=1, theta=590.625, xs=1350.330, uq=-0.233840, runtime=440.352s
+Job completed: gg=1, theta=84.375, xs=169.368, uq=-0.289198, runtime=573.740s
+Job completed: gg=0, theta=1350.000, xs=2446.937, uq=1.000000, runtime=53.771s
+Job completed: gg=0, theta=1265.625, xs=2446.937, uq=1.000000, runtime=57.512s
+Job completed: gg=0, theta=1350.000, xs=2615.646, uq=1.000000, runtime=53.887s
+Job completed: gg=1, theta=506.250, xs=1265.975, uq=-0.233840, runtime=469.447s
+Job completed: gg=1, theta=590.625, xs=1265.975, uq=-0.233840, runtime=470.517s
+Job completed: gg=1, theta=253.125, xs=506.786, uq=-0.289198, runtime=574.616s
+Job completed: gg=1, theta=675.000, xs=1603.393, uq=-0.233840, runtime=451.599s
+Job completed: gg=1, theta=759.375, xs=1687.747, uq=-0.233840, runtime=457.311s
+Job completed: gg=1, theta=843.750, xs=1940.810, uq=-0.233840, runtime=442.308s
+Job completed: gg=1, theta=590.625, xs=1181.621, uq=-0.289198, runtime=522.342s
+Job completed: gg=1, theta=928.125, xs=2025.165, uq=-0.233840, runtime=441.105s
+Job completed: gg=1, theta=421.875, xs=844.203, uq=-0.289198, runtime=573.003s
+Job completed: gg=1, theta=675.000, xs=1434.684, uq=-0.233840, runtime=492.538s
+Job completed: gg=0, theta=-675.000, xs=1434.684, uq=-0.061374, runtime=402.302s
+Job completed: gg=0, theta=-759.375, xs=1687.747, uq=-0.061374, runtime=397.940s
+Job completed: gg=1, theta=759.375, xs=1519.038, uq=-0.289198, runtime=495.513s
+Job completed: gg=0, theta=-675.000, xs=1603.393, uq=-0.061374, runtime=402.458s
+Job completed: gg=0, theta=-759.375, xs=1603.393, uq=-0.061374, runtime=410.372s
+Job completed: gg=1, theta=759.375, xs=1603.393, uq=-0.233840, runtime=497.644s
+Job completed: gg=1, theta=1012.500, xs=2278.228, uq=-0.233840, runtime=458.449s
+Job completed: gg=1, theta=843.750, xs=1772.102, uq=-0.233840, runtime=481.911s
+Job completed: gg=1, theta=928.125, xs=1940.810, uq=-0.233840, runtime=474.813s
+Job completed: gg=1, theta=1096.875, xs=2362.583, uq=-0.233840, runtime=456.032s
+Job completed: gg=1, theta=928.125, xs=1856.456, uq=-0.289198, runtime=481.998s
+Job completed: gg=1, theta=1096.875, xs=2193.874, uq=-0.289198, runtime=474.205s
+Job completed: gg=0, theta=-1012.500, xs=2278.228, uq=-0.061374, runtime=377.755s
+Job completed: gg=0, theta=-843.750, xs=1772.102, uq=-0.061374, runtime=408.087s
+Job completed: gg=1, theta=1265.625, xs=2531.291, uq=-0.289198, runtime=454.461s
+Job completed: gg=1, theta=1265.625, xs=2700.000, uq=-0.233840, runtime=450.307s
+Job completed: gg=0, theta=-843.750, xs=1940.810, uq=-0.061374, runtime=398.515s
+Job completed: gg=0, theta=-1181.250, xs=2615.646, uq=-0.061374, runtime=376.558s
+Job completed: gg=1, theta=1181.250, xs=2615.646, uq=-0.233840, runtime=456.456s
+Job completed: gg=1, theta=1012.500, xs=2109.519, uq=-0.233840, runtime=490.419s
+Job completed: gg=0, theta=-1012.500, xs=2109.519, uq=-0.061374, runtime=395.388s
+Job completed: gg=0, theta=-928.125, xs=1940.810, uq=-0.061374, runtime=410.306s
+Job completed: gg=0, theta=-928.125, xs=2025.165, uq=-0.061374, runtime=406.329s
+Job completed: gg=1, theta=1096.875, xs=2278.228, uq=-0.233840, runtime=487.340s
+Job completed: gg=0, theta=-1265.625, xs=2615.646, uq=-0.061374, runtime=389.631s
+Job completed: gg=1, theta=1181.250, xs=2446.937, uq=-0.233840, runtime=476.897s
+Job completed: gg=1, theta=1265.625, xs=2615.646, uq=-0.233840, runtime=469.929s
+Job completed: gg=0, theta=-1181.250, xs=2446.937, uq=-0.061374, runtime=396.083s
+Job completed: gg=0, theta=-1096.875, xs=2362.583, uq=-0.061374, runtime=398.350s
+Job completed: gg=0, theta=-1096.875, xs=2278.228, uq=-0.061374, runtime=402.794s
+Job completed: gg=0, theta=-759.375, xs=1519.038, uq=-0.372093, runtime=461.021s
+Job completed: gg=0, theta=-928.125, xs=1856.456, uq=-0.372093, runtime=454.591s
+Job completed: gg=0, theta=-84.375, xs=338.077, uq=-0.061374, runtime=390.659s
+Job completed: gg=0, theta=-1265.625, xs=2700.000, uq=-0.061374, runtime=425.703s
+Job completed: gg=0, theta=-421.875, xs=928.558, uq=-0.061374, runtime=370.747s
+Job completed: gg=0, theta=-506.250, xs=1097.266, uq=-0.061374, runtime=369.604s
+Job completed: gg=0, theta=0.000, xs=253.722, uq=-0.061374, runtime=404.399s
+Job completed: gg=0, theta=-84.375, xs=169.368, uq=-0.372093, runtime=429.510s
+Job completed: gg=0, theta=-168.750, xs=422.431, uq=-0.061374, runtime=399.681s
+Job completed: gg=0, theta=-337.500, xs=759.849, uq=-0.061374, runtime=395.496s
+Job completed: gg=0, theta=-253.125, xs=591.140, uq=-0.061374, runtime=400.766s
+Job completed: gg=0, theta=-1265.625, xs=2531.291, uq=-0.372093, runtime=456.294s
+Job completed: gg=0, theta=-84.375, xs=253.722, uq=-0.061374, runtime=423.881s
+Job completed: gg=0, theta=-590.625, xs=1350.330, uq=-0.061374, runtime=378.301s
+Job completed: gg=0, theta=-1096.875, xs=2193.874, uq=-0.372093, runtime=472.193s
+Job completed: gg=0, theta=0.000, xs=85.014, uq=-0.061374, runtime=445.080s
+Job completed: gg=0, theta=-421.875, xs=1012.912, uq=-0.061374, runtime=393.092s
+Job completed: gg=0, theta=-337.500, xs=928.558, uq=-0.061374, runtime=395.449s
+Job completed: gg=0, theta=-506.250, xs=1265.975, uq=-0.061374, runtime=402.203s
+Job completed: gg=0, theta=-590.625, xs=1265.975, uq=-0.061374, runtime=402.948s
+Job completed: gg=0, theta=-253.125, xs=675.494, uq=-0.061374, runtime=431.420s
+Job completed: gg=0, theta=-168.750, xs=591.140, uq=-0.061374, runtime=434.283s
+Job completed: gg=0, theta=421.875, xs=1012.912, uq=-0.061374, runtime=372.972s
+Job completed: gg=0, theta=84.375, xs=169.368, uq=-0.073109, runtime=401.694s
+Job completed: gg=0, theta=-421.875, xs=844.203, uq=-0.372093, runtime=435.079s
+Job completed: gg=0, theta=253.125, xs=675.494, uq=-0.061374, runtime=389.617s
+Job completed: gg=0, theta=84.375, xs=253.722, uq=-0.061374, runtime=405.686s
+Job completed: gg=0, theta=337.500, xs=759.849, uq=-0.061374, runtime=386.712s
+Job completed: gg=0, theta=84.375, xs=338.077, uq=-0.061374, runtime=408.122s
+Job completed: gg=0, theta=-253.125, xs=506.786, uq=-0.372093, runtime=458.655s
+Job completed: gg=0, theta=337.500, xs=928.558, uq=-0.061374, runtime=397.340s
+Job completed: gg=0, theta=168.750, xs=591.140, uq=-0.061374, runtime=412.210s
+Job completed: gg=0, theta=590.625, xs=1350.330, uq=-0.061374, runtime=379.030s
+Job completed: gg=0, theta=506.250, xs=1097.266, uq=-0.061374, runtime=396.497s
+Job completed: gg=0, theta=421.875, xs=928.558, uq=-0.061374, runtime=410.370s
+Job completed: gg=0, theta=506.250, xs=1265.975, uq=-0.061374, runtime=393.010s
+Job completed: gg=0, theta=168.750, xs=422.431, uq=-0.061374, runtime=425.469s
+Job completed: gg=0, theta=675.000, xs=1603.393, uq=-0.061374, runtime=371.728s
+Job completed: gg=0, theta=421.875, xs=844.203, uq=-0.073109, runtime=416.499s
+Job completed: gg=0, theta=253.125, xs=591.140, uq=-0.061374, runtime=426.523s
+Job completed: gg=0, theta=253.125, xs=506.786, uq=-0.073109, runtime=428.921s
+Job completed: gg=0, theta=590.625, xs=1265.975, uq=-0.061374, runtime=399.405s
+Job completed: gg=0, theta=843.750, xs=1940.810, uq=-0.061374, runtime=360.895s
+Job completed: gg=0, theta=759.375, xs=1687.747, uq=-0.061374, runtime=381.350s
+Job completed: gg=0, theta=1012.500, xs=2278.228, uq=-0.061374, runtime=355.574s
+Job completed: gg=0, theta=928.125, xs=2025.165, uq=-0.061374, runtime=368.991s
+Job completed: gg=0, theta=590.625, xs=1181.621, uq=-0.073109, runtime=424.595s
+Job completed: gg=0, theta=1181.250, xs=2615.646, uq=-0.061374, runtime=342.348s
+Job completed: gg=0, theta=1096.875, xs=2362.583, uq=-0.061374, runtime=363.210s
+Job completed: gg=0, theta=-590.625, xs=1181.621, uq=-0.372093, runtime=491.202s
+Job completed: gg=0, theta=675.000, xs=1434.684, uq=-0.061374, runtime=433.101s
+Job completed: gg=0, theta=759.375, xs=1603.393, uq=-0.061374, runtime=434.339s
+Job completed: gg=0, theta=1265.625, xs=2700.000, uq=-0.061374, runtime=374.364s
+Job completed: gg=0, theta=759.375, xs=1519.038, uq=-0.073109, runtime=438.578s
+Job completed: gg=0, theta=928.125, xs=1940.810, uq=-0.061374, runtime=430.477s
+Job completed: gg=0, theta=1096.875, xs=2193.874, uq=-0.073109, runtime=419.045s
+Job completed: gg=0, theta=843.750, xs=1772.102, uq=-0.061374, runtime=446.347s
+Job completed: gg=0, theta=1265.625, xs=2531.291, uq=-0.073109, runtime=399.174s
+Job completed: gg=0, theta=928.125, xs=1856.456, uq=-0.073109, runtime=446.188s
+Job completed: gg=0, theta=1012.500, xs=2109.519, uq=-0.061374, runtime=440.592s
+Job completed: gg=0, theta=1181.250, xs=2446.937, uq=-0.061374, runtime=412.932s
+Job completed: gg=0, theta=1096.875, xs=2278.228, uq=-0.061374, runtime=440.041s
+Job completed: gg=0, theta=1265.625, xs=2615.646, uq=-0.061374, runtime=433.982s
+=== Level 3 COMPLETE: 2944/2944 corner points computed ===
+Level 3: 0 boxes had boundaries, 0 new boxes created, 0 new corner jobs, refinement time: 0.000610s
+=== REFINEMENT COMPLETE - No more boundaries found ===
+Final results: 1345 total points, 634 quenching points (47.1%)
+Refinement timing statistics:
+  Total refinement time: 0.017589s (4 level operations)
+  Average refinement time per level: 0.004397s
+  Level 0 refinement time: 0.002320s
+  Level 1 refinement time: 0.004842s
+  Level 2 refinement time: 0.009817s
+  Level 3 refinement time: 0.000610s
+Refinement complete and no active jobs - system should terminate
+=== TERMINATION: No pending jobs (0) and no active jobs (0) ===
+Sent quit to 254 workers. Waiting for confirmations...
+Worker quit received. Remaining workers: 126 active, 126 idle
+Worker quit received. Remaining workers: 125 active, 125 idle
+Worker quit received. Remaining workers: 124 active, 124 idle
+Worker quit received. Remaining workers: 123 active, 123 idle
+Worker quit received. Remaining workers: 122 active, 122 idle
+Worker quit received. Remaining workers: 121 active, 121 idle
+Worker quit received. Remaining workers: 120 active, 120 idle
+Worker quit received. Remaining workers: 119 active, 119 idle
+Worker quit received. Remaining workers: 118 active, 118 idle
+Worker quit received. Remaining workers: 117 active, 117 idle
+Worker quit received. Remaining workers: 116 active, 116 idle
+Worker quit received. Remaining workers: 115 active, 115 idle
+Worker quit received. Remaining workers: 114 active, 114 idle
+Worker quit received. Remaining workers: 113 active, 113 idle
+Worker quit received. Remaining workers: 112 active, 112 idle
+Worker quit received. Remaining workers: 111 active, 111 idle
+Worker quit received. Remaining workers: 110 active, 110 idle
+Worker quit received. Remaining workers: 109 active, 109 idle
+Worker quit received. Remaining workers: 108 active, 108 idle
+Worker quit received. Remaining workers: 107 active, 107 idle
+Worker quit received. Remaining workers: 106 active, 106 idle
+Worker quit received. Remaining workers: 105 active, 105 idle
+Worker quit received. Remaining workers: 104 active, 104 idle
+Worker quit received. Remaining workers: 103 active, 103 idle
+Worker quit received. Remaining workers: 102 active, 102 idle
+Worker quit received. Remaining workers: 101 active, 101 idle
+Worker quit received. Remaining workers: 100 active, 100 idle
+Worker quit received. Remaining workers: 99 active, 99 idle
+Worker quit received. Remaining workers: 98 active, 98 idle
+Worker quit received. Remaining workers: 97 active, 97 idle
+Worker quit received. Remaining workers: 96 active, 96 idle
+Worker quit received. Remaining workers: 95 active, 95 idle
+Worker quit received. Remaining workers: 94 active, 94 idle
+Worker quit received. Remaining workers: 93 active, 93 idle
+Worker quit received. Remaining workers: 92 active, 92 idle
+Worker quit received. Remaining workers: 91 active, 91 idle
+Worker quit received. Remaining workers: 90 active, 90 idle
+Worker quit received. Remaining workers: 89 active, 89 idle
+Worker quit received. Remaining workers: 88 active, 88 idle
+Worker quit received. Remaining workers: 87 active, 87 idle
+Worker quit received. Remaining workers: 86 active, 86 idle
+Worker quit received. Remaining workers: 85 active, 85 idle
+Worker quit received. Remaining workers: 84 active, 84 idle
+Worker quit received. Remaining workers: 83 active, 83 idle
+Worker quit received. Remaining workers: 82 active, 82 idle
+Worker quit received. Remaining workers: 81 active, 81 idle
+Worker quit received. Remaining workers: 80 active, 80 idle
+Worker quit received. Remaining workers: 79 active, 79 idle
+Worker quit received. Remaining workers: 78 active, 78 idle
+Worker quit received. Remaining workers: 77 active, 77 idle
+Worker quit received. Remaining workers: 76 active, 76 idle
+Worker quit received. Remaining workers: 75 active, 75 idle
+Worker quit received. Remaining workers: 74 active, 74 idle
+Worker quit received. Remaining workers: 73 active, 73 idle
+Worker quit received. Remaining workers: 72 active, 72 idle
+Worker quit received. Remaining workers: 71 active, 71 idle
+Worker quit received. Remaining workers: 70 active, 70 idle
+Worker quit received. Remaining workers: 69 active, 69 idle
+Worker quit received. Remaining workers: 68 active, 68 idle
+Worker quit received. Remaining workers: 67 active, 67 idle
+Worker quit received. Remaining workers: 66 active, 66 idle
+Worker quit received. Remaining workers: 65 active, 65 idle
+Worker quit received. Remaining workers: 64 active, 64 idle
+Worker quit received. Remaining workers: 63 active, 63 idle
+Worker quit received. Remaining workers: 62 active, 62 idle
+Worker quit received. Remaining workers: 61 active, 61 idle
+Worker quit received. Remaining workers: 60 active, 60 idle
+Worker quit received. Remaining workers: 59 active, 59 idle
+Worker quit received. Remaining workers: 58 active, 58 idle
+Worker quit received. Remaining workers: 57 active, 57 idle
+Worker quit received. Remaining workers: 56 active, 56 idle
+Worker quit received. Remaining workers: 55 active, 55 idle
+Worker quit received. Remaining workers: 54 active, 54 idle
+Worker quit received. Remaining workers: 53 active, 53 idle
+Worker quit received. Remaining workers: 52 active, 52 idle
+Worker quit received. Remaining workers: 51 active, 51 idle
+Worker quit received. Remaining workers: 50 active, 50 idle
+Worker quit received. Remaining workers: 49 active, 49 idle
+Worker quit received. Remaining workers: 48 active, 48 idle
+Worker quit received. Remaining workers: 47 active, 47 idle
+Worker quit received. Remaining workers: 46 active, 46 idle
+Worker quit received. Remaining workers: 45 active, 45 idle
+Worker quit received. Remaining workers: 44 active, 44 idle
+Worker quit received. Remaining workers: 43 active, 43 idle
+Worker quit received. Remaining workers: 42 active, 42 idle
+Worker quit received. Remaining workers: 41 active, 41 idle
+Worker quit received. Remaining workers: 40 active, 40 idle
+Worker quit received. Remaining workers: 39 active, 39 idle
+Worker quit received. Remaining workers: 38 active, 38 idle
+Worker quit received. Remaining workers: 37 active, 37 idle
+Worker quit received. Remaining workers: 36 active, 36 idle
+Worker quit received. Remaining workers: 35 active, 35 idle
+Worker quit received. Remaining workers: 34 active, 34 idle
+Worker quit received. Remaining workers: 33 active, 33 idle
+Worker quit received. Remaining workers: 32 active, 32 idle
+Worker quit received. Remaining workers: 31 active, 31 idle
+Worker quit received. Remaining workers: 30 active, 30 idle
+Worker quit received. Remaining workers: 29 active, 29 idle
+Worker quit received. Remaining workers: 28 active, 28 idle
+Worker quit received. Remaining workers: 27 active, 27 idle
+Worker quit received. Remaining workers: 26 active, 26 idle
+Worker quit received. Remaining workers: 25 active, 25 idle
+Worker quit received. Remaining workers: 24 active, 24 idle
+Worker quit received. Remaining workers: 23 active, 23 idle
+Worker quit received. Remaining workers: 22 active, 22 idle
+Worker quit received. Remaining workers: 21 active, 21 idle
+Worker quit received. Remaining workers: 20 active, 20 idle
+Worker quit received. Remaining workers: 19 active, 19 idle
+Worker quit received. Remaining workers: 18 active, 18 idle
+Worker quit received. Remaining workers: 17 active, 17 idle
+Worker quit received. Remaining workers: 16 active, 16 idle
+Worker quit received. Remaining workers: 15 active, 15 idle
+Worker quit received. Remaining workers: 14 active, 14 idle
+Worker quit received. Remaining workers: 13 active, 13 idle
+Worker quit received. Remaining workers: 12 active, 12 idle
+Worker quit received. Remaining workers: 11 active, 11 idle
+Worker quit received. Remaining workers: 10 active, 10 idle
+Worker quit received. Remaining workers: 9 active, 9 idle
+Worker quit received. Remaining workers: 8 active, 8 idle
+Worker quit received. Remaining workers: 7 active, 7 idle
+Worker quit received. Remaining workers: 6 active, 6 idle
+Worker quit received. Remaining workers: 5 active, 5 idle
+Worker quit received. Remaining workers: 4 active, 4 idle
+Worker quit received. Remaining workers: 3 active, 3 idle
+Worker quit received. Remaining workers: 2 active, 2 idle
+Worker quit received. Remaining workers: 1 active, 1 idle
+Worker quit received. Remaining workers: 0 active, 0 idle
+All workers have quit. Terminating server...
+All processes have finished.
+Job ID: 4660988
+Cluster: plato
+User/Group: tus210/tus210
+State: RUNNING
+Nodes: 4
+Cores per node: 32
+CPU Utilized: 3-07:14:03
+CPU Efficiency: 67.67% of 4-21:05:04 core-walltime
+Job Wall-clock time: 00:54:53
+Memory Utilized: 187.54 MB
+Memory Efficiency: 0.02% of 740.00 GB
+WARNING: Efficiency statistics may be misleading for RUNNING jobs.

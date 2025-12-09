@@ -1,0 +1,1943 @@
+
+Lmod is automatically replacing "intel/2020.1.217" with "gcc/9.3.0".
+
+Building C++ CAF static actor using Makefile...
+g++ -std=c++17 -O2 -I/globalhome/tus210/HPC/include -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/MPI/gcc9/openmpi4/sundials/6.4.1/include -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/gcc9/gsl/2.6/include -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/eigen/3.4.0/include -Iinclude -L/globalhome/tus210/HPC/lib64 -L/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/MPI/gcc9/openmpi4/sundials/6.4.1/lib -L/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/gcc9/gsl/2.6/lib -o actor_cpp_static src/actor_cpp_static.cc src/bracket_optimizer.cpp src/fitzhugh_nagumo.cpp src/bisection_solver.cpp src/wave_loader.cpp src/finite_difference.cpp src/wave_analysis.cpp -lcaf_core -lcaf_io -lsundials_cvode -lsundials_nvecserial -lgsl -lgslcblas -lm
+Executable actor_cpp_static found
+Setting runtime library path...
+LD_LIBRARY_PATH: /globalhome/tus210/HPC/lib64:/globalhome/tus210/HPC/lib64:/cm/shared/apps/slurm/current/lib64/slurm:/cm/shared/apps/slurm/current/lib64:/cm/shared/apps/slurm/current/lib64/slurm:/cm/shared/apps/slurm/current/lib64:/cm/shared/apps/slurm/current/lib64/slurm:/cm/shared/apps/slurm/current/lib64
+Server node: platocpu053
+Client node(s): platocpu054
+Starting C++ CAF static actor server on platocpu053
+Port: 22444 Host: localhost
+Server Mode: true
+Early Termination (Sundials): true
+Server actor spawned
+BASELINE Server up on port 22444, bracket-enabled=false, early_termination=true
+=== BOX-BASED REFINEMENT TEST: gamma=3 only, 31 workers ===
+  Created initial grid job: gamma=3, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=3, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=3, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=3, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=3, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=0.00, xs=0.66
+  Created initial grid job: gamma=3, theta=0.00, xs=675.49
+  Created initial grid job: gamma=3, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=675.00, xs=0.66
+  Created initial grid job: gamma=3, theta=675.00, xs=675.49
+  Created initial grid job: gamma=3, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=3, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=3, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=3, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=3, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=3, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=3, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+  Created initial grid job: gamma=2, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=2, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=2, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=2, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=2, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=0.00, xs=0.66
+  Created initial grid job: gamma=2, theta=0.00, xs=675.49
+  Created initial grid job: gamma=2, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=675.00, xs=0.66
+  Created initial grid job: gamma=2, theta=675.00, xs=675.49
+  Created initial grid job: gamma=2, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=2, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=2, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=2, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=2, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=2, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=2, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+  Created initial grid job: gamma=1, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=1, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=1, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=1, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=1, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=0.00, xs=0.66
+  Created initial grid job: gamma=1, theta=0.00, xs=675.49
+  Created initial grid job: gamma=1, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=675.00, xs=0.66
+  Created initial grid job: gamma=1, theta=675.00, xs=675.49
+  Created initial grid job: gamma=1, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=1, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=1, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=1, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=1, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=1, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=1, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+  Created initial grid job: gamma=0, theta=-1350.00, xs=0.66
+  Created initial grid job: gamma=0, theta=-1350.00, xs=675.49
+  Created initial grid job: gamma=0, theta=-1350.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=-1350.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=-1350.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=-675.00, xs=0.66
+  Created initial grid job: gamma=0, theta=-675.00, xs=675.49
+  Created initial grid job: gamma=0, theta=-675.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=-675.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=-675.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=0.00, xs=0.66
+  Created initial grid job: gamma=0, theta=0.00, xs=675.49
+  Created initial grid job: gamma=0, theta=0.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=0.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=0.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=675.00, xs=0.66
+  Created initial grid job: gamma=0, theta=675.00, xs=675.49
+  Created initial grid job: gamma=0, theta=675.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=675.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=675.00, xs=2700.00
+  Created initial grid job: gamma=0, theta=1350.00, xs=0.66
+  Created initial grid job: gamma=0, theta=1350.00, xs=675.49
+  Created initial grid job: gamma=0, theta=1350.00, xs=1350.33
+  Created initial grid job: gamma=0, theta=1350.00, xs=2025.16
+  Created initial grid job: gamma=0, theta=1350.00, xs=2700.00
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[-1350.0,-675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[-675.0,0.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[0.0,675.0], xs=[2025.2,2700.0]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[0.7,675.5]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[675.5,1350.3]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[1350.3,2025.2]
+  Created Level 0 box: gamma=0, theta=[675.0,1350.0], xs=[2025.2,2700.0]
+Initial grid: 25 jobs created, 64 boxes at level 0
+=== BOX-BASED INITIALIZATION COMPLETE: 100 pending jobs ===
+Starting client on platocpu054
+Port: 22444 Host: platocpu053
+Server Mode: false
+Early Termination (Sundials): true
+Remote actor spawned
+Connected to remote actor at platocpu053:22444
+Job completed: gg=3, theta=1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=45.274s
+Job completed: gg=3, theta=-675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.762s
+Job completed: gg=3, theta=1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.056s
+Job completed: gg=3, theta=675.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.089s
+Job completed: gg=3, theta=1350.000, xs=2700.000, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.181s
+Job completed: gg=3, theta=-1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.273s
+Job completed: gg=3, theta=-1350.000, xs=2700.000, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.516s
+Job completed: gg=3, theta=-1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.769s
+Job completed: gg=3, theta=-1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.796s
+Job completed: gg=3, theta=675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.003s
+Job completed: gg=3, theta=675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.005s
+Job completed: gg=3, theta=-1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.082s
+Job completed: gg=3, theta=1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.362s
+Job completed: gg=2, theta=-1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.103s
+Job completed: gg=3, theta=1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.996s
+Job completed: gg=2, theta=-1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.108s
+Job completed: gg=3, theta=-675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.215s
+Job completed: gg=2, theta=-1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.453s
+Job completed: gg=3, theta=-675.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.563s
+Job completed: gg=2, theta=-1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.558s
+Job completed: gg=2, theta=-1350.000, xs=2700.000, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.764s
+Job completed: gg=2, theta=-675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.946s
+Job completed: gg=3, theta=0.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.973s
+Job completed: gg=2, theta=1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.070s
+Job completed: gg=2, theta=675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.168s
+Job completed: gg=2, theta=-675.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.221s
+Job completed: gg=2, theta=-675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.234s
+Job completed: gg=2, theta=0.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.888s
+Job completed: gg=2, theta=1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.172s
+Job completed: gg=2, theta=1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.180s
+Job completed: gg=1, theta=-1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.662s
+Job completed: gg=1, theta=-1350.000, xs=2700.000, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.236s
+Job completed: gg=1, theta=-1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.456s
+Job completed: gg=1, theta=-1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.658s
+Job completed: gg=2, theta=1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.799s
+Job completed: gg=1, theta=-675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.122s
+Job completed: gg=1, theta=-1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.752s
+Job completed: gg=2, theta=675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.956s
+Job completed: gg=1, theta=0.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.534s
+Job completed: gg=1, theta=-675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.399s
+Job completed: gg=1, theta=-675.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.481s
+Job completed: gg=0, theta=675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=36.247s
+Job completed: gg=1, theta=1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.186s
+Job completed: gg=1, theta=675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.876s
+Job completed: gg=1, theta=1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.658s
+Job completed: gg=1, theta=675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.117s
+Job completed: gg=0, theta=-1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.879s
+Job completed: gg=1, theta=1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.632s
+Job completed: gg=1, theta=1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.930s
+Job completed: gg=0, theta=-1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.399s
+Job completed: gg=0, theta=-1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.425s
+Job completed: gg=0, theta=-1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.202s
+Job completed: gg=0, theta=-675.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.253s
+Job completed: gg=0, theta=-675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.171s
+Job completed: gg=0, theta=1350.000, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.645s
+Job completed: gg=0, theta=675.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.247s
+Job completed: gg=0, theta=1350.000, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.843s
+Job completed: gg=0, theta=1350.000, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.150s
+Job completed: gg=0, theta=1350.000, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.451s
+Job completed: gg=0, theta=-675.000, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=174.591s
+Job completed: gg=2, theta=675.000, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=225.788s
+Job completed: gg=2, theta=-675.000, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=227.088s
+Job completed: gg=2, theta=0.000, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=231.820s
+Job completed: gg=2, theta=675.000, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=232.177s
+Job completed: gg=2, theta=-675.000, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=237.639s
+Job completed: gg=2, theta=0.000, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=240.737s
+Job completed: gg=2, theta=0.000, xs=675.494, uq=-0.505347, bracket=[-1000.000,0.000], runtime=245.302s
+Job completed: gg=0, theta=0.000, xs=2025.165, uq=-0.061374, bracket=[-1000.000,0.000], runtime=191.661s
+Job completed: gg=2, theta=675.000, xs=1350.330, uq=-1.139287, bracket=[-1000.000,0.000], runtime=250.512s
+Job completed: gg=2, theta=1350.000, xs=2700.000, uq=-1.139287, bracket=[-1000.000,0.000], runtime=251.231s
+Job completed: gg=2, theta=0.000, xs=1350.330, uq=-0.505347, bracket=[-1000.000,0.000], runtime=252.520s
+Job completed: gg=0, theta=0.000, xs=675.494, uq=-0.061374, bracket=[-1000.000,0.000], runtime=202.791s
+Job completed: gg=0, theta=-675.000, xs=2025.165, uq=-0.061374, bracket=[-1000.000,0.000], runtime=210.168s
+Job completed: gg=0, theta=0.000, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=207.772s
+Job completed: gg=0, theta=675.000, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=205.063s
+Job completed: gg=0, theta=0.000, xs=1350.330, uq=-0.061374, bracket=[-1000.000,0.000], runtime=208.354s
+Job completed: gg=0, theta=675.000, xs=2025.165, uq=-0.061374, bracket=[-1000.000,0.000], runtime=207.857s
+Job completed: gg=3, theta=675.000, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=291.505s
+Job completed: gg=1, theta=0.000, xs=1350.330, uq=-0.233840, bracket=[-1000.000,0.000], runtime=287.749s
+Job completed: gg=3, theta=0.000, xs=1350.330, uq=-0.786435, bracket=[-1000.000,0.000], runtime=301.438s
+Job completed: gg=3, theta=675.000, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=302.500s
+Job completed: gg=3, theta=0.000, xs=675.494, uq=-0.786435, bracket=[-1000.000,0.000], runtime=302.567s
+Job completed: gg=1, theta=0.000, xs=675.494, uq=-0.233840, bracket=[-1000.000,0.000], runtime=300.050s
+Job completed: gg=3, theta=-675.000, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=305.870s
+Job completed: gg=3, theta=-675.000, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=306.495s
+Job completed: gg=0, theta=675.000, xs=1350.330, uq=-0.073109, bracket=[-1000.000,0.000], runtime=247.325s
+Job completed: gg=3, theta=0.000, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=311.693s
+Job completed: gg=0, theta=1350.000, xs=2700.000, uq=-0.073109, bracket=[-1000.000,0.000], runtime=247.939s
+Job completed: gg=0, theta=-675.000, xs=1350.330, uq=-0.372093, bracket=[-1000.000,0.000], runtime=257.767s
+Job completed: gg=1, theta=-675.000, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=311.412s
+Job completed: gg=1, theta=-675.000, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=318.399s
+Job completed: gg=3, theta=0.000, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=326.119s
+Job completed: gg=1, theta=0.000, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=283.381s
+Job completed: gg=0, theta=0.000, xs=0.659, uq=-1.808424, bracket=[-1000.000,0.000], runtime=276.844s
+Job completed: gg=0, theta=-1350.000, xs=2700.000, uq=-0.422012, bracket=[-1000.000,0.000], runtime=289.093s
+Job completed: gg=1, theta=0.000, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=298.061s
+Job completed: gg=1, theta=675.000, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=301.271s
+Job completed: gg=1, theta=675.000, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=304.148s
+Job completed: gg=1, theta=675.000, xs=1350.330, uq=-0.289198, bracket=[-1000.000,0.000], runtime=327.832s
+Job completed: gg=1, theta=1350.000, xs=2700.000, uq=-0.289198, bracket=[-1000.000,0.000], runtime=327.050s
+=== Level 0 COMPLETE: 256/256 corner points computed ===
+Box subdivided: gamma=3, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=3, level 0 -> 1, theta=[-675.00,0.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=3, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=3, level 0 -> 1, theta=[0.00,675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=3, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=2, level 0 -> 1, theta=[-675.00,0.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=2, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=2, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=2, level 0 -> 1, theta=[675.00,1350.00], xs=[675.49,1350.33]
+Box subdivided: gamma=2, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=2, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=1, level 0 -> 1, theta=[-675.00,0.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=1, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=1, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=1, level 0 -> 1, theta=[675.00,1350.00], xs=[675.49,1350.33]
+Box subdivided: gamma=1, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=1, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-1350.00,-675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-1350.00,-675.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-1350.00,-675.00], xs=[2025.16,2700.00]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-675.00,0.00], xs=[0.66,675.49]
+Box subdivided: gamma=0, level 0 -> 1, theta=[-675.00,0.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[0.00,675.00], xs=[0.66,675.49]
+Box subdivided: gamma=0, level 0 -> 1, theta=[0.00,675.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[675.00,1350.00], xs=[675.49,1350.33]
+Box subdivided: gamma=0, level 0 -> 1, theta=[675.00,1350.00], xs=[1350.33,2025.16]
+Box subdivided: gamma=0, level 0 -> 1, theta=[675.00,1350.00], xs=[2025.16,2700.00]
+Level 0: 40 boxes had boundaries, 160 new boxes created, 159 new corner jobs, refinement time: 0.002322s
+Job completed: gg=2, theta=675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=35.942s
+Job completed: gg=3, theta=-1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=45.477s
+Job completed: gg=3, theta=337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.194s
+Job completed: gg=3, theta=-1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.364s
+Job completed: gg=2, theta=-1012.500, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.766s
+Job completed: gg=2, theta=-337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.784s
+Job completed: gg=3, theta=1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.572s
+Job completed: gg=2, theta=-1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.499s
+Job completed: gg=2, theta=337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.514s
+Job completed: gg=3, theta=-675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.996s
+Job completed: gg=3, theta=-675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.414s
+Job completed: gg=2, theta=-675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.267s
+Job completed: gg=3, theta=1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.833s
+Job completed: gg=3, theta=337.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.633s
+Job completed: gg=2, theta=-337.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.349s
+Job completed: gg=3, theta=-337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.078s
+Job completed: gg=2, theta=-1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.263s
+Job completed: gg=2, theta=-1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.484s
+Job completed: gg=2, theta=-675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.767s
+Job completed: gg=2, theta=-1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.595s
+Job completed: gg=2, theta=337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.250s
+Job completed: gg=2, theta=-337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.562s
+Job completed: gg=3, theta=1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.818s
+Job completed: gg=3, theta=675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.134s
+Job completed: gg=3, theta=1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.172s
+Job completed: gg=3, theta=337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.289s
+Job completed: gg=3, theta=1012.500, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.944s
+Job completed: gg=3, theta=-1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=64.047s
+Job completed: gg=3, theta=-337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=65.117s
+Job completed: gg=3, theta=-337.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=67.733s
+Job completed: gg=3, theta=-1012.500, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=68.801s
+Job completed: gg=3, theta=-1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=72.633s
+Job completed: gg=3, theta=675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=74.507s
+Job completed: gg=2, theta=675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.667s
+Job completed: gg=2, theta=1012.500, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.745s
+Job completed: gg=2, theta=1350.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.265s
+Job completed: gg=2, theta=1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.957s
+Job completed: gg=2, theta=1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.933s
+Job completed: gg=2, theta=1012.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.930s
+Job completed: gg=2, theta=1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.883s
+Job completed: gg=2, theta=1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.009s
+Job completed: gg=1, theta=-1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.890s
+Job completed: gg=1, theta=-1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.925s
+Job completed: gg=1, theta=-1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.432s
+Job completed: gg=1, theta=-1012.500, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.676s
+Job completed: gg=1, theta=-1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.794s
+Job completed: gg=1, theta=-337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.106s
+Job completed: gg=1, theta=-675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.275s
+Job completed: gg=1, theta=-337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.400s
+Job completed: gg=1, theta=-337.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.568s
+Job completed: gg=1, theta=-675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.954s
+Job completed: gg=1, theta=675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.777s
+Job completed: gg=1, theta=337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.259s
+Job completed: gg=1, theta=675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.461s
+Job completed: gg=1, theta=337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=66.371s
+Job completed: gg=1, theta=1012.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.540s
+Job completed: gg=1, theta=1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.121s
+Job completed: gg=1, theta=1012.500, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.115s
+Job completed: gg=1, theta=1350.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.548s
+Job completed: gg=1, theta=1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.653s
+Job completed: gg=1, theta=1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.639s
+Job completed: gg=0, theta=-1350.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=40.806s
+Job completed: gg=1, theta=1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=64.154s
+Job completed: gg=0, theta=-1012.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.371s
+Job completed: gg=0, theta=-1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.062s
+Job completed: gg=0, theta=-1012.500, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.112s
+Job completed: gg=2, theta=-337.500, xs=1687.747, uq=-0.505347, bracket=[-1000.000,0.000], runtime=243.945s
+Job completed: gg=0, theta=-675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=64.029s
+Job completed: gg=2, theta=-675.000, xs=1687.747, uq=-0.505347, bracket=[-1000.000,0.000], runtime=248.788s
+Job completed: gg=2, theta=-1012.500, xs=2362.583, uq=-0.505347, bracket=[-1000.000,0.000], runtime=253.359s
+Job completed: gg=2, theta=-337.500, xs=1012.912, uq=-0.505347, bracket=[-1000.000,0.000], runtime=253.834s
+Job completed: gg=2, theta=0.000, xs=338.077, uq=-0.505347, bracket=[-1000.000,0.000], runtime=254.298s
+Job completed: gg=2, theta=0.000, xs=1687.747, uq=-0.505347, bracket=[-1000.000,0.000], runtime=254.802s
+Job completed: gg=2, theta=-675.000, xs=2362.583, uq=-0.505347, bracket=[-1000.000,0.000], runtime=256.933s
+Job completed: gg=2, theta=0.000, xs=1012.912, uq=-0.505347, bracket=[-1000.000,0.000], runtime=256.788s
+Job completed: gg=2, theta=-337.500, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=257.961s
+Job completed: gg=2, theta=-1012.500, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=258.723s
+Job completed: gg=2, theta=-337.500, xs=1350.330, uq=-0.505347, bracket=[-1000.000,0.000], runtime=266.121s
+Job completed: gg=0, theta=-1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.473s
+Job completed: gg=2, theta=675.000, xs=1687.747, uq=-0.505347, bracket=[-1000.000,0.000], runtime=242.529s
+Job completed: gg=2, theta=1012.500, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=239.732s
+Job completed: gg=0, theta=-1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.363s
+Job completed: gg=2, theta=1012.500, xs=2362.583, uq=-0.505347, bracket=[-1000.000,0.000], runtime=245.711s
+Job completed: gg=0, theta=-1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.608s
+Job completed: gg=2, theta=337.500, xs=675.494, uq=-1.139287, bracket=[-1000.000,0.000], runtime=267.548s
+Job completed: gg=2, theta=675.000, xs=2362.583, uq=-0.505347, bracket=[-1000.000,0.000], runtime=264.735s
+Job completed: gg=2, theta=337.500, xs=1350.330, uq=-0.505347, bracket=[-1000.000,0.000], runtime=269.067s
+Job completed: gg=2, theta=337.500, xs=1012.912, uq=-0.505347, bracket=[-1000.000,0.000], runtime=270.566s
+Job completed: gg=0, theta=-337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.684s
+Job completed: gg=0, theta=-675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.288s
+Job completed: gg=0, theta=-337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.852s
+Job completed: gg=3, theta=337.500, xs=1350.330, uq=-0.786435, bracket=[-1000.000,0.000], runtime=321.067s
+Job completed: gg=2, theta=1012.500, xs=2025.165, uq=-1.139287, bracket=[-1000.000,0.000], runtime=271.643s
+Job completed: gg=3, theta=1012.500, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=332.341s
+Job completed: gg=0, theta=337.500, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=65.835s
+Job completed: gg=0, theta=337.500, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.515s
+Job completed: gg=3, theta=337.500, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=337.760s
+Job completed: gg=3, theta=675.000, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=338.352s
+Job completed: gg=3, theta=0.000, xs=338.077, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.046s
+Job completed: gg=3, theta=-337.500, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.610s
+Job completed: gg=3, theta=0.000, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=345.293s
+Job completed: gg=3, theta=675.000, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=346.924s
+Job completed: gg=3, theta=-337.500, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=346.959s
+Job completed: gg=3, theta=-337.500, xs=1012.912, uq=-0.786435, bracket=[-1000.000,0.000], runtime=348.332s
+Job completed: gg=3, theta=337.500, xs=1012.912, uq=-0.786435, bracket=[-1000.000,0.000], runtime=350.708s
+Job completed: gg=3, theta=1012.500, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=352.289s
+Job completed: gg=0, theta=675.000, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.600s
+Job completed: gg=0, theta=675.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.253s
+Job completed: gg=3, theta=-337.500, xs=1350.330, uq=-0.786435, bracket=[-1000.000,0.000], runtime=360.133s
+Job completed: gg=3, theta=-675.000, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=361.064s
+Job completed: gg=0, theta=1012.500, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.556s
+Job completed: gg=3, theta=-1012.500, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=369.310s
+Job completed: gg=0, theta=1012.500, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.552s
+Job completed: gg=0, theta=1012.500, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.554s
+Job completed: gg=0, theta=1012.500, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.189s
+Job completed: gg=0, theta=1350.000, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.628s
+Job completed: gg=0, theta=1350.000, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.204s
+Job completed: gg=3, theta=0.000, xs=1012.912, uq=-0.786435, bracket=[-1000.000,0.000], runtime=376.145s
+Job completed: gg=0, theta=1350.000, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.494s
+Job completed: gg=3, theta=337.500, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=392.027s
+Job completed: gg=3, theta=-675.000, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=393.549s
+Job completed: gg=1, theta=-337.500, xs=1350.330, uq=-0.233840, bracket=[-1000.000,0.000], runtime=298.889s
+Job completed: gg=3, theta=-1012.500, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=399.300s
+Job completed: gg=1, theta=0.000, xs=1012.912, uq=-0.233840, bracket=[-1000.000,0.000], runtime=343.389s
+Job completed: gg=1, theta=337.500, xs=1350.330, uq=-0.233840, bracket=[-1000.000,0.000], runtime=306.218s
+Job completed: gg=1, theta=-675.000, xs=1687.747, uq=-0.233840, bracket=[-1000.000,0.000], runtime=368.188s
+Job completed: gg=1, theta=-1012.500, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=362.510s
+Job completed: gg=1, theta=-337.500, xs=1012.912, uq=-0.233840, bracket=[-1000.000,0.000], runtime=352.928s
+Job completed: gg=1, theta=-1012.500, xs=2362.583, uq=-0.233840, bracket=[-1000.000,0.000], runtime=363.535s
+Job completed: gg=0, theta=-675.000, xs=2362.583, uq=-0.061374, bracket=[-1000.000,0.000], runtime=183.753s
+Job completed: gg=1, theta=0.000, xs=338.077, uq=-0.233840, bracket=[-1000.000,0.000], runtime=367.564s
+Job completed: gg=1, theta=-675.000, xs=2362.583, uq=-0.233840, bracket=[-1000.000,0.000], runtime=372.401s
+Job completed: gg=1, theta=-337.500, xs=1687.747, uq=-0.233840, bracket=[-1000.000,0.000], runtime=339.763s
+Job completed: gg=1, theta=-337.500, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=343.174s
+Job completed: gg=1, theta=0.000, xs=1687.747, uq=-0.233840, bracket=[-1000.000,0.000], runtime=344.981s
+Job completed: gg=1, theta=337.500, xs=1012.912, uq=-0.233840, bracket=[-1000.000,0.000], runtime=336.302s
+Job completed: gg=0, theta=-1012.500, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=209.450s
+Job completed: gg=0, theta=-1012.500, xs=2362.583, uq=-0.061374, bracket=[-1000.000,0.000], runtime=215.672s
+Job completed: gg=0, theta=-675.000, xs=1687.747, uq=-0.061374, bracket=[-1000.000,0.000], runtime=224.629s
+Job completed: gg=0, theta=0.000, xs=1012.912, uq=-0.061374, bracket=[-1000.000,0.000], runtime=212.921s
+Job completed: gg=0, theta=0.000, xs=338.077, uq=-0.061374, bracket=[-1000.000,0.000], runtime=219.585s
+Job completed: gg=0, theta=-337.500, xs=1012.912, uq=-0.061374, bracket=[-1000.000,0.000], runtime=218.750s
+Job completed: gg=0, theta=-337.500, xs=1350.330, uq=-0.061374, bracket=[-1000.000,0.000], runtime=217.491s
+Job completed: gg=1, theta=675.000, xs=1687.747, uq=-0.233840, bracket=[-1000.000,0.000], runtime=359.699s
+Job completed: gg=1, theta=1012.500, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=325.506s
+Job completed: gg=0, theta=337.500, xs=1012.912, uq=-0.061374, bracket=[-1000.000,0.000], runtime=200.763s
+Job completed: gg=1, theta=1012.500, xs=2362.583, uq=-0.233840, bracket=[-1000.000,0.000], runtime=333.238s
+Job completed: gg=0, theta=675.000, xs=2362.583, uq=-0.061374, bracket=[-1000.000,0.000], runtime=182.334s
+Job completed: gg=1, theta=675.000, xs=2362.583, uq=-0.233840, bracket=[-1000.000,0.000], runtime=351.109s
+Job completed: gg=0, theta=337.500, xs=1350.330, uq=-0.061374, bracket=[-1000.000,0.000], runtime=211.458s
+Job completed: gg=0, theta=-1012.500, xs=2025.165, uq=-0.372093, bracket=[-1000.000,0.000], runtime=274.923s
+Job completed: gg=1, theta=337.500, xs=675.494, uq=-0.289198, bracket=[-1000.000,0.000], runtime=412.722s
+Job completed: gg=0, theta=1012.500, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=186.464s
+Job completed: gg=0, theta=675.000, xs=1687.747, uq=-0.061374, bracket=[-1000.000,0.000], runtime=207.071s
+Job completed: gg=0, theta=1012.500, xs=2362.583, uq=-0.061374, bracket=[-1000.000,0.000], runtime=194.949s
+Job completed: gg=0, theta=337.500, xs=675.494, uq=-0.073109, bracket=[-1000.000,0.000], runtime=236.352s
+Job completed: gg=1, theta=1012.500, xs=2025.165, uq=-0.289198, bracket=[-1000.000,0.000], runtime=367.948s
+Job completed: gg=0, theta=-337.500, xs=675.494, uq=-0.372093, bracket=[-1000.000,0.000], runtime=279.387s
+Job completed: gg=0, theta=1012.500, xs=2025.165, uq=-0.073109, bracket=[-1000.000,0.000], runtime=239.753s
+=== Level 1 COMPLETE: 640/640 corner points computed ===
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1012.50,-675.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-337.50,0.00], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=3, level 1 -> 2, theta=[-675.00,-337.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=3, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=3, level 1 -> 2, theta=[0.00,337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=3, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=3, level 1 -> 2, theta=[337.50,675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=3, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=3, level 1 -> 2, theta=[675.00,1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=3, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1012.50,-675.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-337.50,0.00], xs=[675.49,1012.91]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=2, level 1 -> 2, theta=[-675.00,-337.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=2, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=2, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=2, level 1 -> 2, theta=[337.50,675.00], xs=[338.08,675.49]
+Box subdivided: gamma=2, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=2, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=2, level 1 -> 2, theta=[675.00,1012.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=2, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=2, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=2, level 1 -> 2, theta=[1012.50,1350.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=2, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=2, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1012.50,-675.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-337.50,0.00], xs=[675.49,1012.91]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=1, level 1 -> 2, theta=[-675.00,-337.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=1, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=1, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=1, level 1 -> 2, theta=[337.50,675.00], xs=[338.08,675.49]
+Box subdivided: gamma=1, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=1, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=1, level 1 -> 2, theta=[675.00,1012.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=1, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=1, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=1, level 1 -> 2, theta=[1012.50,1350.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=1, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=1, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1350.33,1687.75]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1012.50,-675.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2025.16,2362.58]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-1350.00,-1012.50], xs=[2362.58,2700.00]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-337.50,0.00], xs=[0.66,338.08]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-675.00,-337.50], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-337.50,0.00], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-675.00,-337.50], xs=[675.49,1012.91]
+Box subdivided: gamma=0, level 1 -> 2, theta=[-675.00,-337.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[0.00,337.50], xs=[0.66,338.08]
+Box subdivided: gamma=0, level 1 -> 2, theta=[0.00,337.50], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[337.50,675.00], xs=[338.08,675.49]
+Box subdivided: gamma=0, level 1 -> 2, theta=[337.50,675.00], xs=[675.49,1012.91]
+Box subdivided: gamma=0, level 1 -> 2, theta=[337.50,675.00], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[675.00,1012.50], xs=[1012.91,1350.33]
+Box subdivided: gamma=0, level 1 -> 2, theta=[675.00,1012.50], xs=[1350.33,1687.75]
+Box subdivided: gamma=0, level 1 -> 2, theta=[675.00,1012.50], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[1012.50,1350.00], xs=[1687.75,2025.16]
+Box subdivided: gamma=0, level 1 -> 2, theta=[1012.50,1350.00], xs=[2025.16,2362.58]
+Box subdivided: gamma=0, level 1 -> 2, theta=[1012.50,1350.00], xs=[2362.58,2700.00]
+Level 1: 88 boxes had boundaries, 352 new boxes created, 351 new corner jobs, refinement time: 0.004826s
+Job completed: gg=3, theta=-1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.191s
+Job completed: gg=3, theta=-1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.231s
+Job completed: gg=3, theta=-506.250, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.792s
+Job completed: gg=3, theta=-675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.938s
+Job completed: gg=3, theta=675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.085s
+Job completed: gg=3, theta=-1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.149s
+Job completed: gg=3, theta=-843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.117s
+Job completed: gg=3, theta=506.250, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.185s
+Job completed: gg=3, theta=-506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.948s
+Job completed: gg=3, theta=506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.281s
+Job completed: gg=3, theta=506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.959s
+Job completed: gg=3, theta=-1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.605s
+Job completed: gg=3, theta=-1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.695s
+Job completed: gg=3, theta=168.750, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.835s
+Job completed: gg=3, theta=-843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.827s
+Job completed: gg=3, theta=-1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.848s
+Job completed: gg=3, theta=-506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.719s
+Job completed: gg=3, theta=-675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.938s
+Job completed: gg=3, theta=168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.144s
+Job completed: gg=3, theta=337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.870s
+Job completed: gg=3, theta=-168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.721s
+Job completed: gg=3, theta=675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.732s
+Job completed: gg=3, theta=-168.750, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.826s
+Job completed: gg=3, theta=337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.907s
+Job completed: gg=3, theta=-337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.282s
+Job completed: gg=3, theta=168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.206s
+Job completed: gg=3, theta=-1181.250, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.837s
+Job completed: gg=3, theta=-168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.930s
+Job completed: gg=3, theta=-843.750, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.927s
+Job completed: gg=3, theta=-337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.569s
+Job completed: gg=3, theta=843.750, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=45.578s
+Job completed: gg=3, theta=843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.323s
+Job completed: gg=3, theta=1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.329s
+Job completed: gg=3, theta=843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.887s
+Job completed: gg=3, theta=1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.576s
+Job completed: gg=3, theta=1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.324s
+Job completed: gg=3, theta=1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.275s
+Job completed: gg=3, theta=1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.728s
+Job completed: gg=3, theta=1181.250, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.108s
+Job completed: gg=3, theta=1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.354s
+Job completed: gg=2, theta=-843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.209s
+Job completed: gg=2, theta=-1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.112s
+Job completed: gg=2, theta=-843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.769s
+Job completed: gg=2, theta=-843.750, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.711s
+Job completed: gg=2, theta=-1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.966s
+Job completed: gg=2, theta=-1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.413s
+Job completed: gg=2, theta=-1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.036s
+Job completed: gg=2, theta=-1181.250, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.489s
+Job completed: gg=2, theta=-1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.311s
+Job completed: gg=2, theta=-1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.270s
+Job completed: gg=2, theta=-168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.913s
+Job completed: gg=2, theta=-168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.539s
+Job completed: gg=2, theta=-337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.603s
+Job completed: gg=2, theta=-168.750, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.753s
+Job completed: gg=2, theta=-337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.795s
+Job completed: gg=2, theta=-506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.695s
+Job completed: gg=2, theta=-675.000, xs=1519.038, uq=-0.505347, bracket=[-1000.000,0.000], runtime=270.815s
+Job completed: gg=3, theta=506.250, xs=1350.330, uq=-0.786435, bracket=[-1000.000,0.000], runtime=334.954s
+Job completed: gg=3, theta=-337.500, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=340.172s
+Job completed: gg=3, theta=337.500, xs=844.203, uq=-0.786435, bracket=[-1000.000,0.000], runtime=343.690s
+Job completed: gg=3, theta=168.750, xs=675.494, uq=-0.786435, bracket=[-1000.000,0.000], runtime=344.744s
+Job completed: gg=3, theta=-506.250, xs=1181.621, uq=-0.786435, bracket=[-1000.000,0.000], runtime=346.635s
+Job completed: gg=3, theta=-506.250, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=346.984s
+Job completed: gg=3, theta=0.000, xs=844.203, uq=-0.786435, bracket=[-1000.000,0.000], runtime=348.329s
+Job completed: gg=3, theta=-675.000, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=348.710s
+Job completed: gg=3, theta=168.750, xs=1012.912, uq=-0.786435, bracket=[-1000.000,0.000], runtime=348.774s
+Job completed: gg=3, theta=506.250, xs=1181.621, uq=-0.786435, bracket=[-1000.000,0.000], runtime=348.254s
+Job completed: gg=3, theta=0.000, xs=169.368, uq=-0.786435, bracket=[-1000.000,0.000], runtime=348.871s
+Job completed: gg=3, theta=-337.500, xs=844.203, uq=-0.786435, bracket=[-1000.000,0.000], runtime=349.092s
+Job completed: gg=2, theta=-675.000, xs=1856.456, uq=-0.505347, bracket=[-1000.000,0.000], runtime=256.331s
+Job completed: gg=3, theta=-675.000, xs=1856.456, uq=-0.786435, bracket=[-1000.000,0.000], runtime=353.885s
+Job completed: gg=2, theta=-843.750, xs=2362.583, uq=-0.505347, bracket=[-1000.000,0.000], runtime=250.913s
+Job completed: gg=3, theta=168.750, xs=506.786, uq=-0.786435, bracket=[-1000.000,0.000], runtime=358.792s
+Job completed: gg=2, theta=-843.750, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=262.556s
+Job completed: gg=2, theta=-843.750, xs=2193.874, uq=-0.505347, bracket=[-1000.000,0.000], runtime=260.497s
+Job completed: gg=3, theta=-843.750, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=359.981s
+Job completed: gg=2, theta=-843.750, xs=1856.456, uq=-0.505347, bracket=[-1000.000,0.000], runtime=267.050s
+Job completed: gg=3, theta=-843.750, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=361.862s
+Job completed: gg=3, theta=-843.750, xs=1856.456, uq=-0.786435, bracket=[-1000.000,0.000], runtime=363.189s
+Job completed: gg=2, theta=-1012.500, xs=2531.291, uq=-0.505347, bracket=[-1000.000,0.000], runtime=257.342s
+Job completed: gg=2, theta=-675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.629s
+Job completed: gg=3, theta=-506.250, xs=1350.330, uq=-0.786435, bracket=[-1000.000,0.000], runtime=367.401s
+Job completed: gg=2, theta=-675.000, xs=2193.874, uq=-0.505347, bracket=[-1000.000,0.000], runtime=269.766s
+Job completed: gg=3, theta=-1012.500, xs=2531.291, uq=-0.786435, bracket=[-1000.000,0.000], runtime=371.383s
+Job completed: gg=2, theta=-1012.500, xs=2193.874, uq=-0.505347, bracket=[-1000.000,0.000], runtime=274.181s
+Job completed: gg=3, theta=337.500, xs=1181.621, uq=-0.786435, bracket=[-1000.000,0.000], runtime=373.836s
+Job completed: gg=3, theta=-1181.250, xs=2531.291, uq=-0.786435, bracket=[-1000.000,0.000], runtime=374.448s
+Job completed: gg=3, theta=-168.750, xs=675.494, uq=-0.786435, bracket=[-1000.000,0.000], runtime=374.781s
+Job completed: gg=3, theta=-1012.500, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=376.929s
+Job completed: gg=2, theta=-506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.989s
+Job completed: gg=3, theta=843.750, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=328.672s
+Job completed: gg=3, theta=1181.250, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=328.469s
+Job completed: gg=2, theta=-1181.250, xs=2531.291, uq=-0.505347, bracket=[-1000.000,0.000], runtime=271.950s
+Job completed: gg=2, theta=-1181.250, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=268.716s
+Job completed: gg=3, theta=168.750, xs=844.203, uq=-0.786435, bracket=[-1000.000,0.000], runtime=379.483s
+Job completed: gg=3, theta=0.000, xs=506.786, uq=-0.786435, bracket=[-1000.000,0.000], runtime=380.666s
+Job completed: gg=3, theta=-168.750, xs=844.203, uq=-0.786435, bracket=[-1000.000,0.000], runtime=382.954s
+Job completed: gg=3, theta=-337.500, xs=1181.621, uq=-0.786435, bracket=[-1000.000,0.000], runtime=384.240s
+Job completed: gg=3, theta=506.250, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=338.896s
+Job completed: gg=3, theta=-675.000, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=386.476s
+Job completed: gg=3, theta=337.500, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=340.663s
+Job completed: gg=3, theta=506.250, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.821s
+Job completed: gg=3, theta=843.750, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.296s
+Job completed: gg=3, theta=-506.250, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=390.974s
+Job completed: gg=3, theta=675.000, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=345.267s
+Job completed: gg=3, theta=-1181.250, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=395.875s
+Job completed: gg=3, theta=675.000, xs=1856.456, uq=-0.786435, bracket=[-1000.000,0.000], runtime=350.385s
+Job completed: gg=2, theta=-506.250, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.667s
+Job completed: gg=2, theta=-675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.589s
+Job completed: gg=3, theta=843.750, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=354.262s
+Job completed: gg=3, theta=1181.250, xs=2531.291, uq=-0.786435, bracket=[-1000.000,0.000], runtime=354.654s
+Job completed: gg=3, theta=-168.750, xs=1012.912, uq=-0.786435, bracket=[-1000.000,0.000], runtime=405.940s
+Job completed: gg=2, theta=168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.164s
+Job completed: gg=2, theta=337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.267s
+Job completed: gg=3, theta=-843.750, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=411.318s
+Job completed: gg=3, theta=1012.500, xs=2531.291, uq=-0.786435, bracket=[-1000.000,0.000], runtime=361.140s
+Job completed: gg=3, theta=1012.500, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=364.193s
+Job completed: gg=2, theta=168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.717s
+Job completed: gg=2, theta=506.250, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.688s
+Job completed: gg=2, theta=337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.708s
+Job completed: gg=2, theta=506.250, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.939s
+Job completed: gg=2, theta=675.000, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.812s
+Job completed: gg=2, theta=0.000, xs=169.368, uq=-0.505347, bracket=[-1000.000,0.000], runtime=263.778s
+Job completed: gg=3, theta=-168.750, xs=506.786, uq=-0.786435, bracket=[-1000.000,0.000], runtime=417.651s
+Job completed: gg=3, theta=843.750, xs=1856.456, uq=-0.786435, bracket=[-1000.000,0.000], runtime=370.722s
+Job completed: gg=3, theta=675.000, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=370.505s
+Job completed: gg=2, theta=506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.835s
+Job completed: gg=2, theta=506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.656s
+Job completed: gg=2, theta=675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.993s
+Job completed: gg=2, theta=843.750, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.834s
+Job completed: gg=2, theta=675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.495s
+Job completed: gg=2, theta=1012.500, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.418s
+Job completed: gg=2, theta=1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.824s
+Job completed: gg=2, theta=843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.782s
+Job completed: gg=2, theta=843.750, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.961s
+Job completed: gg=2, theta=843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.477s
+Job completed: gg=2, theta=1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.402s
+Job completed: gg=2, theta=1181.250, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.248s
+Job completed: gg=2, theta=1181.250, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.747s
+Job completed: gg=2, theta=1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.230s
+Job completed: gg=2, theta=1350.000, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.325s
+Job completed: gg=2, theta=1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.654s
+Job completed: gg=2, theta=1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.503s
+Job completed: gg=2, theta=1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.412s
+Job completed: gg=1, theta=-1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.271s
+Job completed: gg=1, theta=-843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.046s
+Job completed: gg=1, theta=-843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.683s
+Job completed: gg=1, theta=-1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.434s
+Job completed: gg=1, theta=-1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.266s
+Job completed: gg=1, theta=-1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.919s
+Job completed: gg=1, theta=-843.750, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.319s
+Job completed: gg=1, theta=-1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.490s
+Job completed: gg=1, theta=-1181.250, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.862s
+Job completed: gg=1, theta=-1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.570s
+Job completed: gg=2, theta=0.000, xs=506.786, uq=-0.505347, bracket=[-1000.000,0.000], runtime=279.602s
+Job completed: gg=2, theta=-168.750, xs=675.494, uq=-0.505347, bracket=[-1000.000,0.000], runtime=270.906s
+Job completed: gg=2, theta=-168.750, xs=506.786, uq=-0.505347, bracket=[-1000.000,0.000], runtime=282.424s
+Job completed: gg=1, theta=-168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.894s
+Job completed: gg=1, theta=-337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.886s
+Job completed: gg=1, theta=-337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.486s
+Job completed: gg=1, theta=-168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.831s
+Job completed: gg=1, theta=-168.750, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.038s
+Job completed: gg=1, theta=-506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.335s
+Job completed: gg=1, theta=-675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.050s
+Job completed: gg=1, theta=-506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.574s
+Job completed: gg=1, theta=-506.250, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.884s
+Job completed: gg=1, theta=-675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.263s
+Job completed: gg=1, theta=168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.456s
+Job completed: gg=1, theta=337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.980s
+Job completed: gg=1, theta=168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.216s
+Job completed: gg=1, theta=337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.722s
+Job completed: gg=1, theta=506.250, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=39.102s
+Job completed: gg=2, theta=-337.500, xs=844.203, uq=-0.505347, bracket=[-1000.000,0.000], runtime=247.564s
+Job completed: gg=1, theta=506.250, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.657s
+Job completed: gg=2, theta=-506.250, xs=1181.621, uq=-0.505347, bracket=[-1000.000,0.000], runtime=241.197s
+Job completed: gg=1, theta=675.000, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.607s
+Job completed: gg=2, theta=-168.750, xs=844.203, uq=-0.505347, bracket=[-1000.000,0.000], runtime=253.717s
+Job completed: gg=1, theta=506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.423s
+Job completed: gg=2, theta=-506.250, xs=1687.747, uq=-0.505347, bracket=[-1000.000,0.000], runtime=257.042s
+Job completed: gg=2, theta=0.000, xs=844.203, uq=-0.505347, bracket=[-1000.000,0.000], runtime=261.519s
+Job completed: gg=2, theta=-506.250, xs=1519.038, uq=-0.505347, bracket=[-1000.000,0.000], runtime=259.082s
+Job completed: gg=2, theta=-337.500, xs=1181.621, uq=-0.505347, bracket=[-1000.000,0.000], runtime=262.367s
+Job completed: gg=1, theta=506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.400s
+Job completed: gg=2, theta=-337.500, xs=1519.038, uq=-0.505347, bracket=[-1000.000,0.000], runtime=264.729s
+Job completed: gg=2, theta=-168.750, xs=1012.912, uq=-0.505347, bracket=[-1000.000,0.000], runtime=267.306s
+Job completed: gg=2, theta=-506.250, xs=1350.330, uq=-0.505347, bracket=[-1000.000,0.000], runtime=267.864s
+Job completed: gg=1, theta=675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.276s
+Job completed: gg=2, theta=337.500, xs=1181.621, uq=-0.505347, bracket=[-1000.000,0.000], runtime=250.553s
+Job completed: gg=2, theta=506.250, xs=1350.330, uq=-0.505347, bracket=[-1000.000,0.000], runtime=253.464s
+Job completed: gg=2, theta=168.750, xs=338.077, uq=-1.139287, bracket=[-1000.000,0.000], runtime=272.370s
+Job completed: gg=2, theta=506.250, xs=1181.621, uq=-0.505347, bracket=[-1000.000,0.000], runtime=258.294s
+Job completed: gg=2, theta=168.750, xs=675.494, uq=-0.505347, bracket=[-1000.000,0.000], runtime=274.960s
+Job completed: gg=2, theta=843.750, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=251.136s
+Job completed: gg=2, theta=675.000, xs=1856.456, uq=-0.505347, bracket=[-1000.000,0.000], runtime=258.822s
+Job completed: gg=2, theta=843.750, xs=1856.456, uq=-0.505347, bracket=[-1000.000,0.000], runtime=262.325s
+Job completed: gg=1, theta=675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.048s
+Job completed: gg=1, theta=843.750, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.574s
+Job completed: gg=2, theta=506.250, xs=1012.912, uq=-1.139287, bracket=[-1000.000,0.000], runtime=278.337s
+Job completed: gg=2, theta=168.750, xs=506.786, uq=-0.505347, bracket=[-1000.000,0.000], runtime=293.443s
+Job completed: gg=2, theta=337.500, xs=844.203, uq=-0.505347, bracket=[-1000.000,0.000], runtime=292.058s
+Job completed: gg=2, theta=675.000, xs=1519.038, uq=-0.505347, bracket=[-1000.000,0.000], runtime=277.081s
+Job completed: gg=2, theta=843.750, xs=1687.747, uq=-1.139287, bracket=[-1000.000,0.000], runtime=275.630s
+Job completed: gg=1, theta=843.750, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.309s
+Job completed: gg=2, theta=1012.500, xs=2193.874, uq=-0.505347, bracket=[-1000.000,0.000], runtime=266.765s
+Job completed: gg=2, theta=1181.250, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=253.478s
+Job completed: gg=1, theta=1012.500, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.064s
+Job completed: gg=2, theta=1012.500, xs=2531.291, uq=-0.505347, bracket=[-1000.000,0.000], runtime=261.401s
+Job completed: gg=1, theta=843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.004s
+Job completed: gg=1, theta=843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.180s
+Job completed: gg=1, theta=1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.256s
+Job completed: gg=2, theta=1181.250, xs=2362.583, uq=-1.139287, bracket=[-1000.000,0.000], runtime=271.058s
+Job completed: gg=1, theta=1181.250, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.919s
+Job completed: gg=1, theta=1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.007s
+Job completed: gg=2, theta=1181.250, xs=2531.291, uq=-0.505347, bracket=[-1000.000,0.000], runtime=277.032s
+Job completed: gg=1, theta=1181.250, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.008s
+Job completed: gg=1, theta=1350.000, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.538s
+Job completed: gg=1, theta=1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.409s
+Job completed: gg=1, theta=1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.561s
+Job completed: gg=1, theta=1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.827s
+Job completed: gg=1, theta=1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.374s
+Job completed: gg=0, theta=-675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.169s
+Job completed: gg=0, theta=-843.750, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.339s
+Job completed: gg=0, theta=-1012.500, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.656s
+Job completed: gg=0, theta=-843.750, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.585s
+Job completed: gg=0, theta=-843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.607s
+Job completed: gg=0, theta=-1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.799s
+Job completed: gg=0, theta=-843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.503s
+Job completed: gg=0, theta=-1181.250, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.421s
+Job completed: gg=0, theta=-1350.000, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.132s
+Job completed: gg=0, theta=-1181.250, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.614s
+Job completed: gg=0, theta=-1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.059s
+Job completed: gg=0, theta=-1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.227s
+Job completed: gg=1, theta=-843.750, xs=1856.456, uq=-0.233840, bracket=[-1000.000,0.000], runtime=342.360s
+Job completed: gg=1, theta=-675.000, xs=1519.038, uq=-0.233840, bracket=[-1000.000,0.000], runtime=348.841s
+Job completed: gg=0, theta=-1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.304s
+Job completed: gg=0, theta=-1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.196s
+Job completed: gg=1, theta=-168.750, xs=675.494, uq=-0.233840, bracket=[-1000.000,0.000], runtime=320.909s
+Job completed: gg=1, theta=-1012.500, xs=2193.874, uq=-0.233840, bracket=[-1000.000,0.000], runtime=355.218s
+Job completed: gg=0, theta=-1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.012s
+Job completed: gg=1, theta=-675.000, xs=1856.456, uq=-0.233840, bracket=[-1000.000,0.000], runtime=369.767s
+Job completed: gg=1, theta=-1181.250, xs=2531.291, uq=-0.233840, bracket=[-1000.000,0.000], runtime=355.723s
+Job completed: gg=0, theta=-168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=64.620s
+Job completed: gg=0, theta=-337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.733s
+Job completed: gg=1, theta=-843.750, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=373.012s
+Job completed: gg=0, theta=-168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.698s
+Job completed: gg=1, theta=-843.750, xs=2193.874, uq=-0.233840, bracket=[-1000.000,0.000], runtime=377.645s
+Job completed: gg=0, theta=-506.250, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.253s
+Job completed: gg=1, theta=-168.750, xs=506.786, uq=-0.233840, bracket=[-1000.000,0.000], runtime=357.038s
+Job completed: gg=1, theta=-843.750, xs=2362.583, uq=-0.233840, bracket=[-1000.000,0.000], runtime=376.468s
+Job completed: gg=1, theta=-675.000, xs=2193.874, uq=-0.233840, bracket=[-1000.000,0.000], runtime=381.012s
+Job completed: gg=0, theta=-675.000, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.575s
+Job completed: gg=1, theta=-1181.250, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=372.560s
+Job completed: gg=1, theta=0.000, xs=169.368, uq=-0.233840, bracket=[-1000.000,0.000], runtime=370.066s
+Job completed: gg=1, theta=-1012.500, xs=2531.291, uq=-0.233840, bracket=[-1000.000,0.000], runtime=381.292s
+Job completed: gg=0, theta=-506.250, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.045s
+Job completed: gg=0, theta=-337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.792s
+Job completed: gg=0, theta=-506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.902s
+Job completed: gg=1, theta=-506.250, xs=1350.330, uq=-0.233840, bracket=[-1000.000,0.000], runtime=342.159s
+Job completed: gg=1, theta=-168.750, xs=1012.912, uq=-0.233840, bracket=[-1000.000,0.000], runtime=355.087s
+Job completed: gg=1, theta=0.000, xs=506.786, uq=-0.233840, bracket=[-1000.000,0.000], runtime=387.300s
+Job completed: gg=0, theta=-675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.499s
+Job completed: gg=1, theta=-506.250, xs=1687.747, uq=-0.233840, bracket=[-1000.000,0.000], runtime=354.700s
+Job completed: gg=0, theta=-506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.149s
+Job completed: gg=1, theta=168.750, xs=506.786, uq=-0.233840, bracket=[-1000.000,0.000], runtime=352.646s
+Job completed: gg=1, theta=0.000, xs=844.203, uq=-0.233840, bracket=[-1000.000,0.000], runtime=379.874s
+Job completed: gg=1, theta=-506.250, xs=1181.621, uq=-0.233840, bracket=[-1000.000,0.000], runtime=382.290s
+Job completed: gg=1, theta=-168.750, xs=844.203, uq=-0.233840, bracket=[-1000.000,0.000], runtime=384.589s
+Job completed: gg=0, theta=168.750, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.384s
+Job completed: gg=1, theta=-506.250, xs=1519.038, uq=-0.233840, bracket=[-1000.000,0.000], runtime=372.066s
+Job completed: gg=0, theta=337.500, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.275s
+Job completed: gg=1, theta=168.750, xs=675.494, uq=-0.233840, bracket=[-1000.000,0.000], runtime=340.286s
+Job completed: gg=1, theta=-337.500, xs=844.203, uq=-0.233840, bracket=[-1000.000,0.000], runtime=393.408s
+Job completed: gg=1, theta=-337.500, xs=1519.038, uq=-0.233840, bracket=[-1000.000,0.000], runtime=375.854s
+Job completed: gg=0, theta=506.250, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=41.694s
+Job completed: gg=0, theta=337.500, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.716s
+Job completed: gg=0, theta=168.750, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=66.681s
+Job completed: gg=0, theta=506.250, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.814s
+Job completed: gg=0, theta=506.250, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.178s
+Job completed: gg=0, theta=675.000, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.778s
+Job completed: gg=1, theta=-337.500, xs=1181.621, uq=-0.233840, bracket=[-1000.000,0.000], runtime=397.970s
+Job completed: gg=0, theta=506.250, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.537s
+Job completed: gg=0, theta=675.000, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.077s
+Job completed: gg=0, theta=675.000, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.672s
+Job completed: gg=1, theta=337.500, xs=844.203, uq=-0.233840, bracket=[-1000.000,0.000], runtime=358.407s
+Job completed: gg=0, theta=843.750, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.538s
+Job completed: gg=0, theta=843.750, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.987s
+Job completed: gg=0, theta=843.750, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.336s
+Job completed: gg=0, theta=843.750, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.857s
+Job completed: gg=0, theta=1012.500, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.843s
+Job completed: gg=0, theta=1012.500, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.702s
+Job completed: gg=0, theta=-675.000, xs=1519.038, uq=-0.061374, bracket=[-1000.000,0.000], runtime=254.489s
+Job completed: gg=0, theta=1012.500, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.509s
+Job completed: gg=0, theta=1181.250, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.402s
+Job completed: gg=0, theta=1181.250, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.467s
+Job completed: gg=1, theta=506.250, xs=1350.330, uq=-0.233840, bracket=[-1000.000,0.000], runtime=338.445s
+Job completed: gg=0, theta=1350.000, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.977s
+Job completed: gg=1, theta=168.750, xs=338.077, uq=-0.289198, bracket=[-1000.000,0.000], runtime=441.402s
+Job completed: gg=0, theta=1181.250, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.079s
+Job completed: gg=0, theta=-843.750, xs=2025.165, uq=-0.061374, bracket=[-1000.000,0.000], runtime=248.418s
+Job completed: gg=0, theta=-843.750, xs=1856.456, uq=-0.061374, bracket=[-1000.000,0.000], runtime=254.271s
+Job completed: gg=1, theta=506.250, xs=1181.621, uq=-0.233840, bracket=[-1000.000,0.000], runtime=360.445s
+Job completed: gg=0, theta=-675.000, xs=1856.456, uq=-0.061374, bracket=[-1000.000,0.000], runtime=256.143s
+Job completed: gg=0, theta=1181.250, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.345s
+Job completed: gg=0, theta=-1012.500, xs=2193.874, uq=-0.061374, bracket=[-1000.000,0.000], runtime=243.830s
+Job completed: gg=1, theta=675.000, xs=1519.038, uq=-0.233840, bracket=[-1000.000,0.000], runtime=347.873s
+Job completed: gg=0, theta=1350.000, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.428s
+Job completed: gg=1, theta=506.250, xs=1012.912, uq=-0.289198, bracket=[-1000.000,0.000], runtime=397.214s
+Job completed: gg=0, theta=-168.750, xs=506.786, uq=-0.061374, bracket=[-1000.000,0.000], runtime=198.872s
+Job completed: gg=1, theta=337.500, xs=1181.621, uq=-0.233840, bracket=[-1000.000,0.000], runtime=379.873s
+Job completed: gg=0, theta=-1181.250, xs=2531.291, uq=-0.061374, bracket=[-1000.000,0.000], runtime=248.922s
+Job completed: gg=0, theta=-1012.500, xs=2531.291, uq=-0.061374, bracket=[-1000.000,0.000], runtime=248.831s
+Job completed: gg=1, theta=843.750, xs=1856.456, uq=-0.233840, bracket=[-1000.000,0.000], runtime=352.928s
+Job completed: gg=0, theta=1350.000, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.797s
+Job completed: gg=0, theta=0.000, xs=506.786, uq=-0.061374, bracket=[-1000.000,0.000], runtime=204.353s
+Job completed: gg=0, theta=0.000, xs=169.368, uq=-0.061374, bracket=[-1000.000,0.000], runtime=241.126s
+Job completed: gg=0, theta=-843.750, xs=1687.747, uq=-0.372093, bracket=[-1000.000,0.000], runtime=307.035s
+Job completed: gg=1, theta=1012.500, xs=2193.874, uq=-0.233840, bracket=[-1000.000,0.000], runtime=340.488s
+Job completed: gg=0, theta=-1181.250, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=261.838s
+Job completed: gg=1, theta=1181.250, xs=2531.291, uq=-0.233840, bracket=[-1000.000,0.000], runtime=340.143s
+Job completed: gg=1, theta=843.750, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=368.772s
+Job completed: gg=1, theta=675.000, xs=1856.456, uq=-0.233840, bracket=[-1000.000,0.000], runtime=375.538s
+Job completed: gg=1, theta=843.750, xs=1687.747, uq=-0.289198, bracket=[-1000.000,0.000], runtime=390.939s
+Job completed: gg=0, theta=-1181.250, xs=2362.583, uq=-0.372093, bracket=[-1000.000,0.000], runtime=290.299s
+Job completed: gg=0, theta=168.750, xs=506.786, uq=-0.061374, bracket=[-1000.000,0.000], runtime=205.278s
+Job completed: gg=0, theta=-337.500, xs=844.203, uq=-0.061374, bracket=[-1000.000,0.000], runtime=222.967s
+Job completed: gg=1, theta=1012.500, xs=2531.291, uq=-0.233840, bracket=[-1000.000,0.000], runtime=358.392s
+Job completed: gg=0, theta=-337.500, xs=1181.621, uq=-0.061374, bracket=[-1000.000,0.000], runtime=226.907s
+Job completed: gg=0, theta=-506.250, xs=1181.621, uq=-0.061374, bracket=[-1000.000,0.000], runtime=229.679s
+Job completed: gg=1, theta=1181.250, xs=2362.583, uq=-0.289198, bracket=[-1000.000,0.000], runtime=373.031s
+Job completed: gg=0, theta=-168.750, xs=675.494, uq=-0.061374, bracket=[-1000.000,0.000], runtime=246.835s
+Job completed: gg=0, theta=-506.250, xs=1350.330, uq=-0.061374, bracket=[-1000.000,0.000], runtime=223.908s
+Job completed: gg=1, theta=1181.250, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=367.114s
+Job completed: gg=0, theta=168.750, xs=675.494, uq=-0.061374, bracket=[-1000.000,0.000], runtime=219.972s
+Job completed: gg=0, theta=337.500, xs=844.203, uq=-0.061374, bracket=[-1000.000,0.000], runtime=203.783s
+Job completed: gg=0, theta=168.750, xs=338.077, uq=-0.073109, bracket=[-1000.000,0.000], runtime=238.836s
+Job completed: gg=0, theta=-168.750, xs=338.077, uq=-0.372093, bracket=[-1000.000,0.000], runtime=315.535s
+Job completed: gg=0, theta=337.500, xs=1181.621, uq=-0.061374, bracket=[-1000.000,0.000], runtime=212.809s
+Job completed: gg=0, theta=-506.250, xs=1012.912, uq=-0.372093, bracket=[-1000.000,0.000], runtime=271.483s
+Job completed: gg=0, theta=506.250, xs=1350.330, uq=-0.061374, bracket=[-1000.000,0.000], runtime=206.562s
+Job completed: gg=0, theta=506.250, xs=1181.621, uq=-0.061374, bracket=[-1000.000,0.000], runtime=217.298s
+Job completed: gg=0, theta=675.000, xs=1856.456, uq=-0.061374, bracket=[-1000.000,0.000], runtime=213.054s
+Job completed: gg=0, theta=675.000, xs=1519.038, uq=-0.061374, bracket=[-1000.000,0.000], runtime=219.135s
+Job completed: gg=0, theta=843.750, xs=2025.165, uq=-0.061374, bracket=[-1000.000,0.000], runtime=213.494s
+Job completed: gg=0, theta=843.750, xs=1856.456, uq=-0.061374, bracket=[-1000.000,0.000], runtime=216.505s
+Job completed: gg=0, theta=1012.500, xs=2193.874, uq=-0.061374, bracket=[-1000.000,0.000], runtime=203.559s
+Job completed: gg=0, theta=506.250, xs=1012.912, uq=-0.073109, bracket=[-1000.000,0.000], runtime=262.002s
+Job completed: gg=0, theta=1012.500, xs=2531.291, uq=-0.061374, bracket=[-1000.000,0.000], runtime=191.915s
+Job completed: gg=0, theta=843.750, xs=1687.747, uq=-0.073109, bracket=[-1000.000,0.000], runtime=245.834s
+Job completed: gg=0, theta=1181.250, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=197.402s
+Job completed: gg=0, theta=1181.250, xs=2531.291, uq=-0.061374, bracket=[-1000.000,0.000], runtime=201.634s
+Job completed: gg=0, theta=1181.250, xs=2362.583, uq=-0.073109, bracket=[-1000.000,0.000], runtime=240.142s
+=== Level 2 COMPLETE: 1408/1408 corner points computed ===
+Box subdivided: gamma=3, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-843.75,-675.00], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1012.50,-843.75], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-168.75,0.00], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-337.50,-168.75], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-506.25,-337.50], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=3, level 2 -> 3, theta=[-675.00,-506.25], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=3, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=3, level 2 -> 3, theta=[0.00,168.75], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=3, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=3, level 2 -> 3, theta=[168.75,337.50], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=3, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=3, level 2 -> 3, theta=[337.50,506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=3, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=3, level 2 -> 3, theta=[506.25,675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=3, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=3, level 2 -> 3, theta=[675.00,843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=3, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=3, level 2 -> 3, theta=[843.75,1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1012.50,1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=3, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-843.75,-675.00], xs=[1687.75,1856.46]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1012.50,-843.75], xs=[2025.16,2193.87]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2362.58,2531.29]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-168.75,0.00], xs=[338.08,506.79]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-337.50,-168.75], xs=[675.49,844.20]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-506.25,-337.50], xs=[1012.91,1181.62]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=2, level 2 -> 3, theta=[-675.00,-506.25], xs=[1350.33,1519.04]
+Box subdivided: gamma=2, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=2, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=2, level 2 -> 3, theta=[168.75,337.50], xs=[169.37,338.08]
+Box subdivided: gamma=2, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=2, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=2, level 2 -> 3, theta=[337.50,506.25], xs=[506.79,675.49]
+Box subdivided: gamma=2, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=2, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=2, level 2 -> 3, theta=[506.25,675.00], xs=[844.20,1012.91]
+Box subdivided: gamma=2, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=2, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=2, level 2 -> 3, theta=[675.00,843.75], xs=[1181.62,1350.33]
+Box subdivided: gamma=2, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=2, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=2, level 2 -> 3, theta=[843.75,1012.50], xs=[1519.04,1687.75]
+Box subdivided: gamma=2, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=2, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1012.50,1181.25], xs=[1856.46,2025.16]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1181.25,1350.00], xs=[2193.87,2362.58]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=2, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-843.75,-675.00], xs=[1687.75,1856.46]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1012.50,-843.75], xs=[2025.16,2193.87]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2362.58,2531.29]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-168.75,0.00], xs=[338.08,506.79]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-337.50,-168.75], xs=[675.49,844.20]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-506.25,-337.50], xs=[1012.91,1181.62]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=1, level 2 -> 3, theta=[-675.00,-506.25], xs=[1350.33,1519.04]
+Box subdivided: gamma=1, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=1, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=1, level 2 -> 3, theta=[168.75,337.50], xs=[169.37,338.08]
+Box subdivided: gamma=1, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=1, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=1, level 2 -> 3, theta=[337.50,506.25], xs=[506.79,675.49]
+Box subdivided: gamma=1, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=1, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=1, level 2 -> 3, theta=[506.25,675.00], xs=[844.20,1012.91]
+Box subdivided: gamma=1, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=1, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=1, level 2 -> 3, theta=[675.00,843.75], xs=[1181.62,1350.33]
+Box subdivided: gamma=1, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=1, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=1, level 2 -> 3, theta=[843.75,1012.50], xs=[1519.04,1687.75]
+Box subdivided: gamma=1, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=1, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1012.50,1181.25], xs=[1856.46,2025.16]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1181.25,1350.00], xs=[2193.87,2362.58]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=1, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-843.75,-675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-843.75,-675.00], xs=[1350.33,1519.04]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-843.75,-675.00], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1687.75,1856.46]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1012.50,-843.75], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2025.16,2193.87]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1181.25,-1012.50], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2362.58,2531.29]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-1350.00,-1181.25], xs=[2531.29,2700.00]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-168.75,0.00], xs=[0.66,169.37]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-337.50,-168.75], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-168.75,0.00], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-506.25,-337.50], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-337.50,-168.75], xs=[338.08,506.79]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-337.50,-168.75], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-506.25,-337.50], xs=[675.49,844.20]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-675.00,-506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-506.25,-337.50], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-675.00,-506.25], xs=[1012.91,1181.62]
+Box subdivided: gamma=0, level 2 -> 3, theta=[-675.00,-506.25], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[0.00,168.75], xs=[0.66,169.37]
+Box subdivided: gamma=0, level 2 -> 3, theta=[0.00,168.75], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[168.75,337.50], xs=[169.37,338.08]
+Box subdivided: gamma=0, level 2 -> 3, theta=[168.75,337.50], xs=[338.08,506.79]
+Box subdivided: gamma=0, level 2 -> 3, theta=[168.75,337.50], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[337.50,506.25], xs=[506.79,675.49]
+Box subdivided: gamma=0, level 2 -> 3, theta=[337.50,506.25], xs=[675.49,844.20]
+Box subdivided: gamma=0, level 2 -> 3, theta=[337.50,506.25], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[506.25,675.00], xs=[844.20,1012.91]
+Box subdivided: gamma=0, level 2 -> 3, theta=[506.25,675.00], xs=[1012.91,1181.62]
+Box subdivided: gamma=0, level 2 -> 3, theta=[506.25,675.00], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[675.00,843.75], xs=[1181.62,1350.33]
+Box subdivided: gamma=0, level 2 -> 3, theta=[675.00,843.75], xs=[1350.33,1519.04]
+Box subdivided: gamma=0, level 2 -> 3, theta=[675.00,843.75], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[843.75,1012.50], xs=[1519.04,1687.75]
+Box subdivided: gamma=0, level 2 -> 3, theta=[843.75,1012.50], xs=[1687.75,1856.46]
+Box subdivided: gamma=0, level 2 -> 3, theta=[843.75,1012.50], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1012.50,1181.25], xs=[1856.46,2025.16]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1012.50,1181.25], xs=[2025.16,2193.87]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1012.50,1181.25], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1181.25,1350.00], xs=[2193.87,2362.58]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1181.25,1350.00], xs=[2362.58,2531.29]
+Box subdivided: gamma=0, level 2 -> 3, theta=[1181.25,1350.00], xs=[2531.29,2700.00]
+Level 2: 184 boxes had boundaries, 736 new boxes created, 735 new corner jobs, refinement time: 0.010313s
+Job completed: gg=3, theta=-1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=45.738s
+Job completed: gg=3, theta=-759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.483s
+Job completed: gg=3, theta=-1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.396s
+Job completed: gg=3, theta=-84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.402s
+Job completed: gg=3, theta=-1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.437s
+Job completed: gg=3, theta=-928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.536s
+Job completed: gg=3, theta=-1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.787s
+Job completed: gg=3, theta=-1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.006s
+Job completed: gg=3, theta=-1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.419s
+Job completed: gg=3, theta=-253.125, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.766s
+Job completed: gg=3, theta=-1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.801s
+Job completed: gg=3, theta=-843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.946s
+Job completed: gg=3, theta=-843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.176s
+Job completed: gg=3, theta=-1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.697s
+Job completed: gg=3, theta=-337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.380s
+Job completed: gg=3, theta=-1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.505s
+Job completed: gg=3, theta=-253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.586s
+Job completed: gg=3, theta=-1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.163s
+Job completed: gg=3, theta=-253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.299s
+Job completed: gg=3, theta=-84.375, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.733s
+Job completed: gg=3, theta=-168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.874s
+Job completed: gg=3, theta=-928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.988s
+Job completed: gg=3, theta=-759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.080s
+Job completed: gg=3, theta=-337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.691s
+Job completed: gg=3, theta=0.000, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.978s
+Job completed: gg=3, theta=-759.375, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.254s
+Job completed: gg=3, theta=-1096.875, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.795s
+Job completed: gg=3, theta=-168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.078s
+Job completed: gg=3, theta=-84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.651s
+Job completed: gg=3, theta=-1265.625, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.874s
+Job completed: gg=3, theta=-928.125, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.312s
+Job completed: gg=3, theta=-506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.150s
+Job completed: gg=3, theta=-421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.157s
+Job completed: gg=3, theta=-590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.868s
+Job completed: gg=3, theta=-421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.151s
+Job completed: gg=3, theta=-675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.186s
+Job completed: gg=3, theta=-506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.587s
+Job completed: gg=3, theta=-421.875, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.781s
+Job completed: gg=3, theta=-590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.093s
+Job completed: gg=3, theta=-590.625, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.233s
+Job completed: gg=3, theta=-675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.195s
+Job completed: gg=3, theta=84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.524s
+Job completed: gg=3, theta=84.375, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.706s
+Job completed: gg=3, theta=168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.989s
+Job completed: gg=3, theta=84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.879s
+Job completed: gg=3, theta=168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.876s
+Job completed: gg=3, theta=168.750, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.868s
+Job completed: gg=3, theta=84.375, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.127s
+Job completed: gg=3, theta=253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.061s
+Job completed: gg=3, theta=253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.895s
+Job completed: gg=3, theta=337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.486s
+Job completed: gg=3, theta=253.125, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.555s
+Job completed: gg=3, theta=253.125, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.486s
+Job completed: gg=3, theta=337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.091s
+Job completed: gg=3, theta=337.500, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.332s
+Job completed: gg=3, theta=421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.274s
+Job completed: gg=3, theta=421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.540s
+Job completed: gg=3, theta=506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.325s
+Job completed: gg=3, theta=421.875, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.436s
+Job completed: gg=3, theta=0.000, xs=253.722, uq=-0.786435, bracket=[-1000.000,0.000], runtime=340.997s
+Job completed: gg=3, theta=421.875, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.354s
+Job completed: gg=3, theta=506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.907s
+Job completed: gg=3, theta=-84.375, xs=338.077, uq=-0.786435, bracket=[-1000.000,0.000], runtime=346.812s
+Job completed: gg=3, theta=0.000, xs=422.431, uq=-0.786435, bracket=[-1000.000,0.000], runtime=353.006s
+Job completed: gg=3, theta=-84.375, xs=253.722, uq=-0.786435, bracket=[-1000.000,0.000], runtime=352.797s
+Job completed: gg=3, theta=-843.750, xs=1940.810, uq=-0.786435, bracket=[-1000.000,0.000], runtime=354.177s
+Job completed: gg=3, theta=-84.375, xs=506.786, uq=-0.786435, bracket=[-1000.000,0.000], runtime=357.816s
+Job completed: gg=3, theta=-675.000, xs=1772.102, uq=-0.786435, bracket=[-1000.000,0.000], runtime=359.487s
+Job completed: gg=3, theta=-759.375, xs=1603.393, uq=-0.786435, bracket=[-1000.000,0.000], runtime=361.224s
+Job completed: gg=3, theta=-928.125, xs=2109.519, uq=-0.786435, bracket=[-1000.000,0.000], runtime=362.733s
+Job completed: gg=3, theta=-843.750, xs=1772.102, uq=-0.786435, bracket=[-1000.000,0.000], runtime=362.789s
+Job completed: gg=3, theta=-168.750, xs=422.431, uq=-0.786435, bracket=[-1000.000,0.000], runtime=362.886s
+Job completed: gg=3, theta=-1265.625, xs=2615.646, uq=-0.786435, bracket=[-1000.000,0.000], runtime=364.390s
+Job completed: gg=3, theta=-1012.500, xs=2446.937, uq=-0.786435, bracket=[-1000.000,0.000], runtime=364.687s
+Job completed: gg=3, theta=-1012.500, xs=2278.228, uq=-0.786435, bracket=[-1000.000,0.000], runtime=365.882s
+Job completed: gg=3, theta=-1096.875, xs=2446.937, uq=-0.786435, bracket=[-1000.000,0.000], runtime=368.115s
+Job completed: gg=3, theta=-843.750, xs=2109.519, uq=-0.786435, bracket=[-1000.000,0.000], runtime=371.827s
+Job completed: gg=3, theta=-675.000, xs=1603.393, uq=-0.786435, bracket=[-1000.000,0.000], runtime=372.014s
+Job completed: gg=3, theta=-928.125, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=374.211s
+Job completed: gg=3, theta=-1181.250, xs=2446.937, uq=-0.786435, bracket=[-1000.000,0.000], runtime=374.223s
+Job completed: gg=3, theta=-1096.875, xs=2278.228, uq=-0.786435, bracket=[-1000.000,0.000], runtime=374.741s
+Job completed: gg=3, theta=-759.375, xs=1772.102, uq=-0.786435, bracket=[-1000.000,0.000], runtime=375.210s
+Job completed: gg=3, theta=-675.000, xs=1434.684, uq=-0.786435, bracket=[-1000.000,0.000], runtime=376.673s
+Job completed: gg=3, theta=-1181.250, xs=2615.646, uq=-0.786435, bracket=[-1000.000,0.000], runtime=377.467s
+Job completed: gg=3, theta=-1096.875, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=378.450s
+Job completed: gg=3, theta=-928.125, xs=1940.810, uq=-0.786435, bracket=[-1000.000,0.000], runtime=379.134s
+Job completed: gg=3, theta=-759.375, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=379.560s
+Job completed: gg=3, theta=-253.125, xs=591.140, uq=-0.786435, bracket=[-1000.000,0.000], runtime=338.668s
+Job completed: gg=3, theta=-253.125, xs=844.203, uq=-0.786435, bracket=[-1000.000,0.000], runtime=334.690s
+Job completed: gg=3, theta=-1012.500, xs=2109.519, uq=-0.786435, bracket=[-1000.000,0.000], runtime=386.509s
+Job completed: gg=3, theta=-337.500, xs=759.849, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.646s
+Job completed: gg=3, theta=-253.125, xs=759.849, uq=-0.786435, bracket=[-1000.000,0.000], runtime=340.793s
+Job completed: gg=3, theta=-1265.625, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=390.280s
+Job completed: gg=3, theta=-759.375, xs=1856.456, uq=-0.786435, bracket=[-1000.000,0.000], runtime=395.618s
+Job completed: gg=3, theta=-84.375, xs=422.431, uq=-0.786435, bracket=[-1000.000,0.000], runtime=395.013s
+Job completed: gg=3, theta=506.250, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.561s
+Job completed: gg=3, theta=-337.500, xs=928.558, uq=-0.786435, bracket=[-1000.000,0.000], runtime=350.649s
+Job completed: gg=3, theta=590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.769s
+Job completed: gg=3, theta=590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.402s
+Job completed: gg=3, theta=-506.250, xs=1097.266, uq=-0.786435, bracket=[-1000.000,0.000], runtime=351.789s
+Job completed: gg=3, theta=675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.913s
+Job completed: gg=3, theta=-421.875, xs=1012.912, uq=-0.786435, bracket=[-1000.000,0.000], runtime=356.987s
+Job completed: gg=3, theta=-421.875, xs=928.558, uq=-0.786435, bracket=[-1000.000,0.000], runtime=359.876s
+Job completed: gg=3, theta=-506.250, xs=1434.684, uq=-0.786435, bracket=[-1000.000,0.000], runtime=355.586s
+Job completed: gg=3, theta=590.625, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.663s
+Job completed: gg=3, theta=590.625, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.289s
+Job completed: gg=3, theta=675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.316s
+Job completed: gg=3, theta=-337.500, xs=1097.266, uq=-0.786435, bracket=[-1000.000,0.000], runtime=362.443s
+Job completed: gg=3, theta=675.000, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.369s
+Job completed: gg=3, theta=-1096.875, xs=2531.291, uq=-0.786435, bracket=[-1000.000,0.000], runtime=416.114s
+Job completed: gg=3, theta=-421.875, xs=1181.621, uq=-0.786435, bracket=[-1000.000,0.000], runtime=366.872s
+Job completed: gg=3, theta=759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.846s
+Job completed: gg=3, theta=759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.077s
+Job completed: gg=3, theta=-928.125, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=422.288s
+Job completed: gg=3, theta=759.375, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.337s
+Job completed: gg=3, theta=843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.233s
+Job completed: gg=3, theta=-421.875, xs=1097.266, uq=-0.786435, bracket=[-1000.000,0.000], runtime=375.031s
+Job completed: gg=3, theta=759.375, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.017s
+Job completed: gg=3, theta=843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.823s
+Job completed: gg=3, theta=843.750, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.248s
+Job completed: gg=3, theta=-253.125, xs=675.494, uq=-0.786435, bracket=[-1000.000,0.000], runtime=381.459s
+Job completed: gg=3, theta=-590.625, xs=1265.975, uq=-0.786435, bracket=[-1000.000,0.000], runtime=378.905s
+Job completed: gg=3, theta=928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.943s
+Job completed: gg=3, theta=-506.250, xs=1265.975, uq=-0.786435, bracket=[-1000.000,0.000], runtime=383.218s
+Job completed: gg=3, theta=-168.750, xs=759.849, uq=-0.786435, bracket=[-1000.000,0.000], runtime=386.521s
+Job completed: gg=3, theta=928.125, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.380s
+Job completed: gg=3, theta=928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.471s
+Job completed: gg=3, theta=1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.868s
+Job completed: gg=3, theta=84.375, xs=422.431, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.023s
+Job completed: gg=3, theta=84.375, xs=506.786, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.588s
+Job completed: gg=3, theta=928.125, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.748s
+Job completed: gg=3, theta=1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=46.981s
+Job completed: gg=3, theta=-168.750, xs=591.140, uq=-0.786435, bracket=[-1000.000,0.000], runtime=398.637s
+Job completed: gg=3, theta=1012.500, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.640s
+Job completed: gg=3, theta=1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.233s
+Job completed: gg=3, theta=1096.875, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=47.286s
+Job completed: gg=3, theta=1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.342s
+Job completed: gg=3, theta=-590.625, xs=1434.684, uq=-0.786435, bracket=[-1000.000,0.000], runtime=403.386s
+Job completed: gg=3, theta=1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.727s
+Job completed: gg=3, theta=1096.875, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.600s
+Job completed: gg=3, theta=1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.240s
+Job completed: gg=3, theta=-590.625, xs=1350.330, uq=-0.786435, bracket=[-1000.000,0.000], runtime=409.732s
+Job completed: gg=3, theta=-590.625, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=411.338s
+Job completed: gg=3, theta=1181.250, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.437s
+Job completed: gg=3, theta=84.375, xs=338.077, uq=-0.786435, bracket=[-1000.000,0.000], runtime=370.638s
+Job completed: gg=3, theta=1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.819s
+Job completed: gg=3, theta=1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.531s
+Job completed: gg=3, theta=1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.524s
+Job completed: gg=3, theta=1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=48.972s
+Job completed: gg=3, theta=1265.625, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.456s
+Job completed: gg=3, theta=1265.625, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=49.204s
+Job completed: gg=2, theta=-759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.894s
+Job completed: gg=3, theta=168.750, xs=591.140, uq=-0.786435, bracket=[-1000.000,0.000], runtime=336.687s
+Job completed: gg=2, theta=-843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.220s
+Job completed: gg=2, theta=-759.375, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.516s
+Job completed: gg=2, theta=-759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.099s
+Job completed: gg=2, theta=-843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.565s
+Job completed: gg=2, theta=-1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.569s
+Job completed: gg=2, theta=-928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.435s
+Job completed: gg=2, theta=-928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.644s
+Job completed: gg=3, theta=253.125, xs=675.494, uq=-0.786435, bracket=[-1000.000,0.000], runtime=352.134s
+Job completed: gg=2, theta=-928.125, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.975s
+Job completed: gg=3, theta=253.125, xs=759.849, uq=-0.786435, bracket=[-1000.000,0.000], runtime=357.949s
+Job completed: gg=2, theta=-1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.496s
+Job completed: gg=2, theta=-1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.478s
+Job completed: gg=2, theta=-1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.562s
+Job completed: gg=3, theta=168.750, xs=759.849, uq=-0.786435, bracket=[-1000.000,0.000], runtime=370.174s
+Job completed: gg=2, theta=-1096.875, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.815s
+Job completed: gg=2, theta=-1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.496s
+Job completed: gg=2, theta=-1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.277s
+Job completed: gg=2, theta=-1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.469s
+Job completed: gg=2, theta=-1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.372s
+Job completed: gg=2, theta=-1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.748s
+Job completed: gg=2, theta=-1265.625, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=50.620s
+Job completed: gg=3, theta=253.125, xs=844.203, uq=-0.786435, bracket=[-1000.000,0.000], runtime=355.997s
+Job completed: gg=2, theta=-1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.699s
+Job completed: gg=2, theta=-84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.404s
+Job completed: gg=2, theta=-168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.673s
+Job completed: gg=2, theta=-84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.804s
+Job completed: gg=2, theta=-84.375, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.710s
+Job completed: gg=3, theta=337.500, xs=928.558, uq=-0.786435, bracket=[-1000.000,0.000], runtime=335.043s
+Job completed: gg=2, theta=-168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.097s
+Job completed: gg=2, theta=-253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.947s
+Job completed: gg=2, theta=-337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.642s
+Job completed: gg=2, theta=-253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.335s
+Job completed: gg=2, theta=-253.125, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.720s
+Job completed: gg=2, theta=-337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.886s
+Job completed: gg=3, theta=421.875, xs=1181.621, uq=-0.786435, bracket=[-1000.000,0.000], runtime=320.712s
+Job completed: gg=3, theta=421.875, xs=1097.266, uq=-0.786435, bracket=[-1000.000,0.000], runtime=344.965s
+Job completed: gg=3, theta=506.250, xs=1265.975, uq=-0.786435, bracket=[-1000.000,0.000], runtime=330.318s
+Job completed: gg=2, theta=-675.000, xs=1603.393, uq=-0.505347, bracket=[-1000.000,0.000], runtime=256.159s
+Job completed: gg=3, theta=590.625, xs=1434.684, uq=-0.786435, bracket=[-1000.000,0.000], runtime=332.254s
+Job completed: gg=2, theta=-759.375, xs=1772.102, uq=-0.505347, bracket=[-1000.000,0.000], runtime=243.880s
+Job completed: gg=2, theta=-675.000, xs=1772.102, uq=-0.505347, bracket=[-1000.000,0.000], runtime=242.847s
+Job completed: gg=3, theta=675.000, xs=1603.393, uq=-0.786435, bracket=[-1000.000,0.000], runtime=330.379s
+Job completed: gg=3, theta=590.625, xs=1350.330, uq=-0.786435, bracket=[-1000.000,0.000], runtime=343.672s
+Job completed: gg=3, theta=590.625, xs=1519.038, uq=-0.786435, bracket=[-1000.000,0.000], runtime=339.133s
+Job completed: gg=3, theta=421.875, xs=1012.912, uq=-0.786435, bracket=[-1000.000,0.000], runtime=367.173s
+Job completed: gg=2, theta=-759.375, xs=1856.456, uq=-0.505347, bracket=[-1000.000,0.000], runtime=257.265s
+Job completed: gg=3, theta=506.250, xs=1434.684, uq=-0.786435, bracket=[-1000.000,0.000], runtime=349.140s
+Job completed: gg=3, theta=337.500, xs=1097.266, uq=-0.786435, bracket=[-1000.000,0.000], runtime=370.976s
+Job completed: gg=3, theta=759.375, xs=1856.456, uq=-0.786435, bracket=[-1000.000,0.000], runtime=332.335s
+Job completed: gg=2, theta=-675.000, xs=1434.684, uq=-0.505347, bracket=[-1000.000,0.000], runtime=282.013s
+Job completed: gg=2, theta=-843.750, xs=1940.810, uq=-0.505347, bracket=[-1000.000,0.000], runtime=258.309s
+Job completed: gg=2, theta=-759.375, xs=1687.747, uq=-0.505347, bracket=[-1000.000,0.000], runtime=280.183s
+Job completed: gg=2, theta=-843.750, xs=2109.519, uq=-0.505347, bracket=[-1000.000,0.000], runtime=240.614s
+Job completed: gg=3, theta=759.375, xs=1772.102, uq=-0.786435, bracket=[-1000.000,0.000], runtime=346.995s
+Job completed: gg=2, theta=-421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.714s
+Job completed: gg=2, theta=-1012.500, xs=2278.228, uq=-0.505347, bracket=[-1000.000,0.000], runtime=251.643s
+Job completed: gg=2, theta=-759.375, xs=1603.393, uq=-0.505347, bracket=[-1000.000,0.000], runtime=289.725s
+Job completed: gg=2, theta=-928.125, xs=2109.519, uq=-0.505347, bracket=[-1000.000,0.000], runtime=253.059s
+Job completed: gg=2, theta=-506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.613s
+Job completed: gg=2, theta=-843.750, xs=1772.102, uq=-0.505347, bracket=[-1000.000,0.000], runtime=285.243s
+Job completed: gg=2, theta=-928.125, xs=1940.810, uq=-0.505347, bracket=[-1000.000,0.000], runtime=273.406s
+Job completed: gg=3, theta=843.750, xs=1940.810, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.799s
+Job completed: gg=3, theta=928.125, xs=2109.519, uq=-0.786435, bracket=[-1000.000,0.000], runtime=330.520s
+Job completed: gg=2, theta=-928.125, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=272.817s
+Job completed: gg=2, theta=-1096.875, xs=2446.937, uq=-0.505347, bracket=[-1000.000,0.000], runtime=244.614s
+Job completed: gg=2, theta=-928.125, xs=2193.874, uq=-0.505347, bracket=[-1000.000,0.000], runtime=255.957s
+Job completed: gg=2, theta=-1012.500, xs=2446.937, uq=-0.505347, bracket=[-1000.000,0.000], runtime=241.849s
+Job completed: gg=3, theta=928.125, xs=2193.874, uq=-0.786435, bracket=[-1000.000,0.000], runtime=337.187s
+Job completed: gg=3, theta=675.000, xs=1772.102, uq=-0.786435, bracket=[-1000.000,0.000], runtime=363.875s
+Job completed: gg=3, theta=928.125, xs=2025.165, uq=-0.786435, bracket=[-1000.000,0.000], runtime=347.262s
+Job completed: gg=2, theta=-421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.693s
+Job completed: gg=3, theta=759.375, xs=1687.747, uq=-0.786435, bracket=[-1000.000,0.000], runtime=372.134s
+Job completed: gg=2, theta=-1096.875, xs=2362.583, uq=-0.505347, bracket=[-1000.000,0.000], runtime=275.428s
+Job completed: gg=2, theta=-506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.250s
+Job completed: gg=2, theta=-421.875, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.458s
+Job completed: gg=3, theta=1012.500, xs=2278.228, uq=-0.786435, bracket=[-1000.000,0.000], runtime=345.323s
+Job completed: gg=3, theta=1096.875, xs=2446.937, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.770s
+Job completed: gg=2, theta=-1012.500, xs=2109.519, uq=-0.505347, bracket=[-1000.000,0.000], runtime=288.461s
+Job completed: gg=2, theta=-1096.875, xs=2278.228, uq=-0.505347, bracket=[-1000.000,0.000], runtime=284.116s
+Job completed: gg=3, theta=1096.875, xs=2362.583, uq=-0.786435, bracket=[-1000.000,0.000], runtime=347.010s
+Job completed: gg=2, theta=-1096.875, xs=2531.291, uq=-0.505347, bracket=[-1000.000,0.000], runtime=259.028s
+Job completed: gg=2, theta=-675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.893s
+Job completed: gg=3, theta=1181.250, xs=2615.646, uq=-0.786435, bracket=[-1000.000,0.000], runtime=341.999s
+Job completed: gg=3, theta=1096.875, xs=2531.291, uq=-0.786435, bracket=[-1000.000,0.000], runtime=347.156s
+Job completed: gg=3, theta=843.750, xs=2109.519, uq=-0.786435, bracket=[-1000.000,0.000], runtime=369.318s
+Job completed: gg=2, theta=-590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.836s
+Job completed: gg=2, theta=-590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.243s
+Job completed: gg=2, theta=-590.625, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.244s
+Job completed: gg=3, theta=1012.500, xs=2446.937, uq=-0.786435, bracket=[-1000.000,0.000], runtime=361.832s
+Job completed: gg=2, theta=-1181.250, xs=2446.937, uq=-0.505347, bracket=[-1000.000,0.000], runtime=283.251s
+Job completed: gg=2, theta=-1265.625, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=259.828s
+Job completed: gg=3, theta=1265.625, xs=2700.000, uq=-0.786435, bracket=[-1000.000,0.000], runtime=353.240s
+Job completed: gg=2, theta=-675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.144s
+Job completed: gg=2, theta=168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.207s
+Job completed: gg=2, theta=-1181.250, xs=2615.646, uq=-0.505347, bracket=[-1000.000,0.000], runtime=271.896s
+Job completed: gg=2, theta=84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.885s
+Job completed: gg=2, theta=84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.336s
+Job completed: gg=2, theta=-1265.625, xs=2615.646, uq=-0.505347, bracket=[-1000.000,0.000], runtime=279.748s
+Job completed: gg=2, theta=168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.580s
+Job completed: gg=2, theta=337.500, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.174s
+Job completed: gg=2, theta=253.125, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.862s
+Job completed: gg=2, theta=-84.375, xs=253.722, uq=-0.505347, bracket=[-1000.000,0.000], runtime=256.688s
+Job completed: gg=2, theta=253.125, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.165s
+Job completed: gg=2, theta=-84.375, xs=338.077, uq=-0.505347, bracket=[-1000.000,0.000], runtime=254.138s
+Job completed: gg=2, theta=337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.586s
+Job completed: gg=2, theta=0.000, xs=85.014, uq=-0.505347, bracket=[-1000.000,0.000], runtime=278.551s
+Job completed: gg=2, theta=253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.474s
+Job completed: gg=2, theta=253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.551s
+Job completed: gg=2, theta=421.875, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.055s
+Job completed: gg=2, theta=421.875, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.636s
+Job completed: gg=2, theta=337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.786s
+Job completed: gg=2, theta=506.250, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.538s
+Job completed: gg=2, theta=421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.609s
+Job completed: gg=2, theta=421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.871s
+Job completed: gg=2, theta=506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.224s
+Job completed: gg=2, theta=0.000, xs=253.722, uq=-0.505347, bracket=[-1000.000,0.000], runtime=281.482s
+Job completed: gg=2, theta=506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.708s
+Job completed: gg=2, theta=590.625, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.070s
+Job completed: gg=2, theta=675.000, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.794s
+Job completed: gg=2, theta=590.625, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.343s
+Job completed: gg=2, theta=590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.592s
+Job completed: gg=2, theta=590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.033s
+Job completed: gg=2, theta=675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.260s
+Job completed: gg=2, theta=-84.375, xs=506.786, uq=-0.505347, bracket=[-1000.000,0.000], runtime=259.935s
+Job completed: gg=2, theta=759.375, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.527s
+Job completed: gg=2, theta=675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.514s
+Job completed: gg=2, theta=0.000, xs=422.431, uq=-0.505347, bracket=[-1000.000,0.000], runtime=267.507s
+Job completed: gg=2, theta=-168.750, xs=422.431, uq=-0.505347, bracket=[-1000.000,0.000], runtime=278.954s
+Job completed: gg=2, theta=759.375, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.289s
+Job completed: gg=2, theta=843.750, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.951s
+Job completed: gg=2, theta=-84.375, xs=422.431, uq=-0.505347, bracket=[-1000.000,0.000], runtime=277.749s
+Job completed: gg=2, theta=759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.864s
+Job completed: gg=2, theta=759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.045s
+Job completed: gg=2, theta=843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.683s
+Job completed: gg=2, theta=843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.855s
+Job completed: gg=2, theta=928.125, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.528s
+Job completed: gg=2, theta=928.125, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.105s
+Job completed: gg=2, theta=1012.500, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.693s
+Job completed: gg=2, theta=928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.886s
+Job completed: gg=2, theta=928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.485s
+Job completed: gg=2, theta=-253.125, xs=591.140, uq=-0.505347, bracket=[-1000.000,0.000], runtime=276.966s
+Job completed: gg=2, theta=1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.266s
+Job completed: gg=2, theta=-168.750, xs=591.140, uq=-0.505347, bracket=[-1000.000,0.000], runtime=276.782s
+Job completed: gg=2, theta=1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.844s
+Job completed: gg=2, theta=-253.125, xs=675.494, uq=-0.505347, bracket=[-1000.000,0.000], runtime=272.691s
+Job completed: gg=2, theta=1096.875, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.772s
+Job completed: gg=2, theta=1096.875, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.628s
+Job completed: gg=2, theta=1181.250, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.950s
+Job completed: gg=2, theta=1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=51.765s
+Job completed: gg=2, theta=1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.516s
+Job completed: gg=2, theta=1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.053s
+Job completed: gg=2, theta=1265.625, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.391s
+Job completed: gg=2, theta=1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.950s
+Job completed: gg=2, theta=1265.625, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.399s
+Job completed: gg=2, theta=-168.750, xs=759.849, uq=-0.505347, bracket=[-1000.000,0.000], runtime=246.437s
+Job completed: gg=2, theta=1350.000, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.117s
+Job completed: gg=2, theta=-253.125, xs=759.849, uq=-0.505347, bracket=[-1000.000,0.000], runtime=251.676s
+Job completed: gg=2, theta=1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.416s
+Job completed: gg=2, theta=1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=52.083s
+Job completed: gg=2, theta=1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.524s
+Job completed: gg=2, theta=-337.500, xs=928.558, uq=-0.505347, bracket=[-1000.000,0.000], runtime=267.596s
+Job completed: gg=2, theta=-506.250, xs=1097.266, uq=-0.505347, bracket=[-1000.000,0.000], runtime=249.903s
+Job completed: gg=2, theta=-253.125, xs=844.203, uq=-0.505347, bracket=[-1000.000,0.000], runtime=259.467s
+Job completed: gg=2, theta=-337.500, xs=759.849, uq=-0.505347, bracket=[-1000.000,0.000], runtime=279.325s
+Job completed: gg=2, theta=1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.588s
+Job completed: gg=2, theta=-421.875, xs=1012.912, uq=-0.505347, bracket=[-1000.000,0.000], runtime=267.690s
+Job completed: gg=2, theta=-421.875, xs=928.558, uq=-0.505347, bracket=[-1000.000,0.000], runtime=275.283s
+Job completed: gg=2, theta=-421.875, xs=1097.266, uq=-0.505347, bracket=[-1000.000,0.000], runtime=259.870s
+Job completed: gg=2, theta=-421.875, xs=1181.621, uq=-0.505347, bracket=[-1000.000,0.000], runtime=252.294s
+Job completed: gg=2, theta=-337.500, xs=1097.266, uq=-0.505347, bracket=[-1000.000,0.000], runtime=263.028s
+Job completed: gg=2, theta=-506.250, xs=1265.975, uq=-0.505347, bracket=[-1000.000,0.000], runtime=263.981s
+Job completed: gg=2, theta=-590.625, xs=1265.975, uq=-0.505347, bracket=[-1000.000,0.000], runtime=264.396s
+Job completed: gg=2, theta=-590.625, xs=1519.038, uq=-0.505347, bracket=[-1000.000,0.000], runtime=264.471s
+Job completed: gg=2, theta=84.375, xs=253.722, uq=-0.505347, bracket=[-1000.000,0.000], runtime=258.184s
+Job completed: gg=2, theta=-590.625, xs=1434.684, uq=-0.505347, bracket=[-1000.000,0.000], runtime=270.104s
+Job completed: gg=2, theta=84.375, xs=169.368, uq=-1.139287, bracket=[-1000.000,0.000], runtime=265.012s
+Job completed: gg=1, theta=-759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.520s
+Job completed: gg=2, theta=-590.625, xs=1350.330, uq=-0.505347, bracket=[-1000.000,0.000], runtime=273.610s
+Job completed: gg=1, theta=-843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.391s
+Job completed: gg=2, theta=-506.250, xs=1434.684, uq=-0.505347, bracket=[-1000.000,0.000], runtime=275.710s
+Job completed: gg=1, theta=-759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.134s
+Job completed: gg=2, theta=84.375, xs=338.077, uq=-0.505347, bracket=[-1000.000,0.000], runtime=265.345s
+Job completed: gg=1, theta=-759.375, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.069s
+Job completed: gg=1, theta=-843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.703s
+Job completed: gg=2, theta=253.125, xs=591.140, uq=-0.505347, bracket=[-1000.000,0.000], runtime=261.381s
+Job completed: gg=1, theta=-1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.542s
+Job completed: gg=1, theta=-928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.561s
+Job completed: gg=2, theta=253.125, xs=506.786, uq=-1.139287, bracket=[-1000.000,0.000], runtime=269.565s
+Job completed: gg=2, theta=337.500, xs=928.558, uq=-0.505347, bracket=[-1000.000,0.000], runtime=251.453s
+Job completed: gg=1, theta=-928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.562s
+Job completed: gg=2, theta=168.750, xs=591.140, uq=-0.505347, bracket=[-1000.000,0.000], runtime=274.895s
+Job completed: gg=2, theta=168.750, xs=422.431, uq=-0.505347, bracket=[-1000.000,0.000], runtime=280.997s
+Job completed: gg=1, theta=-928.125, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.455s
+Job completed: gg=2, theta=421.875, xs=928.558, uq=-0.505347, bracket=[-1000.000,0.000], runtime=257.441s
+Job completed: gg=1, theta=-1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.298s
+Job completed: gg=2, theta=421.875, xs=844.203, uq=-1.139287, bracket=[-1000.000,0.000], runtime=266.025s
+Job completed: gg=2, theta=421.875, xs=1012.912, uq=-0.505347, bracket=[-1000.000,0.000], runtime=263.133s
+Job completed: gg=2, theta=506.250, xs=1097.266, uq=-0.505347, bracket=[-1000.000,0.000], runtime=253.610s
+Job completed: gg=2, theta=590.625, xs=1181.621, uq=-1.139287, bracket=[-1000.000,0.000], runtime=247.284s
+Job completed: gg=2, theta=337.500, xs=759.849, uq=-0.505347, bracket=[-1000.000,0.000], runtime=279.247s
+Job completed: gg=1, theta=-1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.424s
+Job completed: gg=2, theta=253.125, xs=675.494, uq=-0.505347, bracket=[-1000.000,0.000], runtime=292.588s
+Job completed: gg=1, theta=-1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.089s
+Job completed: gg=1, theta=-1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.379s
+Job completed: gg=2, theta=590.625, xs=1265.975, uq=-0.505347, bracket=[-1000.000,0.000], runtime=260.041s
+Job completed: gg=1, theta=-1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.191s
+Job completed: gg=1, theta=-1096.875, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.167s
+Job completed: gg=2, theta=506.250, xs=1265.975, uq=-0.505347, bracket=[-1000.000,0.000], runtime=267.624s
+Job completed: gg=2, theta=675.000, xs=1434.684, uq=-0.505347, bracket=[-1000.000,0.000], runtime=256.901s
+Job completed: gg=2, theta=590.625, xs=1350.330, uq=-0.505347, bracket=[-1000.000,0.000], runtime=272.312s
+Job completed: gg=1, theta=-1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.758s
+Job completed: gg=1, theta=-1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.427s
+Job completed: gg=1, theta=-1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.677s
+Job completed: gg=2, theta=675.000, xs=1603.393, uq=-0.505347, bracket=[-1000.000,0.000], runtime=261.877s
+Job completed: gg=1, theta=-1265.625, xs=2531.291, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.962s
+Job completed: gg=1, theta=-1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.491s
+Job completed: gg=2, theta=759.375, xs=1603.393, uq=-0.505347, bracket=[-1000.000,0.000], runtime=272.946s
+Job completed: gg=1, theta=-168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.763s
+Job completed: gg=1, theta=-84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.473s
+Job completed: gg=2, theta=759.375, xs=1519.038, uq=-1.139287, bracket=[-1000.000,0.000], runtime=284.181s
+Job completed: gg=2, theta=759.375, xs=1687.747, uq=-0.505347, bracket=[-1000.000,0.000], runtime=276.392s
+Job completed: gg=2, theta=928.125, xs=1940.810, uq=-0.505347, bracket=[-1000.000,0.000], runtime=252.025s
+Job completed: gg=1, theta=-84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.338s
+Job completed: gg=1, theta=-84.375, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=53.890s
+Job completed: gg=1, theta=-168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.505s
+Job completed: gg=2, theta=843.750, xs=1940.810, uq=-0.505347, bracket=[-1000.000,0.000], runtime=257.923s
+Job completed: gg=2, theta=843.750, xs=1772.102, uq=-0.505347, bracket=[-1000.000,0.000], runtime=273.491s
+Job completed: gg=1, theta=-337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.346s
+Job completed: gg=1, theta=-253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.766s
+Job completed: gg=1, theta=-253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.648s
+Job completed: gg=2, theta=928.125, xs=1856.456, uq=-1.139287, bracket=[-1000.000,0.000], runtime=279.659s
+Job completed: gg=2, theta=928.125, xs=2025.165, uq=-0.505347, bracket=[-1000.000,0.000], runtime=270.712s
+Job completed: gg=1, theta=-253.125, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.707s
+Job completed: gg=2, theta=1012.500, xs=2109.519, uq=-0.505347, bracket=[-1000.000,0.000], runtime=268.633s
+Job completed: gg=1, theta=-337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.277s
+Job completed: gg=2, theta=1012.500, xs=2278.228, uq=-0.505347, bracket=[-1000.000,0.000], runtime=262.005s
+Job completed: gg=2, theta=1096.875, xs=2193.874, uq=-1.139287, bracket=[-1000.000,0.000], runtime=269.959s
+Job completed: gg=1, theta=-421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.152s
+Job completed: gg=2, theta=1096.875, xs=2278.228, uq=-0.505347, bracket=[-1000.000,0.000], runtime=265.994s
+Job completed: gg=2, theta=1096.875, xs=2362.583, uq=-0.505347, bracket=[-1000.000,0.000], runtime=265.376s
+Job completed: gg=1, theta=-506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.115s
+Job completed: gg=1, theta=-421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.469s
+Job completed: gg=1, theta=-506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.625s
+Job completed: gg=1, theta=-421.875, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.306s
+Job completed: gg=2, theta=1265.625, xs=2615.646, uq=-0.505347, bracket=[-1000.000,0.000], runtime=251.966s
+Job completed: gg=2, theta=1181.250, xs=2446.937, uq=-0.505347, bracket=[-1000.000,0.000], runtime=268.415s
+Job completed: gg=1, theta=-590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.753s
+Job completed: gg=1, theta=-675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.255s
+Job completed: gg=1, theta=-590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.263s
+Job completed: gg=2, theta=1181.250, xs=2615.646, uq=-0.505347, bracket=[-1000.000,0.000], runtime=277.840s
+Job completed: gg=1, theta=-590.625, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.451s
+Job completed: gg=2, theta=1265.625, xs=2700.000, uq=-0.505347, bracket=[-1000.000,0.000], runtime=274.175s
+Job completed: gg=2, theta=1265.625, xs=2531.291, uq=-1.139287, bracket=[-1000.000,0.000], runtime=292.995s
+Job completed: gg=1, theta=-675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.838s
+Job completed: gg=1, theta=84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.376s
+Job completed: gg=1, theta=168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.562s
+Job completed: gg=1, theta=84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.987s
+Job completed: gg=1, theta=168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.504s
+Job completed: gg=1, theta=253.125, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.568s
+Job completed: gg=1, theta=337.500, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.478s
+Job completed: gg=1, theta=253.125, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.892s
+Job completed: gg=1, theta=253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.885s
+Job completed: gg=1, theta=253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.416s
+Job completed: gg=1, theta=-843.750, xs=1772.102, uq=-0.233840, bracket=[-1000.000,0.000], runtime=331.657s
+Job completed: gg=1, theta=-675.000, xs=1434.684, uq=-0.233840, bracket=[-1000.000,0.000], runtime=351.040s
+Job completed: gg=1, theta=337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.780s
+Job completed: gg=1, theta=-759.375, xs=1687.747, uq=-0.233840, bracket=[-1000.000,0.000], runtime=345.133s
+Job completed: gg=1, theta=-759.375, xs=1603.393, uq=-0.233840, bracket=[-1000.000,0.000], runtime=351.616s
+Job completed: gg=1, theta=-759.375, xs=1772.102, uq=-0.233840, bracket=[-1000.000,0.000], runtime=350.399s
+Job completed: gg=1, theta=-675.000, xs=1772.102, uq=-0.233840, bracket=[-1000.000,0.000], runtime=353.810s
+Job completed: gg=1, theta=-928.125, xs=1940.810, uq=-0.233840, bracket=[-1000.000,0.000], runtime=344.739s
+Job completed: gg=1, theta=-675.000, xs=1603.393, uq=-0.233840, bracket=[-1000.000,0.000], runtime=370.824s
+Job completed: gg=1, theta=-1096.875, xs=2278.228, uq=-0.233840, bracket=[-1000.000,0.000], runtime=332.068s
+Job completed: gg=1, theta=337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.643s
+Job completed: gg=1, theta=-1012.500, xs=2109.519, uq=-0.233840, bracket=[-1000.000,0.000], runtime=336.886s
+Job completed: gg=1, theta=-928.125, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=346.634s
+Job completed: gg=1, theta=-843.750, xs=1940.810, uq=-0.233840, bracket=[-1000.000,0.000], runtime=362.876s
+Job completed: gg=1, theta=-1096.875, xs=2362.583, uq=-0.233840, bracket=[-1000.000,0.000], runtime=352.348s
+Job completed: gg=1, theta=421.875, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.304s
+Job completed: gg=1, theta=-759.375, xs=1856.456, uq=-0.233840, bracket=[-1000.000,0.000], runtime=381.978s
+Job completed: gg=1, theta=421.875, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.047s
+Job completed: gg=1, theta=506.250, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.864s
+Job completed: gg=1, theta=-1012.500, xs=2278.228, uq=-0.233840, bracket=[-1000.000,0.000], runtime=363.381s
+Job completed: gg=1, theta=-928.125, xs=2109.519, uq=-0.233840, bracket=[-1000.000,0.000], runtime=361.950s
+Job completed: gg=1, theta=421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.363s
+Job completed: gg=1, theta=-1181.250, xs=2446.937, uq=-0.233840, bracket=[-1000.000,0.000], runtime=347.851s
+Job completed: gg=1, theta=-843.750, xs=2109.519, uq=-0.233840, bracket=[-1000.000,0.000], runtime=362.469s
+Job completed: gg=1, theta=-1265.625, xs=2615.646, uq=-0.233840, bracket=[-1000.000,0.000], runtime=342.945s
+Job completed: gg=1, theta=421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.671s
+Job completed: gg=1, theta=506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.577s
+Job completed: gg=1, theta=-928.125, xs=2193.874, uq=-0.233840, bracket=[-1000.000,0.000], runtime=368.764s
+Job completed: gg=1, theta=506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.367s
+Job completed: gg=1, theta=590.625, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.020s
+Job completed: gg=1, theta=-1012.500, xs=2446.937, uq=-0.233840, bracket=[-1000.000,0.000], runtime=365.520s
+Job completed: gg=1, theta=0.000, xs=422.431, uq=-0.233840, bracket=[-1000.000,0.000], runtime=319.747s
+Job completed: gg=1, theta=-168.750, xs=422.431, uq=-0.233840, bracket=[-1000.000,0.000], runtime=331.627s
+Job completed: gg=1, theta=-1181.250, xs=2615.646, uq=-0.233840, bracket=[-1000.000,0.000], runtime=362.641s
+Job completed: gg=1, theta=-1096.875, xs=2446.937, uq=-0.233840, bracket=[-1000.000,0.000], runtime=372.436s
+Job completed: gg=1, theta=-1265.625, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=364.899s
+Job completed: gg=1, theta=-1096.875, xs=2531.291, uq=-0.233840, bracket=[-1000.000,0.000], runtime=377.931s
+Job completed: gg=1, theta=-168.750, xs=591.140, uq=-0.233840, bracket=[-1000.000,0.000], runtime=315.341s
+Job completed: gg=1, theta=590.625, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.212s
+Job completed: gg=1, theta=0.000, xs=85.014, uq=-0.233840, bracket=[-1000.000,0.000], runtime=363.255s
+Job completed: gg=1, theta=675.000, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.365s
+Job completed: gg=1, theta=590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.368s
+Job completed: gg=1, theta=-84.375, xs=422.431, uq=-0.233840, bracket=[-1000.000,0.000], runtime=342.527s
+Job completed: gg=1, theta=590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.364s
+Job completed: gg=1, theta=675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.525s
+Job completed: gg=1, theta=-84.375, xs=338.077, uq=-0.233840, bracket=[-1000.000,0.000], runtime=364.892s
+Job completed: gg=1, theta=-84.375, xs=253.722, uq=-0.233840, bracket=[-1000.000,0.000], runtime=378.526s
+Job completed: gg=1, theta=675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.154s
+Job completed: gg=1, theta=0.000, xs=253.722, uq=-0.233840, bracket=[-1000.000,0.000], runtime=378.054s
+Job completed: gg=1, theta=759.375, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.143s
+Job completed: gg=1, theta=759.375, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.120s
+Job completed: gg=1, theta=843.750, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.276s
+Job completed: gg=1, theta=-84.375, xs=506.786, uq=-0.233840, bracket=[-1000.000,0.000], runtime=363.020s
+Job completed: gg=1, theta=759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.548s
+Job completed: gg=1, theta=-253.125, xs=675.494, uq=-0.233840, bracket=[-1000.000,0.000], runtime=358.708s
+Job completed: gg=1, theta=843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.156s
+Job completed: gg=1, theta=759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.324s
+Job completed: gg=1, theta=843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.874s
+Job completed: gg=1, theta=-253.125, xs=591.140, uq=-0.233840, bracket=[-1000.000,0.000], runtime=369.707s
+Job completed: gg=1, theta=1012.500, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.380s
+Job completed: gg=1, theta=928.125, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.272s
+Job completed: gg=1, theta=928.125, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.461s
+Job completed: gg=1, theta=-337.500, xs=759.849, uq=-0.233840, bracket=[-1000.000,0.000], runtime=366.768s
+Job completed: gg=1, theta=928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.388s
+Job completed: gg=1, theta=-421.875, xs=1012.912, uq=-0.233840, bracket=[-1000.000,0.000], runtime=364.582s
+Job completed: gg=1, theta=928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.478s
+Job completed: gg=1, theta=-253.125, xs=844.203, uq=-0.233840, bracket=[-1000.000,0.000], runtime=357.591s
+Job completed: gg=1, theta=1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.539s
+Job completed: gg=1, theta=-421.875, xs=928.558, uq=-0.233840, bracket=[-1000.000,0.000], runtime=374.247s
+Job completed: gg=1, theta=-506.250, xs=1097.266, uq=-0.233840, bracket=[-1000.000,0.000], runtime=358.557s
+Job completed: gg=1, theta=-253.125, xs=759.849, uq=-0.233840, bracket=[-1000.000,0.000], runtime=376.245s
+Job completed: gg=1, theta=-506.250, xs=1265.975, uq=-0.233840, bracket=[-1000.000,0.000], runtime=332.684s
+Job completed: gg=1, theta=1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.034s
+Job completed: gg=1, theta=-590.625, xs=1350.330, uq=-0.233840, bracket=[-1000.000,0.000], runtime=332.893s
+Job completed: gg=1, theta=-168.750, xs=759.849, uq=-0.233840, bracket=[-1000.000,0.000], runtime=373.140s
+Job completed: gg=1, theta=-337.500, xs=928.558, uq=-0.233840, bracket=[-1000.000,0.000], runtime=381.818s
+Job completed: gg=1, theta=1096.875, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.800s
+Job completed: gg=1, theta=1096.875, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.201s
+Job completed: gg=1, theta=1181.250, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.535s
+Job completed: gg=1, theta=-421.875, xs=1181.621, uq=-0.233840, bracket=[-1000.000,0.000], runtime=350.067s
+Job completed: gg=1, theta=1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.165s
+Job completed: gg=1, theta=1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.524s
+Job completed: gg=1, theta=-421.875, xs=1097.266, uq=-0.233840, bracket=[-1000.000,0.000], runtime=363.657s
+Job completed: gg=1, theta=1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.165s
+Job completed: gg=1, theta=1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.752s
+Job completed: gg=1, theta=-506.250, xs=1434.684, uq=-0.233840, bracket=[-1000.000,0.000], runtime=354.161s
+Job completed: gg=1, theta=-337.500, xs=1097.266, uq=-0.233840, bracket=[-1000.000,0.000], runtime=377.578s
+Job completed: gg=1, theta=-590.625, xs=1519.038, uq=-0.233840, bracket=[-1000.000,0.000], runtime=361.066s
+Job completed: gg=1, theta=-590.625, xs=1434.684, uq=-0.233840, bracket=[-1000.000,0.000], runtime=366.088s
+Job completed: gg=1, theta=1265.625, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.812s
+Job completed: gg=1, theta=1265.625, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.168s
+Job completed: gg=1, theta=1350.000, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.869s
+Job completed: gg=1, theta=-590.625, xs=1265.975, uq=-0.233840, bracket=[-1000.000,0.000], runtime=379.246s
+Job completed: gg=1, theta=1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.657s
+Job completed: gg=1, theta=1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.206s
+Job completed: gg=1, theta=1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.525s
+Job completed: gg=1, theta=84.375, xs=253.722, uq=-0.233840, bracket=[-1000.000,0.000], runtime=357.157s
+Job completed: gg=0, theta=-759.375, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.800s
+Job completed: gg=1, theta=1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.938s
+Job completed: gg=0, theta=-759.375, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.268s
+Job completed: gg=0, theta=-759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.065s
+Job completed: gg=0, theta=-843.750, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.849s
+Job completed: gg=0, theta=-675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.929s
+Job completed: gg=0, theta=-843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.249s
+Job completed: gg=0, theta=-928.125, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.771s
+Job completed: gg=0, theta=-759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.107s
+Job completed: gg=0, theta=-1012.500, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.729s
+Job completed: gg=1, theta=84.375, xs=338.077, uq=-0.233840, bracket=[-1000.000,0.000], runtime=371.236s
+Job completed: gg=1, theta=168.750, xs=422.431, uq=-0.233840, bracket=[-1000.000,0.000], runtime=334.601s
+Job completed: gg=0, theta=-928.125, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.428s
+Job completed: gg=0, theta=-843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.420s
+Job completed: gg=0, theta=-928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.135s
+Job completed: gg=0, theta=-1096.875, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.407s
+Job completed: gg=0, theta=-1181.250, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.183s
+Job completed: gg=1, theta=168.750, xs=591.140, uq=-0.233840, bracket=[-1000.000,0.000], runtime=327.494s
+Job completed: gg=0, theta=-1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.545s
+Job completed: gg=0, theta=-1096.875, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.699s
+Job completed: gg=0, theta=-1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.126s
+Job completed: gg=0, theta=-1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.628s
+Job completed: gg=0, theta=-928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.676s
+Job completed: gg=0, theta=-1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.001s
+Job completed: gg=0, theta=-1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.880s
+Job completed: gg=0, theta=-1265.625, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.692s
+Job completed: gg=1, theta=253.125, xs=591.140, uq=-0.233840, bracket=[-1000.000,0.000], runtime=355.273s
+Job completed: gg=0, theta=-1350.000, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.512s
+Job completed: gg=0, theta=-1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.867s
+Job completed: gg=0, theta=-1265.625, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.550s
+Job completed: gg=0, theta=-1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.634s
+Job completed: gg=0, theta=-1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.440s
+Job completed: gg=0, theta=-1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.395s
+Job completed: gg=1, theta=337.500, xs=759.849, uq=-0.233840, bracket=[-1000.000,0.000], runtime=340.970s
+Job completed: gg=0, theta=-1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.066s
+Job completed: gg=1, theta=253.125, xs=675.494, uq=-0.233840, bracket=[-1000.000,0.000], runtime=361.506s
+Job completed: gg=1, theta=84.375, xs=169.368, uq=-0.289198, bracket=[-1000.000,0.000], runtime=480.974s
+Job completed: gg=1, theta=421.875, xs=1012.912, uq=-0.233840, bracket=[-1000.000,0.000], runtime=340.027s
+Job completed: gg=0, theta=-84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.262s
+Job completed: gg=0, theta=-168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.152s
+Job completed: gg=0, theta=-84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.172s
+Job completed: gg=0, theta=-253.125, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.104s
+Job completed: gg=1, theta=421.875, xs=928.558, uq=-0.233840, bracket=[-1000.000,0.000], runtime=358.942s
+Job completed: gg=1, theta=506.250, xs=1265.975, uq=-0.233840, bracket=[-1000.000,0.000], runtime=331.117s
+Job completed: gg=0, theta=-337.500, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=64.517s
+Job completed: gg=1, theta=506.250, xs=1097.266, uq=-0.233840, bracket=[-1000.000,0.000], runtime=345.814s
+Job completed: gg=1, theta=253.125, xs=506.786, uq=-0.289198, bracket=[-1000.000,0.000], runtime=456.673s
+Job completed: gg=0, theta=-168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.433s
+Job completed: gg=0, theta=-253.125, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.545s
+Job completed: gg=1, theta=337.500, xs=928.558, uq=-0.233840, bracket=[-1000.000,0.000], runtime=377.745s
+Job completed: gg=0, theta=-253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.524s
+Job completed: gg=1, theta=590.625, xs=1350.330, uq=-0.233840, bracket=[-1000.000,0.000], runtime=338.044s
+Job completed: gg=1, theta=590.625, xs=1265.975, uq=-0.233840, bracket=[-1000.000,0.000], runtime=352.497s
+Job completed: gg=0, theta=-421.875, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.671s
+Job completed: gg=0, theta=-421.875, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.490s
+Job completed: gg=0, theta=-506.250, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.698s
+Job completed: gg=0, theta=-675.000, xs=1434.684, uq=-0.061374, bracket=[-1000.000,0.000], runtime=245.130s
+Job completed: gg=0, theta=-337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.621s
+Job completed: gg=1, theta=675.000, xs=1434.684, uq=-0.233840, bracket=[-1000.000,0.000], runtime=357.215s
+Job completed: gg=0, theta=-421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.174s
+Job completed: gg=0, theta=-337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.594s
+Job completed: gg=0, theta=-675.000, xs=1603.393, uq=-0.061374, bracket=[-1000.000,0.000], runtime=234.356s
+Job completed: gg=1, theta=759.375, xs=1603.393, uq=-0.233840, bracket=[-1000.000,0.000], runtime=359.149s
+Job completed: gg=0, theta=-253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.195s
+Job completed: gg=1, theta=759.375, xs=1687.747, uq=-0.233840, bracket=[-1000.000,0.000], runtime=360.889s
+Job completed: gg=0, theta=-421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.311s
+Job completed: gg=1, theta=675.000, xs=1603.393, uq=-0.233840, bracket=[-1000.000,0.000], runtime=374.290s
+Job completed: gg=1, theta=843.750, xs=1772.102, uq=-0.233840, bracket=[-1000.000,0.000], runtime=360.137s
+Job completed: gg=0, theta=-506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=63.670s
+Job completed: gg=0, theta=-759.375, xs=1687.747, uq=-0.061374, bracket=[-1000.000,0.000], runtime=251.414s
+Job completed: gg=0, theta=-759.375, xs=1603.393, uq=-0.061374, bracket=[-1000.000,0.000], runtime=254.434s
+Job completed: gg=0, theta=-843.750, xs=1772.102, uq=-0.061374, bracket=[-1000.000,0.000], runtime=240.027s
+Job completed: gg=1, theta=843.750, xs=1940.810, uq=-0.233840, bracket=[-1000.000,0.000], runtime=359.831s
+Job completed: gg=1, theta=759.375, xs=1519.038, uq=-0.289198, bracket=[-1000.000,0.000], runtime=390.475s
+Job completed: gg=1, theta=928.125, xs=2025.165, uq=-0.233840, bracket=[-1000.000,0.000], runtime=357.507s
+Job completed: gg=0, theta=-928.125, xs=1940.810, uq=-0.061374, bracket=[-1000.000,0.000], runtime=242.536s
+Job completed: gg=1, theta=1012.500, xs=2109.519, uq=-0.233840, bracket=[-1000.000,0.000], runtime=348.763s
+Job completed: gg=0, theta=-843.750, xs=1940.810, uq=-0.061374, bracket=[-1000.000,0.000], runtime=243.406s
+Job completed: gg=0, theta=-928.125, xs=2025.165, uq=-0.061374, bracket=[-1000.000,0.000], runtime=245.169s
+Job completed: gg=1, theta=928.125, xs=1940.810, uq=-0.233840, bracket=[-1000.000,0.000], runtime=373.502s
+Job completed: gg=0, theta=-590.625, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.646s
+Job completed: gg=0, theta=-759.375, xs=1519.038, uq=-0.372093, bracket=[-1000.000,0.000], runtime=302.470s
+Job completed: gg=0, theta=-506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.361s
+Job completed: gg=0, theta=-590.625, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.927s
+Job completed: gg=0, theta=-675.000, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.577s
+Job completed: gg=0, theta=-1012.500, xs=2109.519, uq=-0.061374, bracket=[-1000.000,0.000], runtime=250.372s
+Job completed: gg=0, theta=-590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=64.579s
+Job completed: gg=1, theta=590.625, xs=1181.621, uq=-0.289198, bracket=[-1000.000,0.000], runtime=438.685s
+Job completed: gg=0, theta=-675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.957s
+Job completed: gg=0, theta=-590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.053s
+Job completed: gg=1, theta=1096.875, xs=2362.583, uq=-0.233840, bracket=[-1000.000,0.000], runtime=350.398s
+Job completed: gg=0, theta=-1012.500, xs=2278.228, uq=-0.061374, bracket=[-1000.000,0.000], runtime=242.270s
+Job completed: gg=1, theta=421.875, xs=844.203, uq=-0.289198, bracket=[-1000.000,0.000], runtime=492.566s
+Job completed: gg=0, theta=-1096.875, xs=2278.228, uq=-0.061374, bracket=[-1000.000,0.000], runtime=248.005s
+Job completed: gg=1, theta=1265.625, xs=2700.000, uq=-0.233840, bracket=[-1000.000,0.000], runtime=337.019s
+Job completed: gg=1, theta=1096.875, xs=2278.228, uq=-0.233840, bracket=[-1000.000,0.000], runtime=369.595s
+Job completed: gg=1, theta=1181.250, xs=2446.937, uq=-0.233840, bracket=[-1000.000,0.000], runtime=354.049s
+Job completed: gg=1, theta=928.125, xs=1856.456, uq=-0.289198, bracket=[-1000.000,0.000], runtime=411.949s
+Job completed: gg=1, theta=1012.500, xs=2278.228, uq=-0.233840, bracket=[-1000.000,0.000], runtime=380.478s
+Job completed: gg=0, theta=-1096.875, xs=2362.583, uq=-0.061374, bracket=[-1000.000,0.000], runtime=251.931s
+Job completed: gg=0, theta=168.750, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.744s
+Job completed: gg=0, theta=84.375, xs=85.014, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.401s
+Job completed: gg=0, theta=-1181.250, xs=2615.646, uq=-0.061374, bracket=[-1000.000,0.000], runtime=244.757s
+Job completed: gg=0, theta=84.375, xs=0.659, uq=1.000000, bracket=[-1000.000,0.000], runtime=69.396s
+Job completed: gg=0, theta=337.500, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=43.769s
+Job completed: gg=0, theta=-928.125, xs=1856.456, uq=-0.372093, bracket=[-1000.000,0.000], runtime=296.859s
+Job completed: gg=0, theta=-1265.625, xs=2615.646, uq=-0.061374, bracket=[-1000.000,0.000], runtime=249.222s
+Job completed: gg=0, theta=-1181.250, xs=2446.937, uq=-0.061374, bracket=[-1000.000,0.000], runtime=251.728s
+Job completed: gg=0, theta=168.750, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.958s
+Job completed: gg=1, theta=1265.625, xs=2615.646, uq=-0.233840, bracket=[-1000.000,0.000], runtime=356.068s
+Job completed: gg=1, theta=1181.250, xs=2615.646, uq=-0.233840, bracket=[-1000.000,0.000], runtime=369.891s
+Job completed: gg=0, theta=253.125, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.903s
+Job completed: gg=0, theta=253.125, xs=169.368, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.848s
+Job completed: gg=0, theta=337.500, xs=253.722, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.144s
+Job completed: gg=0, theta=253.125, xs=422.431, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.544s
+Job completed: gg=0, theta=253.125, xs=338.077, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.285s
+Job completed: gg=0, theta=0.000, xs=85.014, uq=-0.061374, bracket=[-1000.000,0.000], runtime=241.406s
+Job completed: gg=1, theta=1096.875, xs=2193.874, uq=-0.289198, bracket=[-1000.000,0.000], runtime=408.973s
+Job completed: gg=0, theta=337.500, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.062s
+Job completed: gg=0, theta=-1265.625, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=257.136s
+Job completed: gg=0, theta=421.875, xs=506.786, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.838s
+Job completed: gg=0, theta=421.875, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=57.310s
+Job completed: gg=0, theta=506.250, xs=591.140, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.641s
+Job completed: gg=0, theta=-1096.875, xs=2193.874, uq=-0.372093, bracket=[-1000.000,0.000], runtime=319.935s
+Job completed: gg=0, theta=421.875, xs=675.494, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.914s
+Job completed: gg=1, theta=1265.625, xs=2531.291, uq=-0.289198, bracket=[-1000.000,0.000], runtime=403.135s
+Job completed: gg=0, theta=421.875, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.614s
+Job completed: gg=0, theta=506.250, xs=759.849, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.155s
+Job completed: gg=0, theta=506.250, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.387s
+Job completed: gg=0, theta=-84.375, xs=338.077, uq=-0.061374, bracket=[-1000.000,0.000], runtime=237.068s
+Job completed: gg=0, theta=590.625, xs=844.203, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.320s
+Job completed: gg=0, theta=675.000, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.295s
+Job completed: gg=0, theta=590.625, xs=1012.912, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.033s
+Job completed: gg=0, theta=675.000, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.240s
+Job completed: gg=0, theta=590.625, xs=928.558, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.369s
+Job completed: gg=0, theta=590.625, xs=1097.266, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.178s
+Job completed: gg=0, theta=0.000, xs=253.722, uq=-0.061374, bracket=[-1000.000,0.000], runtime=245.847s
+Job completed: gg=0, theta=675.000, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.276s
+Job completed: gg=0, theta=759.375, xs=1181.621, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.449s
+Job completed: gg=0, theta=759.375, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.084s
+Job completed: gg=0, theta=-84.375, xs=253.722, uq=-0.061374, bracket=[-1000.000,0.000], runtime=256.439s
+Job completed: gg=0, theta=-1265.625, xs=2531.291, uq=-0.372093, bracket=[-1000.000,0.000], runtime=320.558s
+Job completed: gg=0, theta=843.750, xs=1265.975, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.910s
+Job completed: gg=0, theta=759.375, xs=1350.330, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.778s
+Job completed: gg=0, theta=759.375, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.164s
+Job completed: gg=0, theta=843.750, xs=1434.684, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.853s
+Job completed: gg=0, theta=-84.375, xs=169.368, uq=-0.372093, bracket=[-1000.000,0.000], runtime=302.475s
+Job completed: gg=0, theta=843.750, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.626s
+Job completed: gg=0, theta=928.125, xs=1519.038, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.813s
+Job completed: gg=0, theta=928.125, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.172s
+Job completed: gg=0, theta=928.125, xs=1687.747, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.779s
+Job completed: gg=0, theta=1012.500, xs=1603.393, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.960s
+Job completed: gg=0, theta=-337.500, xs=759.849, uq=-0.061374, bracket=[-1000.000,0.000], runtime=239.830s
+Job completed: gg=0, theta=-253.125, xs=591.140, uq=-0.061374, bracket=[-1000.000,0.000], runtime=248.365s
+Job completed: gg=0, theta=-253.125, xs=675.494, uq=-0.061374, bracket=[-1000.000,0.000], runtime=249.350s
+Job completed: gg=0, theta=1012.500, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.946s
+Job completed: gg=0, theta=928.125, xs=1772.102, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.519s
+Job completed: gg=0, theta=1012.500, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.788s
+Job completed: gg=0, theta=-168.750, xs=591.140, uq=-0.061374, bracket=[-1000.000,0.000], runtime=256.750s
+Job completed: gg=0, theta=1096.875, xs=1856.456, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.524s
+Job completed: gg=0, theta=1181.250, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.625s
+Job completed: gg=0, theta=1096.875, xs=1940.810, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.938s
+Job completed: gg=0, theta=-168.750, xs=422.431, uq=-0.061374, bracket=[-1000.000,0.000], runtime=264.044s
+Job completed: gg=0, theta=1096.875, xs=2025.165, uq=1.000000, bracket=[-1000.000,0.000], runtime=58.301s
+Job completed: gg=0, theta=1096.875, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.147s
+Job completed: gg=0, theta=1181.250, xs=2109.519, uq=1.000000, bracket=[-1000.000,0.000], runtime=61.051s
+Job completed: gg=0, theta=-421.875, xs=928.558, uq=-0.061374, bracket=[-1000.000,0.000], runtime=228.581s
+Job completed: gg=0, theta=1181.250, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=62.257s
+Job completed: gg=0, theta=1265.625, xs=2193.874, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.914s
+Job completed: gg=0, theta=-421.875, xs=1012.912, uq=-0.061374, bracket=[-1000.000,0.000], runtime=236.927s
+Job completed: gg=0, theta=1265.625, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.253s
+Job completed: gg=0, theta=1265.625, xs=2362.583, uq=1.000000, bracket=[-1000.000,0.000], runtime=56.867s
+Job completed: gg=0, theta=1350.000, xs=2278.228, uq=1.000000, bracket=[-1000.000,0.000], runtime=60.052s
+Job completed: gg=0, theta=-590.625, xs=1350.330, uq=-0.061374, bracket=[-1000.000,0.000], runtime=231.547s
+Job completed: gg=0, theta=-337.500, xs=928.558, uq=-0.061374, bracket=[-1000.000,0.000], runtime=251.789s
+Job completed: gg=0, theta=1350.000, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=55.424s
+Job completed: gg=0, theta=-506.250, xs=1097.266, uq=-0.061374, bracket=[-1000.000,0.000], runtime=249.696s
+Job completed: gg=0, theta=1265.625, xs=2446.937, uq=1.000000, bracket=[-1000.000,0.000], runtime=59.700s
+Job completed: gg=0, theta=-506.250, xs=1265.975, uq=-0.061374, bracket=[-1000.000,0.000], runtime=243.384s
+Job completed: gg=0, theta=1350.000, xs=2615.646, uq=1.000000, bracket=[-1000.000,0.000], runtime=54.643s
+Job completed: gg=0, theta=84.375, xs=253.722, uq=-0.061374, bracket=[-1000.000,0.000], runtime=237.678s
+Job completed: gg=0, theta=-590.625, xs=1265.975, uq=-0.061374, bracket=[-1000.000,0.000], runtime=250.356s
+Job completed: gg=0, theta=-421.875, xs=844.203, uq=-0.372093, bracket=[-1000.000,0.000], runtime=309.680s
+Job completed: gg=0, theta=253.125, xs=675.494, uq=-0.061374, bracket=[-1000.000,0.000], runtime=226.780s
+Job completed: gg=0, theta=168.750, xs=422.431, uq=-0.061374, bracket=[-1000.000,0.000], runtime=242.635s
+Job completed: gg=0, theta=253.125, xs=591.140, uq=-0.061374, bracket=[-1000.000,0.000], runtime=241.331s
+Job completed: gg=0, theta=-253.125, xs=506.786, uq=-0.372093, bracket=[-1000.000,0.000], runtime=338.788s
+Job completed: gg=0, theta=337.500, xs=759.849, uq=-0.061374, bracket=[-1000.000,0.000], runtime=228.399s
+Job completed: gg=0, theta=84.375, xs=338.077, uq=-0.061374, bracket=[-1000.000,0.000], runtime=259.651s
+Job completed: gg=0, theta=168.750, xs=591.140, uq=-0.061374, bracket=[-1000.000,0.000], runtime=250.598s
+Job completed: gg=0, theta=421.875, xs=928.558, uq=-0.061374, bracket=[-1000.000,0.000], runtime=230.255s
+Job completed: gg=0, theta=84.375, xs=169.368, uq=-0.073109, bracket=[-1000.000,0.000], runtime=281.791s
+Job completed: gg=0, theta=337.500, xs=928.558, uq=-0.061374, bracket=[-1000.000,0.000], runtime=236.863s
+Job completed: gg=0, theta=590.625, xs=1265.975, uq=-0.061374, bracket=[-1000.000,0.000], runtime=221.970s
+Job completed: gg=0, theta=421.875, xs=1012.912, uq=-0.061374, bracket=[-1000.000,0.000], runtime=231.790s
+Job completed: gg=0, theta=506.250, xs=1097.266, uq=-0.061374, bracket=[-1000.000,0.000], runtime=230.459s
+Job completed: gg=0, theta=590.625, xs=1350.330, uq=-0.061374, bracket=[-1000.000,0.000], runtime=228.534s
+Job completed: gg=0, theta=253.125, xs=506.786, uq=-0.073109, bracket=[-1000.000,0.000], runtime=277.931s
+Job completed: gg=0, theta=506.250, xs=1265.975, uq=-0.061374, bracket=[-1000.000,0.000], runtime=237.993s
+Job completed: gg=0, theta=675.000, xs=1434.684, uq=-0.061374, bracket=[-1000.000,0.000], runtime=224.796s
+Job completed: gg=0, theta=421.875, xs=844.203, uq=-0.073109, bracket=[-1000.000,0.000], runtime=258.124s
+Job completed: gg=0, theta=675.000, xs=1603.393, uq=-0.061374, bracket=[-1000.000,0.000], runtime=221.608s
+Job completed: gg=0, theta=759.375, xs=1603.393, uq=-0.061374, bracket=[-1000.000,0.000], runtime=229.098s
+Job completed: gg=0, theta=843.750, xs=1772.102, uq=-0.061374, bracket=[-1000.000,0.000], runtime=216.089s
+Job completed: gg=0, theta=759.375, xs=1687.747, uq=-0.061374, bracket=[-1000.000,0.000], runtime=224.998s
+Job completed: gg=0, theta=590.625, xs=1181.621, uq=-0.073109, bracket=[-1000.000,0.000], runtime=260.293s
+Job completed: gg=0, theta=-590.625, xs=1181.621, uq=-0.372093, bracket=[-1000.000,0.000], runtime=343.872s
+Job completed: gg=0, theta=928.125, xs=1940.810, uq=-0.061374, bracket=[-1000.000,0.000], runtime=213.718s
+Job completed: gg=0, theta=843.750, xs=1940.810, uq=-0.061374, bracket=[-1000.000,0.000], runtime=216.967s
+Job completed: gg=0, theta=1012.500, xs=2109.519, uq=-0.061374, bracket=[-1000.000,0.000], runtime=211.038s
+Job completed: gg=0, theta=928.125, xs=2025.165, uq=-0.061374, bracket=[-1000.000,0.000], runtime=222.879s
+Job completed: gg=0, theta=1096.875, xs=2278.228, uq=-0.061374, bracket=[-1000.000,0.000], runtime=204.475s
+Job completed: gg=0, theta=759.375, xs=1519.038, uq=-0.073109, bracket=[-1000.000,0.000], runtime=263.428s
+Job completed: gg=0, theta=1012.500, xs=2278.228, uq=-0.061374, bracket=[-1000.000,0.000], runtime=213.459s
+Job completed: gg=0, theta=1096.875, xs=2362.583, uq=-0.061374, bracket=[-1000.000,0.000], runtime=206.651s
+Job completed: gg=0, theta=1181.250, xs=2446.937, uq=-0.061374, bracket=[-1000.000,0.000], runtime=203.645s
+Job completed: gg=0, theta=1181.250, xs=2615.646, uq=-0.061374, bracket=[-1000.000,0.000], runtime=193.099s
+Job completed: gg=0, theta=1265.625, xs=2615.646, uq=-0.061374, bracket=[-1000.000,0.000], runtime=197.574s
+Job completed: gg=0, theta=928.125, xs=1856.456, uq=-0.073109, bracket=[-1000.000,0.000], runtime=259.390s
+Job completed: gg=0, theta=1265.625, xs=2700.000, uq=-0.061374, bracket=[-1000.000,0.000], runtime=197.680s
+Job completed: gg=0, theta=1096.875, xs=2193.874, uq=-0.073109, bracket=[-1000.000,0.000], runtime=250.826s
+Job completed: gg=0, theta=1265.625, xs=2531.291, uq=-0.073109, bracket=[-1000.000,0.000], runtime=235.798s
+=== Level 3 COMPLETE: 2944/2944 corner points computed ===
+Level 3: 0 boxes had boundaries, 0 new boxes created, 0 new corner jobs, refinement time: 0.000630s
+=== REFINEMENT COMPLETE - No more boundaries found ===
+Final results: 1345 total points, 634 quenching points (47.1%)
+Refinement timing statistics:
+  Total refinement time: 0.018091s (4 level operations)
+  Average refinement time per level: 0.004523s
+  Level 0 refinement time: 0.002322s
+  Level 1 refinement time: 0.004826s
+  Level 2 refinement time: 0.010313s
+  Level 3 refinement time: 0.000630s
+Refinement complete and no active jobs - system should terminate
+=== TERMINATION: No pending jobs (0) and no active jobs (0) ===
+Sent quit to 126 workers. Waiting for confirmations...
+Worker quit received. Remaining workers: 62 active, 62 idle
+Worker quit received. Remaining workers: 61 active, 61 idle
+Worker quit received. Remaining workers: 60 active, 60 idle
+Worker quit received. Remaining workers: 59 active, 59 idle
+Worker quit received. Remaining workers: 58 active, 58 idle
+Worker quit received. Remaining workers: 57 active, 57 idle
+Worker quit received. Remaining workers: 56 active, 56 idle
+Worker quit received. Remaining workers: 55 active, 55 idle
+Worker quit received. Remaining workers: 54 active, 54 idle
+Worker quit received. Remaining workers: 53 active, 53 idle
+Worker quit received. Remaining workers: 52 active, 52 idle
+Worker quit received. Remaining workers: 51 active, 51 idle
+Worker quit received. Remaining workers: 50 active, 50 idle
+Worker quit received. Remaining workers: 49 active, 49 idle
+Worker quit received. Remaining workers: 48 active, 48 idle
+Worker quit received. Remaining workers: 47 active, 47 idle
+Worker quit received. Remaining workers: 46 active, 46 idle
+Worker quit received. Remaining workers: 45 active, 45 idle
+Worker quit received. Remaining workers: 44 active, 44 idle
+Worker quit received. Remaining workers: 43 active, 43 idle
+Worker quit received. Remaining workers: 42 active, 42 idle
+Worker quit received. Remaining workers: 41 active, 41 idle
+Worker quit received. Remaining workers: 40 active, 40 idle
+Worker quit received. Remaining workers: 39 active, 39 idle
+Worker quit received. Remaining workers: 38 active, 38 idle
+Worker quit received. Remaining workers: 37 active, 37 idle
+Worker quit received. Remaining workers: 36 active, 36 idle
+Worker quit received. Remaining workers: 35 active, 35 idle
+Worker quit received. Remaining workers: 34 active, 34 idle
+Worker quit received. Remaining workers: 33 active, 33 idle
+Worker quit received. Remaining workers: 32 active, 32 idle
+Worker quit received. Remaining workers: 31 active, 31 idle
+Worker quit received. Remaining workers: 30 active, 30 idle
+Worker quit received. Remaining workers: 29 active, 29 idle
+Worker quit received. Remaining workers: 28 active, 28 idle
+Worker quit received. Remaining workers: 27 active, 27 idle
+Worker quit received. Remaining workers: 26 active, 26 idle
+Worker quit received. Remaining workers: 25 active, 25 idle
+Worker quit received. Remaining workers: 24 active, 24 idle
+Worker quit received. Remaining workers: 23 active, 23 idle
+Worker quit received. Remaining workers: 22 active, 22 idle
+Worker quit received. Remaining workers: 21 active, 21 idle
+Worker quit received. Remaining workers: 20 active, 20 idle
+Worker quit received. Remaining workers: 19 active, 19 idle
+Worker quit received. Remaining workers: 18 active, 18 idle
+Worker quit received. Remaining workers: 17 active, 17 idle
+Worker quit received. Remaining workers: 16 active, 16 idle
+Worker quit received. Remaining workers: 15 active, 15 idle
+Worker quit received. Remaining workers: 14 active, 14 idle
+Worker quit received. Remaining workers: 13 active, 13 idle
+Worker quit received. Remaining workers: 12 active, 12 idle
+Worker quit received. Remaining workers: 11 active, 11 idle
+Worker quit received. Remaining workers: 10 active, 10 idle
+Worker quit received. Remaining workers: 9 active, 9 idle
+Worker quit received. Remaining workers: 8 active, 8 idle
+Worker quit received. Remaining workers: 7 active, 7 idle
+Worker quit received. Remaining workers: 6 active, 6 idle
+Worker quit received. Remaining workers: 5 active, 5 idle
+Worker quit received. Remaining workers: 4 active, 4 idle
+Worker quit received. Remaining workers: 3 active, 3 idle
+Worker quit received. Remaining workers: 2 active, 2 idle
+Worker quit received. Remaining workers: 1 active, 1 idle
+Worker quit received. Remaining workers: 0 active, 0 idle
+All workers have quit. Terminating server...
+All processes have finished.
+Job ID: 4662874
+Cluster: plato
+User/Group: tus210/tus210
+State: RUNNING
+Nodes: 2
+Cores per node: 32
+CPU Utilized: 2-16:11:00
+CPU Efficiency: 83.69% of 3-04:41:36 core-walltime
+Job Wall-clock time: 01:11:54
+Memory Utilized: 194.76 MB
+Memory Efficiency: 0.05% of 370.00 GB
+WARNING: Efficiency statistics may be misleading for RUNNING jobs.

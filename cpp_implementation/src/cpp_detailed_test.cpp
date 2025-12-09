@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <chrono>
 
-// Function to load wave data from file (mirrors Julia's readdlm)
+// Function to load wave data from file 
 Matrix load_wave_data(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -76,18 +76,17 @@ Vector load_parameters(const std::string& filename) {
 }
 
 std::tuple<Matrix, Vector, double, Vector> load_and_center_simple(const std::string& Ufile, const std::string& Pfile, const FitzHughNagumoSolver& solver) {
-    // Load raw data
     Matrix M = load_wave_data(Ufile);
     Vector pf = load_parameters(Pfile);
     
-    // Extract components like Julia: x = M[:, 1]; u1 = M[:, 2]; u2 = M[:, 3]
+    // Extract components
     Vector x = M.col(0);   // spatial coordinate
     Vector u1 = M.col(1);  // first component
-    Vector u2 = M.col(2);  // second component 
-    
-    //pf[5] is the domain length L (index 4 in C++)
-    double L = pf(4);  
-    
+    Vector u2 = M.col(2);  // second component
+
+    // the domain length L
+    double L = pf(4);
+
     // Find x0 = x[argmax(u1)] - the position of maximum u1
     int max_idx = 0;
     double max_u1 = u1(0);
@@ -142,7 +141,7 @@ std::tuple<Matrix, Vector, double, Vector> load_and_center_simple(const std::str
         }
     }
     
-    // Extract parameters [p1, p2, p3] - first 3 elements 
+    // Extract parameters [p0, p1, p2] - first 3 elements 
     Vector p = pf.head(3);
     
     // Compute rest state
